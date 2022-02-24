@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers(GET,"/api/user/**").permitAll();
         http.authorizeRequests().antMatchers(POST,"/api/role/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST,"/api/user/save/normal").permitAll();
+        http.authorizeRequests().antMatchers("/api/auth").permitAll();
         http.authorizeRequests().antMatchers("/api/auth/naver/callback").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);

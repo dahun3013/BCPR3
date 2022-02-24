@@ -11,8 +11,10 @@
     "axios": "^0.26.0",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
+    "url-loader": "^4.1.1",
     "vue": "^3.2.13",
-    "vue-axios-cors": "^1.0.1"
+    "vue-axios-cors": "^1.0.1",
+    "vue-naver-login": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -46,11 +46,6 @@ public class UserResource {
     public ResponseEntity<List<User>>getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
-    
-    @GetMapping("/auth/naver/callback")
-    public String getNaver() {
-    	return "YES";
-    }
 
     @PostMapping("/user/save/normal")
     public ResponseEntity<User>saveUserNormal(
