@@ -7,7 +7,7 @@ git checkout main
 git merge develop   
 git push origin main   
 
-github 사이트에서 PR 요청   
+git push upstream main
 
 git push origin --delete develop   
 git branch -d develop
