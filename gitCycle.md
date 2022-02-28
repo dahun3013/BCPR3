@@ -7,8 +7,9 @@ git checkout main
 git merge develop   
 git push origin main   
 
-github GUI PR 사용 또는
-git push upstream main
+택 1
+1.github GUI PR 사용 또는
+2.git push upstream main
 
 git push origin --delete develop   
 git branch -d develop
