@@ -47,7 +47,7 @@ export default {
             .then((res) => {
               console.log("인증성공 ");
               console.log(userInfo);
-              if (userInfo.email == null || userInfo.email == "") {
+              if (userInfo.email != null || userInfo.email != "") {
                 axios
                   .post("/api/user/save/normal", JSON.stringify(userInfo), {
                     headers: { "Content-Type": `application/json` },
