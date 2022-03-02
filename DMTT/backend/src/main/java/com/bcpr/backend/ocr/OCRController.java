@@ -17,12 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OCRController {
 	@PostMapping("/ocr/json")
-	 public String tojson(	
-		@RequestParam("text") String text,
+	 public String forURL(	
+		@RequestParam("url") String url,
 			HttpServletRequest request) throws IOException{
-		
+		//https://kr.object.ncloudstorage.com/ocr-ci-test/sample/1.jpg
 		OCRHelper oh = new OCRHelper();
-		String out = oh.forJSON();
+		String out = oh.forJSON(url);
 		
 		log.info("test : {}",out);
 		

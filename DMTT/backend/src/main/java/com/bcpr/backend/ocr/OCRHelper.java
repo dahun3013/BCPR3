@@ -15,13 +15,14 @@ import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 public class OCRHelper {
 	public final String apiURL = "https://dakj3dl6zh.apigw.ntruss.com/custom/v1/14192/76e38e6cfacf0c4bdc5f9ca5d9b1b36d09f196b345d859b568020c6729d2c972/general";
 	public final String secretKey = "TklYTGpycXh2d2lXVGRFR2JQZ1ppcURXdFhDeHNiYkc=";
 	
-	public String forJSON() {
+	public String forJSON(String URL) {
 		String result = "";
 		try {
 			URL url = new URL(apiURL);
@@ -39,7 +40,7 @@ public class OCRHelper {
 			json.put("timestamp", System.currentTimeMillis());
 			JSONObject image = new JSONObject();
 			image.put("format", "jpg");
-			image.put("url", "https://kr.object.ncloudstorage.com/ocr-ci-test/sample/1.jpg"); // image should be public, otherwise, should use data
+			image.put("url", URL); // image should be public, otherwise, should use data
 			// FileInputStream inputStream = new FileInputStream("YOUR_IMAGE_FILE");
 			// byte[] buffer = new byte[inputStream.available()];
 			// inputStream.read(buffer);
@@ -63,14 +64,33 @@ public class OCRHelper {
 			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
+			
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
 			br.close();
+			
+			JSONParser jsonParser= new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
+			JSONArray imageInfoArray = (JSONArray) jsonObject.get("images");
+			
+			response = new StringBuffer();
+			for(int i=0; i<imageInfoArray.size(); i++)
+			{
+				JSONObject fields = (JSONObject) imageInfoArray.get(i);
+				JSONArray fieldInfoArray = (JSONArray) fields.get("fields");
+				
+				for(int j=0; j<fieldInfoArray.size(); j++) {
+					JSONObject fieldObject = (JSONObject) fieldInfoArray.get(j);
+					response.append((String)fieldObject.get("inferText"));
+					if((boolean)fieldObject.get("lineBreak")) {
+						response.append("\n");
+					}
+				}
+			}
 			result = response.toString();
-			System.out.println(response);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
