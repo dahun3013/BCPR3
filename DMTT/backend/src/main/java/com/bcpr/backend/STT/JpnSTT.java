@@ -4,9 +4,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 @RestController
 public class JpnSTT {
-    @GetMapping("/Stt/Jpn/{Test}}")
+    @GetMapping("/Stt/Jpn/{Test}")
     public ModelAndView Jpn(ModelAndView mav) {
         String clientId = "gy9rblfn04";             // Application Client ID";
         String clientSecret = "I1T04u0w0fjkieCBPH3ktkdOuxDmWHEXI5BWJ0a7";     // Application Client Secret";
