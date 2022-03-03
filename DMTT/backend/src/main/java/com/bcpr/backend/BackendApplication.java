@@ -22,9 +22,9 @@ public class BackendApplication {
     CommandLineRunner run(UserService userService){
         return args -> {
 
-            //userService.saveRole(new Role(null,"ROLE_USER"));
-            //userService.saveUser(new User(null,"dahun3013@gmail.com","DMTT","",new ArrayList<>()));
-            //userService.addRoleToUser("dahun3013@gmail.com","ROLE_USER");
+            userService.saveRole(new Role(null,"ROLE_USER"));
+            userService.saveUser(new User(null,"dahun3013@gmail.com","DMTT","",new ArrayList<>()));
+            userService.addRoleToUser("dahun3013@gmail.com","ROLE_USER");
 
         };
     }

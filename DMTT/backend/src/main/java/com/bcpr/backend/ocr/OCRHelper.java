@@ -20,83 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OCRHelper {
 	public final String apiURL = "https://dakj3dl6zh.apigw.ntruss.com/custom/v1/14192/76e38e6cfacf0c4bdc5f9ca5d9b1b36d09f196b345d859b568020c6729d2c972/general";
 	public final String secretKey = "TklYTGpycXh2d2lXVGRFR2JQZ1ppcURXdFhDeHNiYkc=";
-	/*
-	public String forJSON(String URL) {
-		String result = "";
-		try {
-			URL url = new URL(apiURL);
-			HttpURLConnection con = (HttpURLConnection)url.openConnection();
-			con.setUseCaches(false);
-			con.setDoInput(true);
-			con.setDoOutput(true);
-			con.setRequestMethod("POST");
-			con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-			con.setRequestProperty("X-OCR-SECRET", secretKey);
-
-			JSONObject json = new JSONObject();
-			json.put("version", "V2");
-			json.put("requestId", UUID.randomUUID().toString());
-			json.put("timestamp", System.currentTimeMillis());
-			JSONObject image = new JSONObject();
-			image.put("format", "jpg");
-			image.put("url", URL); // image should be public, otherwise, should use data
-			// FileInputStream inputStream = new FileInputStream("YOUR_IMAGE_FILE");
-			// byte[] buffer = new byte[inputStream.available()];
-			// inputStream.read(buffer);
-			// inputStream.close();
-			// image.put("data", buffer);
-			image.put("name", "demo");
-			JSONArray images = new JSONArray();
-			images.add(image);
-			json.put("images", images);
-			String postParams = json.toString();
-
-			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			wr.writeBytes(postParams);
-			wr.flush();
-			wr.close();
-
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			if (responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			
-			JSONParser jsonParser= new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
-			JSONArray imageInfoArray = (JSONArray) jsonObject.get("images");
-			
-			response = new StringBuffer();
-			for(int i=0; i<imageInfoArray.size(); i++)
-			{
-				JSONObject fields = (JSONObject) imageInfoArray.get(i);
-				JSONArray fieldInfoArray = (JSONArray) fields.get("fields");
-				
-				for(int j=0; j<fieldInfoArray.size(); j++) {
-					JSONObject fieldObject = (JSONObject) fieldInfoArray.get(j);
-					response.append((String)fieldObject.get("inferText"));
-					if((boolean)fieldObject.get("lineBreak")) {
-						response.append("\n");
-					}
-				}
-			}
-			result = response.toString();
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			return result;
-		}
-	}
-	*/
+	
 	public String forFile(String path) {
 		String result = "";
 		try {
@@ -116,7 +40,10 @@ public class OCRHelper {
 			json.put("requestId", UUID.randomUUID().toString());
 			json.put("timestamp", System.currentTimeMillis());
 			JSONObject image = new JSONObject();
-			image.put("format", "jpg");
+			
+			String extension = path.substring(path.lastIndexOf(".")+1);
+			
+			image.put("format", extension);
 			image.put("name", "demo");
 			JSONArray images = new JSONArray();
 			images.add(image);
@@ -159,7 +86,7 @@ public class OCRHelper {
 					JSONObject fieldObject = (JSONObject) fieldInfoArray.get(j);
 					response.append((String)fieldObject.get("inferText"));
 					if((boolean)fieldObject.get("lineBreak")) {
-						response.append("\n");
+						response.append(System.getProperty("line.separator"));
 					}
 				}
 			}
