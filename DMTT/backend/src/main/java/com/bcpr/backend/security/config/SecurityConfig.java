@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/").permitAll();
 		
         http.authorizeRequests().antMatchers("/api/user/papago").permitAll();
-        http.authorizeRequests().antMatchers("/api/ocr/json").permitAll();
+        http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
         
         
         http.authorizeRequests().antMatchers("/api/login").permitAll();

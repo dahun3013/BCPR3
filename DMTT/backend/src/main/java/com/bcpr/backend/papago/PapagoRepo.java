@@ -5,6 +5,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,14 +22,22 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Slf4j
 public class PapagoRepo {
 
 	private String text;
-
-	
-
-
-
+	public String translationForArray(List<String> trans) {
+		String result = "";
+		
+		for(int i=0; i<trans.size(); i++) {
+			String temp1  = trans.get(i);
+			String temp2 = translation(temp1);
+			result += temp2;			
+			log.info("test {}",result);
+		}
+		
+		return result;
+	}
 
 		public String translation(String trans){
 			String clientId = "SaCm2YYueh7Q0fyGTlXB";//애플리케이션 클라이언트 아이디값";
