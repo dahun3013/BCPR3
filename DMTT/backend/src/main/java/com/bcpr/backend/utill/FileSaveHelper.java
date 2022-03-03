@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +30,7 @@ public class FileSaveHelper {
 		return result;
 	}
 	
+	//ocr api를 위한 임시파일 생성
 	public String tempSave(MultipartFile file) throws IOException{
 		String basePath = File.separator+"temp";
 		String destPath = File.separator+file.getOriginalFilename();
@@ -39,6 +38,7 @@ public class FileSaveHelper {
 		return saveDir+basePath+destPath;
 	}
 	
+	//ocr api를 위한 임시파일 삭제
 	public void delete(String path) {
 		File file = new File(path); 
 		if( file.exists() ){ 
@@ -68,7 +68,7 @@ public class FileSaveHelper {
 		}
 	}
 	
-	//게시글업로드시간을 첨부이미지파일 식별을 위한 문자열로 변환하는 함수.
+	//업로드시간을 첨부이미지파일 식별을 위한 문자열로 변환하는 함수.
 	private String formatDate(LocalDateTime sDate) {
 		
 		String year = ""+sDate.getYear();

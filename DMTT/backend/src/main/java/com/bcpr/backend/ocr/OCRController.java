@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api")
-@Slf4j
 public class OCRController {
 	private OCRMapper mapper;
 	
@@ -34,23 +33,21 @@ public class OCRController {
 		this.mapper = mapper;
 	}
 	
+	//ocr api 사용
 	@PostMapping("/ocr")
 	 public String getOCR(	
 		@RequestParam(value="file", required=false) MultipartFile file,
 		HttpServletRequest request) throws IOException{
-		//https://kr.object.ncloudstorage.com/ocr-ci-test/sample/1.jpg
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String url = fsh.tempSave(file);
-		//log.info("test : {}",url);
 		OCRHelper oh = new OCRHelper();
 		String out = oh.forFile(url);
 		fsh.delete(url);
 		
-		//log.info("test : {}",out);
-		
 	    return out;
 	}
 	
+	//media_trans 보관함에 저장
 	@PostMapping("/ocr/upload")
 	public int upload(
 			@RequestParam("email") String email,
@@ -60,13 +57,12 @@ public class OCRController {
 			@RequestParam("output") String output,
 			HttpServletRequest request)throws IOException {
 
-		//log.info("test: {}",request.getServletContext().getRealPath("resources"));
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String url = fsh.media_transSave(email, kind, trans_date, input);
-		//log.info("test: {},{},{},{},{}",email,trans_date,kind,url,output);
 		return mapper.insertMedia_TransContent(email,trans_date,kind,url,output);
 	}
 	
+	//media_trans 보관함 아이템 불러오기 email 기준 전부
 	@GetMapping("/ocr/download")
 	public List<Media_Trans> download(
 			@RequestParam("email") String email){
@@ -74,6 +70,7 @@ public class OCRController {
 		return mapper.getMedia_Trans(email);
 	}
 	
+	//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)
 	@PostMapping("/ocr/delete")
 	public int delte(
 			@RequestParam("email") String email,
