@@ -21,7 +21,7 @@ export default {
       googleAuth: null,
     };
   },
-  created() {
+  mounted() {
     window.Kakao.init("1f97c7785977d78aa615deb41e557844");
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
       });
     },
     async kakaoInfo(authObj) {
-      // console.log(authObj);
+      console.log(authObj);
       window.Kakao.API.request({
         url: "/v2/user/me",
         success: (res) => {
@@ -46,6 +46,7 @@ export default {
             .get("/api/user/" + userInfo.email)
             .then((res) => {
               console.log("인증성공 ");
+              console.log(res);
               console.log(userInfo);
               if (userInfo.email != null || userInfo.email != "") {
                 axios
@@ -58,7 +59,7 @@ export default {
                   })
                   .catch((err) => {
                     err;
-                    console.log("가입에러");
+                    console.log("기존가입");
                   });
               }
             })
@@ -76,11 +77,11 @@ export default {
     },
     kakaoLogout() {
       // eslint-disable-next-line
-      if (!Kakao.Auth.getAccessToken()) {
+      if (!window.Kakao.Auth.getAccessToken()) {
         console.log("Not logged in.");
         return;
       }
-      Kakao.Auth.logout(function (response) {
+      window.Kakao.Auth.logout(function (response) {
         alert(response + "logout");
         window.location.href = "/";
       });
@@ -101,7 +102,7 @@ export default {
       });
       setTimeout(function () {
         if (!self.googleLoginCheck) {
-          const auth = gapi.auth2.getAuthInstance();
+          const auth = window.gapi.auth2.getAuthInstance();
           auth.isSignedIn.get();
           document.querySelector(".abcRioButton").click();
         }

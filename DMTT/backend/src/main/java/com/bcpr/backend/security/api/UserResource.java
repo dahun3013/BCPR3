@@ -55,7 +55,7 @@ public class UserResource {
     	User user = new User();
     	user.setEmail((String)map.get("email"));
     	user.setPassword("DMTT");
-    	user.setProfile((String)map.get("thumbnail_image_url"));
+    	user.setProfile((String)map.get("profile"));
  
     	log.info("test : {}",user);
     	
