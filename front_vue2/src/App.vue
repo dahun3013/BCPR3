@@ -7,7 +7,7 @@
       </div>
 
       <div class="top-banner my-5">
-        <h1 class="display-1" style="font-weight: bold;">{{ brandName }}</h1>
+        <h1 class="display-1" style="font-weight: bold;">PAGO BOOKS</h1>
         <h5 class="mt-3">당신의 자료를 손쉽게 번역하고, 변환하고, 저장해보세요!</h5>
       </div>
 
@@ -37,10 +37,10 @@
     <div class="bottom-container px-5 pt-5">
 
       <div class="main-btn">
-        <img src="./assets/1.png" alt="">
-        <img src="./assets/2.png" alt="">
-        <img src="./assets/3.png" alt="">
-        <img src="./assets/4.png" alt="">
+        <img src="./assets/1.png" alt="문서변환">
+        <img src="./assets/2.png" alt="음성변환">
+        <img src="./assets/3.png" alt="매체번역">
+        <img src="./assets/4.png" alt="간단번역">
       </div>
 
       <br><br><br><br>
@@ -72,7 +72,6 @@ export default {
   name: 'App',
   data() {
     return {
-      brandName : 'PAGO BOOKS',
       loginModal : false,
     }
   },
