@@ -16,7 +16,6 @@
 
         <div class="papago-bottom-container px-5 pt-5 pb-2">
             <div class="ts-container">
-
                 <div class="ts-input-cont">
                     <div class="ts-lg-ch">
                         <select name="ts-lg" id="ts-lg">
@@ -56,23 +55,29 @@
                         <button>보관하기</button>
                     </div>
                 </div><!--ts-output-cont-end-->
+
             </div><!--ts-container-end-->
+
             <br>
+
             <div style="text-align: center; font-weight: bold; margin-top: 7px; margin-bottom: 7px">
                 <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
             </div>
+
         </div><!--papago-bottom-container-end-->
+
     </div><!--field_end-->
     
     <div class="px-5"><hr></div>
 
-      <div class="footer container">
-        <p class="mx-3">파고북스 이용약관</p>
-        <p class="mx-3">의견제안</p>
-        <p class="mx-3">개인정보처리방침</p>
-        <p class="mx-3">책임의 한계와 법적고지</p>
-        <p class="mx-3">준수사항</p>
-      </div>
+    <div class="footer container">
+    <p class="mx-3">파고북스 이용약관</p>
+    <p class="mx-3">의견제안</p>
+    <p class="mx-3">개인정보처리방침</p>
+    <p class="mx-3">책임의 한계와 법적고지</p>
+    <p class="mx-3">준수사항</p>
+    </div>
+
 </template>
 
 <script>

@@ -15,28 +15,15 @@
         </div><!--top-container-end-->
 
         <div class="tts-bottom-container px-5 pt-5 pb-2">
+
             <div class="tts-ts-container">
-                <div class="tts-ts-input-cont">
-                    <div class="tts-ts-box">
-                        <img :src="image" alt="">
-                    </div>
-                    <div class="tts-cf-btn mt-4">
-                        <label for="chooseFile">파일 가져오기</label>
-                        <form method="post" enctype="multipart/form-data">
-                            <input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*" style="display: none;">
-                        </form>
-                        
-                    </div>
-                </div><!--ts-input-cont-end-->
 
                 <div class="ts-output-cont">
-                    <div class="tts-ts-box">
-                        <form action="#">
-                            <output name="result" for="text"></output>
-                        </form>
+                    <div>
+                        <textarea class="tts-ts-box" placeholder="변환할 내용을 입력하세요"></textarea>
                     </div>
                     <div style="display: flex;">
-                        <div class="tts-ts-lg-ch mt-4">
+                        <div class="tts-ts-lg-ch mt-3">
                             <select name="ts-lg" id="ts-lg">
                                 <option value="kr">한국어</option>
                                 <option value="en">영어</option>
@@ -46,18 +33,34 @@
                                 <option value="sp">스페인어</option>
                             </select>
                         </div>
-                        <div class="tts-trans-btn mt-4">
-                            <button>번역하기</button>
+                        <div class="tts-trans-btn mt-3">
+                            <button>음성으로 변환하기</button>
                         </div>
                     </div>
-                    
                 </div><!--ts-output-cont-end-->
+
+                <div class="tts-ts-input-cont">
+                    <div class="tts-ts-box">
+                        <img :src="image" alt="">
+                    </div>
+                    <div class="tts-cf-btn mt-4">
+                        <label for="chooseFile">파일 내려받기</label>
+                        <form method="post" enctype="multipart/form-data">
+                            <input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*" style="display: none;">
+                        </form>
+                    </div>
+                </div><!--ts-input-cont-end-->
+
             </div><!--ts-container-end-->
+
             <br>
-            <div style="text-align: center; font-weight: bold; margin-top: 21px; margin-bottom: 21px">
+
+            <div style="text-align: center; font-weight: bold; margin-top: 22px; margin-bottom: 22px">
                 <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
             </div>
+
         </div><!--tts-bottom-container-end-->
+
     </div><!--field_end-->
 
     <div class="px-5"><hr></div>
@@ -69,6 +72,7 @@
         <p class="mx-3">책임의 한계와 법적고지</p>
         <p class="mx-3">준수사항</p>
     </div>
+
 </template>
 
 <script>
