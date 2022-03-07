@@ -14,16 +14,16 @@
             </div><!--profile-logo-end-->
         </div><!--top-container-end-->
 
-        <div class="tts-bottom-container px-5 pt-5 pb-2">
+        <div class="stt-bottom-container px-5 pt-5 pb-2">
 
-            <div class="tts-ts-container">
+            <div class="stt-ts-container">
 
                 <div class="ts-output-cont">
                     <div>
-                        <textarea class="tts-ts-box" placeholder="변환할 내용을 입력하세요"></textarea>
+                        <textarea class="stt-ts-box" placeholder="변환할 내용을 입력하세요"></textarea>
                     </div>
                     <div style="display: flex;">
-                        <div class="tts-ts-lg-ch mt-3">
+                        <div class="stt-ts-lg-ch mt-3">
                             <select name="ts-lg" id="ts-lg">
                                 <option value="kr">한국어</option>
                                 <option value="en">영어</option>
@@ -33,17 +33,17 @@
                                 <option value="sp">스페인어</option>
                             </select>
                         </div>
-                        <div class="tts-trans-btn mt-3">
+                        <div class="stt-trans-btn mt-3">
                             <button>음성으로 변환하기</button>
                         </div>
                     </div>
                 </div><!--ts-output-cont-end-->
 
-                <div class="tts-ts-input-cont">
-                    <div class="tts-ts-box">
+                <div class="stt-ts-input-cont">
+                    <div class="stt-ts-box">
                         <img :src="image" alt="">
                     </div>
-                    <div class="tts-cf-btn mt-4">
+                    <div class="stt-cf-btn mt-4">
                         <label for="chooseFile">파일 내려받기</label>
                         <form method="post" enctype="multipart/form-data">
                             <input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*" style="display: none;">
@@ -59,7 +59,7 @@
                 <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
             </div>
 
-        </div><!--tts-bottom-container-end-->
+        </div><!--stt-bottom-container-end-->
 
     </div><!--field_end-->
 
@@ -122,13 +122,13 @@ textarea {
     font-weight: bold;
 }
 
-.tts-bottom-container {
+.stt-bottom-container {
     
     background: white;
     border-radius: 100px 0px 0px 0px;
 }
 
-.tts-ts-container {
+.stt-ts-container {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -141,12 +141,12 @@ textarea {
     color: white;
 }
 
-.tts-ts-lg-ch {
+.stt-ts-lg-ch {
     margin-right: 1rem;
     text-align: left;
 }
 
-.tts-ts-lg-ch > select {
+.stt-ts-lg-ch > select {
     font-size: 1rem;
     padding: 0.5rem;
     border: 1px solid #DBDBDB;
@@ -161,7 +161,7 @@ select:focus {
     outline: none;
 }
 
-.tts-ts-input-cont {
+.stt-ts-input-cont {
     width: 35%;
     margin: 1rem;
     padding: 2rem 3rem 2rem 3rem;
@@ -170,7 +170,7 @@ select:focus {
     text-align: center;
 }
 
-.tts-ts-box {
+.stt-ts-box {
     width: 100%;
     height: 400px;
     border: 1px solid #DBDBDB;
@@ -179,7 +179,7 @@ select:focus {
     text-align: left
 }
 
-.tts-cf-btn {
+.stt-cf-btn {
     padding: 0.5rem;
     background: white;
     border: 1px solid #DBDBDB;
@@ -187,7 +187,7 @@ select:focus {
     font-size: 1rem;
 }
 
-.tts-trans-btn{
+.stt-trans-btn{
     width: 100%;
     margin-left: 1rem;
     padding: 0.5rem;
@@ -197,7 +197,7 @@ select:focus {
     font-size: 1rem;
 }
 
-.tts-trans-btn > button{
+.stt-trans-btn > button{
     width: 100%;
     color: white;
     background: #0d66ff;
