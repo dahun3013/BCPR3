@@ -14,7 +14,6 @@
       </div>
       <!--profile-logo-end-->
     </div>
-    <<<<<<< HEAD
     <!--top-container-end-->
 
     <div class="ocr-bottom-container px-5 pt-5 pb-2">
@@ -92,7 +91,6 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-  =======
 
   <div class="login-modal px-5 py-5" v-if="loginModal == true">
     <h4>로그인</h4>
@@ -115,8 +113,6 @@
     </div>
   </div>
   <!--login-modal-end-->
-
-  >>>>>>> 92a046a7782509e908be618f28d706c239d29f7b
 </template>
 
 <script>
