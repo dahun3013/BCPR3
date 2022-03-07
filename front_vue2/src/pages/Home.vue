@@ -22,7 +22,7 @@
 
       <div class="main-btn">
         <img src="@/assets/1.png" alt="문서변환" @click="$router.push('/ocr')">
-        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/tts')">
+        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/stt')">
         <img src="@/assets/3.png" alt="매체번역" @click="$router.push('/mtt')">
         <img src="@/assets/4.png" alt="간단번역" @click="$router.push('/papago')">
       </div>
