@@ -7,23 +7,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Slf4j
-public class SttKorHelper {
+@CrossOrigin
+public class SttHelper {
 
-    public String Sttkor(String path) {
-        String clientId = "6eqhlz7qtv";             // Application Client ID";
-        String clientSecret = "FiDwBKKDur6FpbhKaS5cibmwuMlkF7PJM8dsQMdg";     // Application Client Secret";
+    public  String getSTThelper(String path ,String lang) {
+        String clientId = "jdkthmlpk7";             // Application Client ID";
+        String clientSecret = "JOvAP25012bTeQ7QQzgg4JLtd6MuEs1lSMXsHqbk";     // Application Client Secret";
         String result="";
         try {
             String imgFile = path;
             File voiceFile = new File(imgFile);
-            System.out.println(voiceFile.exists());
 
-            String language = "Eng";        // 언어 코드 ( Kor, Jpn, Eng, Chn )
-            String apiURL = "https://naveropenapi.apigw-pub.fin-ntruss.com/recog/v1/stt?lang=" + language;
-            apiURL = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang="+language;
+            String language = lang;        // 언어 코드 ( Kor, Jpn, Eng, Chn )
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=" + language;
             URL url = new URL(apiURL);
 
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setUseCaches(false);
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -35,7 +34,7 @@ public class SttKorHelper {
             System.out.println("비밀번호 : "+conn.getRequestProperty("X-NCP-APIGW-API-KEY"));
             System.out.println("Content-Type : "+conn.getRequestProperty("Content-Type"));
             System.out.println("voiceFile : "+voiceFile);
-            System.out.println();
+
 
 
 
