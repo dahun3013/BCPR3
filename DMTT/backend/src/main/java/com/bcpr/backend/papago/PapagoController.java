@@ -2,6 +2,7 @@ package com.bcpr.backend.papago;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,22 +24,46 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api")
 @Slf4j
 public class PapagoController {
-
+	
+	@PostMapping("/user/papago/array")
+	 public String papaForArray(	
+			 @RequestParam(value = "text[]") List<String> text,
+				HttpServletRequest request) throws IOException{
+			
+		PapagoRepo papagorepo = new PapagoRepo();
+		String t = papagorepo.translationForArray(text);
+		papagorepo.setText(t);
+		log.info("test : {}",papagorepo);
+	    return "test";
+	}
+	
+	@PostMapping("/user/papago/json")
+	 public String papaForJson(	
+			 @RequestParam(value = "text") String text,
+				HttpServletRequest request) throws IOException{
+			
+		PapagoRepo papagorepo = new PapagoRepo();
+		String t = papagorepo.translation(text);
+		papagorepo.setText(t);
+		log.info("test : {}",papagorepo);
+	    return "test";
+	}
+	/*
 	@PostMapping("/user/papago")
-	 public PapagoRepo papa(	
-			 @RequestParam("text") String text,
+	 public String papa(	
+			 @RequestParam(value="text") String text,
 				HttpServletRequest request) throws IOException{
 			
 			PapagoRepo papagorepo = new PapagoRepo();
-			String t = papagorepo.translation(text);
-			papagorepo.setText(t);
-			
-
-			log.info("test : {}",papagorepo);
+			//String t = papagorepo.translation(text);
+			//papagorepo.setText(t);
+			log.info("testing!!!");
+			log.info("test : {}",text);
+			//log.info("test : {}",papagorepo);
 			
 		   
-		    return papagorepo;
+		    return "test";
 	
 	}
-	
+	*/
 }

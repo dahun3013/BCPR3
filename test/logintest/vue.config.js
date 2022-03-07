@@ -4,6 +4,6 @@ module.exports = defineConfig({
   lintOnSave: false,
   transpileDependencies: true,
   devServer: {
-    proxy: 'http://localhost:8100',
+    proxy: 'http://localhost:8200',
   },
 });

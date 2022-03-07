@@ -21,8 +21,13 @@ export default {
       googleAuth: null,
     };
   },
-  created() {
+  mounted() {
+    window.addEventListener(
+      "google-oauth-library-load",
+      this.renderSignInButton
+    );
     window.Kakao.init("1f97c7785977d78aa615deb41e557844");
+    console.log(Kakao.isInitialized());
   },
   methods: {
     kakaoLogin() {
@@ -40,32 +45,33 @@ export default {
           const kakao_account = res.kakao_account;
           const userInfo = {
             email: kakao_account.email,
-            profile: kakao_account.profile,
+            profile: kakao_account.profile.thumbnail_image_url,
           };
+          if (userInfo.email != null || userInfo.email != "") {
+            axios
+              .post("/api/user/save/normal", JSON.stringify(userInfo), {
+                headers: { "Content-Type": `application/json` },
+              })
+              .then((res) => {
+                res;
+                console.log("가입성공");
+              })
+              .catch((err) => {
+                err;
+                console.log("기존가입");
+              });
+          }
           axios
             .get("/api/user/" + userInfo.email)
             .then((res) => {
               console.log("인증성공 ");
               console.log(userInfo);
-              if (userInfo.email == null || userInfo.email == "") {
-                axios
-                  .post("/api/user/save/normal", JSON.stringify(userInfo), {
-                    headers: { "Content-Type": `application/json` },
-                  })
-                  .then((res) => {
-                    res;
-                    console.log("가입성공");
-                  })
-                  .catch((err) => {
-                    err;
-                    console.log("가입에러");
-                  });
-              }
             })
             .catch((err) => {
               err;
               console.log("인증에러");
             });
+
           alert("로그인 성공!");
         },
         fail: (error) => {
@@ -117,25 +123,25 @@ export default {
       let googleData = {};
       googleData.email = googleEmail;
       googleData.profile = googleProfile;
+      if (res.data == null || res.data == "") {
+        await axios
+          .post("/api/user/save/normal", JSON.stringify(googleData), {
+            headers: { "Content-Type": `application/json` },
+          })
+          .then((res) => {
+            res;
+            console.log("가입성공");
+          })
+          .catch((err) => {
+            err;
+            console.log("가입에러");
+          });
+      }
       await axios
         .get("/api/user/" + googleEmail)
         .then((res) => {
           console.log("인증성공 ");
           console.log(googleData);
-          if (res.data == null || res.data == "") {
-            axios
-              .post("/api/user/save/normal", JSON.stringify(googleData), {
-                headers: { "Content-Type": `application/json` },
-              })
-              .then((res) => {
-                res;
-                console.log("가입성공");
-              })
-              .catch((err) => {
-                err;
-                console.log("가입에러");
-              });
-          }
         })
         .catch((err) => {
           err;
