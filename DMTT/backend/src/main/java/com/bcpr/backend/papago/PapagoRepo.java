@@ -19,6 +19,13 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+
+
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -42,28 +49,45 @@ public class PapagoRepo {
 		public String translation(String trans){
 			String clientId = "SaCm2YYueh7Q0fyGTlXB";//애플리케이션 클라이언트 아이디값";
 			String clientSecret = "N3gbaDledg";//애플리케이션 클라이언트 시크릿값";
-
+			//파파고 API 서버 주소
 			String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 			String text;
 			
 			  try {
 				  text = URLEncoder.encode(trans, "UTF-8");
+				  Map<String, String> requestHeaders = new HashMap<>();
 
-			  } catch (UnsupportedEncodingException e) {
+				  requestHeaders.put("X-Naver-Client-Id", clientId);
+				  requestHeaders.put("X-Naver-Client-Secret", clientSecret);
+
+				  String responseBody = post(apiURL, requestHeaders, text);
+                  
+				  //System.out.println(responseBody);
+				  
+
+				  JSONParser jsonParser = new JSONParser(); 
+				  
+				  JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody); 
+				  
+				  JSONObject objMessage = (JSONObject) jsonObject.get("message"); 
+				  
+				  JSONObject objResult= (JSONObject) objMessage.get("result"); 
+				   
+				  String translatedText = (String) objResult.get("translatedText"); 
+				  System.out.println(translatedText);
+					  
+				  return translatedText;
+
+			  } catch (Exception e) {
 
 				  throw new RuntimeException("인코딩 실패", e);
 
 			  }
 			  
-			  Map<String, String> requestHeaders = new HashMap<>();
+			
 
-			  requestHeaders.put("X-Naver-Client-Id", clientId);
-			  requestHeaders.put("X-Naver-Client-Secret", clientSecret);
-
-			  String responseBody = post(apiURL, requestHeaders, text);
-
-			  //System.out.println(responseBody);
-			  return responseBody;
+			 
+			  
 
 
 		}
@@ -72,6 +96,9 @@ public class PapagoRepo {
 
 			HttpURLConnection con = connect(apiUrl);
 
+			
+			
+			
 			String postParams = "source=ko&target=en&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
 
 			 try {
@@ -100,6 +127,9 @@ public class PapagoRepo {
 				      con.disconnect();
 			   }
 	    }
+		
+		
+		
 		
 		private  HttpURLConnection connect(String apiUrl){
 

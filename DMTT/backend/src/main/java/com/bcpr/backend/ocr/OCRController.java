@@ -40,11 +40,12 @@ public class OCRController {
 		HttpServletRequest request) throws IOException{
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String url = fsh.tempSave(file);
+		System.out.println(url);
 		OCRHelper oh = new OCRHelper();
-		String out = oh.forFile(url);
+		//String out = oh.forFile(url);
 		fsh.delete(url);
 		
-	    return out;
+	    return oh.forFile(url);
 	}
 	
 	//media_trans 보관함에 저장
