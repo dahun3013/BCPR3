@@ -42,7 +42,9 @@
         <div class="ts-output-cont">
           <div class="ocr-ts-box">
             <form action="#">
-              <output name="result" for="text">헬로우</output>
+              <output name="result" for="text">
+                <div v-html="content"></div>
+              </output>
             </form>
           </div>
           <div style="display: flex">
@@ -57,7 +59,7 @@
               </select>
             </div>
             <div class="ocr-trans-btn mt-4">
-              <button>번역하기</button>
+              <button @click="translation">번역하기</button>
             </div>
           </div>
         </div>
@@ -93,29 +95,67 @@
 
 <script>
 // import $ from 'jquery'
-
+import axios from "axios";
 export default {
   name: "papagoPage",
   data() {
     return {
       image: "",
+      text: "",
     };
   },
   components: {},
 
   methods: {
-    uploadImg() {
+    async translation() {
+      let form = new FormData();
+      form.append("text", text);
+      await axios
+        .post("/api/user/papago/json", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.text = res.data;
+          console.log(this.text);
+        })
+        .catch((err) => {
+          console.log("refreshToken error : ", err.config);
+        });
+    },
+    async uploadImg() {
       console.log("들어왔다");
       var image = this.$refs["image"].files[0];
-
       const url = URL.createObjectURL(image);
       this.image = url;
-      //console.log(url)
-      //console.log(this.image)
+      let form = new FormData();
+      form.append("file", image);
+
+      await axios
+        .post("/api/ocr", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.text = res.data;
+          console.log(this.text);
+        })
+        .catch((err) => {
+          console.log("refreshToken error : ", err.config);
+        });
     },
   },
 
   mounted() {},
+  computed: {
+    content() {
+      return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
+  },
 };
 </script>
 

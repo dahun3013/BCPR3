@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -22,6 +24,7 @@ public class OCRHelper {
 	public final String secretKey = "TklYTGpycXh2d2lXVGRFR2JQZ1ppcURXdFhDeHNiYkc=";
 	
 	public String forFile(String path) {
+		//List<String result = new ArrayList<>();
 		String result = "";
 		try {
 			URL url = new URL(apiURL);
@@ -81,11 +84,14 @@ public class OCRHelper {
 			{
 				JSONObject fields = (JSONObject) imageInfoArray.get(i);
 				JSONArray fieldInfoArray = (JSONArray) fields.get("fields");
-				
+				String temp = "";
 				for(int j=0; j<fieldInfoArray.size(); j++) {
 					JSONObject fieldObject = (JSONObject) fieldInfoArray.get(j);
+					//temp+=(String)fieldObject.get("inferText");
 					response.append((String)fieldObject.get("inferText"));
 					if((boolean)fieldObject.get("lineBreak")) {
+						//result.add(temp);
+						temp = "";
 						response.append(System.getProperty("line.separator"));
 					}
 				}
