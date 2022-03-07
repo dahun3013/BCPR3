@@ -33,20 +33,23 @@ import org.json.simple.parser.JSONParser;
 public class PapagoRepo {
 
 	private String text;
-	public String translationForArray(List<String> trans) {
+	public String translationForArray(List<String> trans, String from_language, String to_language) {
 		String result = "";
-		
+		String tm = "";
 		for(int i=0; i<trans.size(); i++) {
 			String temp1  = trans.get(i);
-			String temp2 = translation(temp1);
-			result += temp2;			
-			log.info("test {}",result);
+			// String temp2 = translation(temp1);
+			// result += temp2;			
+			tm += temp1+"\n";
+			log.info("test {}",tm);
 		}
+		result = translation(tm, from_language, to_language);
+		
 		
 		return result;
 	}
 
-		public String translation(String trans){
+		public String translation(String trans, String from_language, String to_language){
 			String clientId = "SaCm2YYueh7Q0fyGTlXB";//애플리케이션 클라이언트 아이디값";
 			String clientSecret = "N3gbaDledg";//애플리케이션 클라이언트 시크릿값";
 			//파파고 API 서버 주소
@@ -60,7 +63,7 @@ public class PapagoRepo {
 				  requestHeaders.put("X-Naver-Client-Id", clientId);
 				  requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
-				  String responseBody = post(apiURL, requestHeaders, text);
+				  String responseBody = post(apiURL, requestHeaders, text, from_language, to_language);
                   
 				  //System.out.println(responseBody);
 				  
@@ -92,14 +95,14 @@ public class PapagoRepo {
 
 		}
 		
-		private  String post(String apiUrl, Map<String, String> requestHeaders, String text){
+		private  String post(String apiUrl, Map<String, String> requestHeaders, String text, String from_language, String to_language){
 
 			HttpURLConnection con = connect(apiUrl);
-
+            
 			
 			
 			
-			String postParams = "source=ko&target=en&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
+			String postParams = "source="+from_language+"&target="+to_language+"&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en) ja : 일본어
 
 			 try {
 				 con.setRequestMethod("POST");

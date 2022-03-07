@@ -28,25 +28,29 @@ public class PapagoController {
 	@PostMapping("/user/papago/array")
 	 public String papaForArray(	
 			 @RequestParam(value = "text[]") List<String> text,
+			 @RequestParam(value = "from_language") String from_language,
+			 @RequestParam(value = "to_language") String to_language,
 				HttpServletRequest request) throws IOException{
 			
 		PapagoRepo papagorepo = new PapagoRepo();
-		String t = papagorepo.translationForArray(text);
+		String t = papagorepo.translationForArray(text, from_language, to_language);
 		papagorepo.setText(t);
 		log.info("test : {}",papagorepo);
-	    return "test";
+	    return papagorepo.getText();
 	}
 	
 	@PostMapping("/user/papago/json")
 	 public String papaForJson(	
 			 @RequestParam(value = "text") String text,
+			 @RequestParam(value = "from_language") String from_language,
+			 @RequestParam(value = "to_language") String to_language,
 				HttpServletRequest request) throws IOException{
 			
 		PapagoRepo papagorepo = new PapagoRepo();
-		String t = papagorepo.translation(text);
+		String t = papagorepo.translation(text, from_language, to_language);
 		papagorepo.setText(t);
 		log.info("test : {}",papagorepo);
-	    return "test";
+		  return papagorepo.getText();
 	}
 	/*
 	@PostMapping("/user/papago")
