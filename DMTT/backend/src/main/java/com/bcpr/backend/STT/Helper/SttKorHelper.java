@@ -1,4 +1,4 @@
-package STT.Helper;
+package com.bcpr.backend.STT.Helper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,16 +14,16 @@ public class SttKorHelper {
         String clientSecret = "JOvAP25012bTeQ7QQzgg4JLtd6MuEs1lSMXsHqbk";     // Application Client Secret";
         String result="";
         try {
-            String imgFile = path;
+            String imgFile = "C:\\Users\\jdh33\\MyGitRepo\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources\\temp\\2001_3subway2.mp3";
             File voiceFile = new File(imgFile);
+            System.out.println(voiceFile.exists());
 
             String language = "Kor";        // 언어 코드 ( Kor, Jpn, Eng, Chn )
             String apiURL = "https://naveropenapi.apigw-pub.fin-ntruss.com/recog/v1/stt?lang=" + language;
             URL url = new URL(apiURL);
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setUseCaches(true);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setUseCaches(false);
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setRequestProperty("Content-Type", "application/octet-stream");
@@ -34,6 +34,7 @@ public class SttKorHelper {
             System.out.println("비밀번호 : "+conn.getRequestProperty("X-NCP-APIGW-API-KEY"));
             System.out.println("Content-Type : "+conn.getRequestProperty("Content-Type"));
             System.out.println("voiceFile : "+voiceFile);
+            System.out.println(url.toString());
 
 
 

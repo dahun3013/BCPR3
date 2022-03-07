@@ -1,4 +1,4 @@
-package STT.domain;
+package com.bcpr.backend.STT.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

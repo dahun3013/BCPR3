@@ -1,8 +1,9 @@
-package STT.Mapper;
+package com.bcpr.backend.STT.Mapper;
 
 
-import STT.domain.Document_Trans;
 import org.apache.ibatis.annotations.*;
+
+import com.bcpr.backend.STT.domain.Document_Trans;
 
 import java.time.LocalDateTime;
 import java.util.List;

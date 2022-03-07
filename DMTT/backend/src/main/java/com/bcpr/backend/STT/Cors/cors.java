@@ -1,4 +1,4 @@
-package STT.Cors;
+package com.bcpr.backend.STT.Cors;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;

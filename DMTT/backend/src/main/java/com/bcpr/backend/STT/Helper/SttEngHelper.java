@@ -1,4 +1,4 @@
-package STT.Helper;
+package com.bcpr.backend.STT.Helper;
 
 import lombok.extern.slf4j.Slf4j;
 
