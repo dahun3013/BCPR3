@@ -34,7 +34,7 @@ public class PapagoController {
 		String t = papagorepo.translationForArray(text);
 		papagorepo.setText(t);
 		log.info("test : {}",papagorepo);
-	    return "test";
+	    return papagorepo.getText();
 	}
 	
 	@PostMapping("/user/papago/json")
@@ -46,7 +46,7 @@ public class PapagoController {
 		String t = papagorepo.translation(text);
 		papagorepo.setText(t);
 		log.info("test : {}",papagorepo);
-	    return "test";
+	    return papagorepo.getText();
 	}
 	/*
 	@PostMapping("/user/papago")

@@ -109,7 +109,7 @@ export default {
   methods: {
     async translation() {
       let form = new FormData();
-      form.append("text", text);
+      form.append("text", this.text);
       await axios
         .post("/api/user/papago/json", form, {
           headers: {
