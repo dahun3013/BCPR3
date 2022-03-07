@@ -30,7 +30,7 @@ public class Sttapicontroller {
         SttKorHelper SKH=new SttKorHelper();
         String out= SKH.Sttkor(url);
         System.out.println("out :"+ out);
-        //fsh.delete(url);
+        fsh.delete(url);
 
         return out;
     }

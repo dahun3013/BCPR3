@@ -43,7 +43,7 @@ public class OCRController {
 		System.out.println(url);
 		OCRHelper oh = new OCRHelper();
 		//String out = oh.forFile(url);
-		//fsh.delete(url);
+		fsh.delete(url);
 		
 	    return oh.forFile(url);
 	}
