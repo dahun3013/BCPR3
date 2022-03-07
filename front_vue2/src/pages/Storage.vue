@@ -167,7 +167,6 @@ select:focus {
     height: 400px;
     border: 1px solid #DBDBDB;
     border-radius: 10px;
-    vertical-align: middle;
     overflow: auto;
 }
 
@@ -179,27 +178,6 @@ select:focus {
     width: 100%;
     border-radius: 10px;
     object-fit: contain;
-}
-
-.storage-ts-box{
-    width: 100%;
-    height: 400px;
-    border: 1px solid #DBDBDB;
-    border-radius: 10px;
-    vertical-align: middle;
-    overflow: auto;
-}
-
-.storage-ts-box::-webkit-scrollbar {
-    display: none;
-}
-
-.storage-cf-btn {
-    padding: 0.5rem;
-    background: white;
-    border: 1px solid #DBDBDB;
-    border-radius: 10px ;
-    font-size: 1rem;
 }
 
 .storage-ff1-btn{

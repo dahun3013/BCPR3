@@ -19,8 +19,8 @@
     <div class="ocr-bottom-container px-5 pt-5 pb-2">
       <div class="ocr-ts-container">
         <div class="ocr-ts-input-cont">
-          <div class="ocr-ts-box">
-            <img :src="image" alt="" />
+          <div class="ocr-img-box">
+            <img :src="image" class="ocr-img-fit">
           </div>
           <div class="ocr-cf-btn mt-4">
             <label for="chooseFile">파일 가져오기</label>
@@ -58,9 +58,7 @@
                 <option value="sp">스페인어</option>
               </select>
             </div>
-            <div class="ocr-trans-btn mt-4">
-              <button @click="translation">번역하기</button>
-            </div>
+              <button @click="translation" class="ocr-trans-btn mt-4">번역하기</button>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -373,6 +371,24 @@ select:focus {
   text-align: center;
 }
 
+.ocr-img-box {
+  width: 100%;
+  height: 400px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.ocr-img-box::-webkit-scrollbar {
+    display: none;
+}
+
+.ocr-img-fit {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
 .ocr-ts-box {
   width: 100%;
   height: 400px;
@@ -380,6 +396,7 @@ select:focus {
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
+  overflow: auto;
 }
 
 .ocr-cf-btn {
@@ -394,17 +411,9 @@ select:focus {
   width: 100%;
   margin-left: 1rem;
   padding: 0.5rem;
-  background: #0d66ff;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.ocr-trans-btn > button {
-  width: 100%;
   color: white;
   background: #0d66ff;
-  border: none;
+  border: 1px solid #dbdbdb;
   border-radius: 10px;
   font-size: 1rem;
 }
@@ -415,17 +424,5 @@ select:focus {
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;
   border-radius: 25px;
-}
-
-.output-record {
-  text-align: end;
-}
-
-.output-record > button {
-  text-align: center;
-  width: 20%;
-  padding: 1.25rem;
-  background: #0d66ff;
-  border-radius: 50px 0px 0px 0px;
 }
 </style>
