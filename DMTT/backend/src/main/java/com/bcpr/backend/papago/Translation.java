@@ -17,7 +17,7 @@ public class Translation {
     private Long TRANSLATION_NO ;
     private String email;
     private Date trans_date;
-    private String kind;
+    @Lob
     private String input;
     @Lob
     private String output;

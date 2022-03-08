@@ -31,8 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api")
-@Slf4j
-
 //papago api 사용
 public class PapagoController {
 	
@@ -44,7 +42,7 @@ public class PapagoController {
 	}
 	
 	//Papago api 사용
-	@PostMapping("/user/papago/array")
+	@PostMapping("/papago/array")
 	 public String papaForArray(	
 			 @RequestParam(value = "text[]") List<String> text,
 			 @RequestParam(value = "from_language") String from_language,
@@ -54,11 +52,10 @@ public class PapagoController {
 		PapagoRepo papagorepo = new PapagoRepo();
 		String t = papagorepo.translationForArray(text, from_language, to_language);
 		papagorepo.setText(t);
-		log.info("test : {}",papagorepo);
 	    return papagorepo.getText();
 	}
 	
-	@PostMapping("/user/papago/json")
+	@PostMapping("/papago/json")
 	 public String papaForJson(	
 			 @RequestParam(value = "text") String text,
 			 @RequestParam(value = "from_language") String from_language,
@@ -68,57 +65,35 @@ public class PapagoController {
 		PapagoRepo papagorepo = new PapagoRepo();
 		String t = papagorepo.translation(text, from_language, to_language);
 		papagorepo.setText(t);
-		log.info("test : {}",papagorepo);
 
 	    return papagorepo.getText();
 
 	}
-	/*
-	@PostMapping("/user/papago")
-	 public String papa(	
-			 @RequestParam(value="text") String text,
-				HttpServletRequest request) throws IOException{
-			
-			PapagoRepo papagorepo = new PapagoRepo();
-			//String t = papagorepo.translation(text);
-			//papagorepo.setText(t);
-			log.info("testing!!!");
-			log.info("test : {}",text);
-			//log.info("test : {}",papagorepo);
-			
-		   
-		    return "test";
-	
-	}
-	*/
 	//TRANSLATION 보관함에 저장
-		@PostMapping("/papago/upload")
-		public int upload(
-				@RequestParam("email") String email,
-				@RequestParam("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
-				@RequestParam("kind") String kind,
-				@RequestParam(value="input", required=false) MultipartFile input,
-				@RequestParam("output") String output,
-				HttpServletRequest request)throws IOException {
+	@PostMapping("/papago/upload")
+	public int upload(
+			@RequestParam("email") String email,
+			@RequestParam("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
+			@RequestParam("input") String input,
+			@RequestParam("output") String output,
+			HttpServletRequest request)throws IOException {
 
-			PapagoSave pps = new PapagoSave(request.getServletContext().getRealPath("resources"));
-			String url = pps.document_transSave(email, kind, trans_date, input);
-			return mapper.insertTranslation_TranslaterContent(email, trans_date, kind, url, output);
-		}
-		
-		//media_trans 보관함 아이템 불러오기 email 기준 전부
-		@GetMapping("/papago/download")
-		public List<Translation> download(
-				@RequestParam("email") String email){
-			//log.info("test : {}",test.get(0));
-			return mapper.getTranslation(email);
-		}
-		
-		//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)
-		@PostMapping("/papago/delete")
-		public int delete(
-				@RequestParam("email") String email,
-				@RequestParam("translation_no") int translation_no) {
-			return mapper.deleteTranslation_TranslaterContent(email, translation_no);
-		}
+		return mapper.insertTranslation_TranslaterContent(email, trans_date, input, output);
+	}
+	
+	//media_trans 보관함 아이템 불러오기 email 기준 전부
+	@GetMapping("/papago/download")
+	public List<Translation> download(
+			@RequestParam("email") String email){
+		//log.info("test : {}",test.get(0));
+		return mapper.getTranslation(email);
+	}
+	
+	//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)
+	@PostMapping("/papago/delete")
+	public int delete(
+			@RequestParam("email") String email,
+			@RequestParam("translation_no") int translation_no) {
+		return mapper.deleteTranslation_TranslaterContent(email, translation_no);
+	}
 }

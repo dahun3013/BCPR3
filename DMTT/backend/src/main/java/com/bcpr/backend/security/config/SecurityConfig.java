@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
         http.authorizeRequests().antMatchers("/api/user/papago").permitAll();
         http.authorizeRequests().antMatchers("/api/user/papago/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/papago/**").permitAll();
         http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
         http.authorizeRequests().antMatchers("/Stt/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
