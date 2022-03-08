@@ -20,7 +20,7 @@
       <div class="ocr-ts-container">
         <div class="ocr-ts-input-cont">
           <div class="ocr-img-box">
-            <img :src="image" class="ocr-img-fit">
+            <img :src="image" class="ocr-img-fit" />
           </div>
           <div class="ocr-cf-btn mt-4">
             <label for="chooseFile">파일 가져오기</label>
@@ -58,7 +58,9 @@
                 <option value="sp">스페인어</option>
               </select>
             </div>
-              <button @click="translation" class="ocr-trans-btn mt-4">번역하기</button>
+            <button @click="translation" class="ocr-trans-btn mt-4">
+              번역하기
+            </button>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -182,39 +184,31 @@ export default {
     },
     async kakaoInfo(authObj) {
       console.log(authObj);
-      window.Kakao.API.request({
+      const userInfo = {
+        email: null,
+        profile: null,
+      };
+      await window.Kakao.API.request({
         url: "/v2/user/me",
         success: (res) => {
           const kakao_account = res.kakao_account;
-          const userInfo = {
-            email: kakao_account.email,
-            profile: kakao_account.profile.thumbnail_image_url,
-          };
-          axios
-            .get("/api/user/" + userInfo.email)
-            .then((res) => {
-              console.log("인증성공 ");
-              console.log(res);
-              console.log(userInfo);
-              if (userInfo.email != null || userInfo.email != "") {
-                axios
-                  .post("/api/user/save/normal", JSON.stringify(userInfo), {
-                    headers: { "Content-Type": `application/json` },
-                  })
-                  .then((res) => {
-                    res;
-                    console.log("가입성공");
-                  })
-                  .catch((err) => {
-                    err;
-                    console.log("기존가입");
-                  });
-              }
-            })
-            .catch((err) => {
-              err;
-              console.log("인증에러");
-            });
+          userInfo.email = kakao_account.email;
+          userInfo.profile = kakao_account.profile.thumbnail_image_url;
+
+          if (userInfo.email != null || userInfo.email != "") {
+            axios
+              .post("/api/user/save/normal", JSON.stringify(userInfo), {
+                headers: { "Content-Type": `application/json` },
+              })
+              .then((res) => {
+                res;
+                console.log("가입성공");
+              })
+              .catch((err) => {
+                err;
+                console.log("기존가입");
+              });
+          }
           alert("로그인 성공!");
         },
         fail: (error) => {
@@ -222,6 +216,11 @@ export default {
           console.log(error);
         },
       });
+      let form = new FormData();
+      form.append("email", userInfo.email);
+      form.append("password", "DMTT");
+      this.$store.dispatch("getToken", form);
+      this.$store.dispatch("setUserInfo", userInfo);
     },
     kakaoLogout() {
       // eslint-disable-next-line
@@ -264,30 +263,25 @@ export default {
       let googleData = {};
       googleData.email = googleEmail;
       googleData.profile = googleProfile;
-      await axios
-        .get("/api/user/" + googleEmail)
-        .then((res) => {
-          console.log("인증성공 ");
-          console.log(googleData);
-          if (res.data == null || res.data == "") {
-            axios
-              .post("/api/user/save/normal", JSON.stringify(googleData), {
-                headers: { "Content-Type": `application/json` },
-              })
-              .then((res) => {
-                res;
-                console.log("가입성공");
-              })
-              .catch((err) => {
-                err;
-                console.log("가입에러");
-              });
-          }
-        })
-        .catch((err) => {
-          err;
-          console.log("인증에러");
-        });
+      if (googleData.email != null || googleData.profile != "") {
+        await axios
+          .post("/api/user/save/normal", JSON.stringify(googleData), {
+            headers: { "Content-Type": `application/json` },
+          })
+          .then((res) => {
+            res;
+            console.log("가입성공");
+          })
+          .catch((err) => {
+            err;
+            console.log("가입에러");
+          });
+      }
+      let form = new FormData();
+      form.append("email", googleData.email);
+      form.append("password", "DMTT");
+      this.$store.dispatch("getToken", form);
+      this.$store.dispatch("setUserInfo", googleData);
     },
     googleLogout() {
       // eslint-disable-next-line
@@ -297,9 +291,6 @@ export default {
       });
       localStorage.clear();
     },
-  },
-  created() {
-    window.Kakao.init("1f97c7785977d78aa615deb41e557844");
   },
   mounted() {},
   computed: {
@@ -380,13 +371,13 @@ select:focus {
 }
 
 .ocr-img-box::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .ocr-img-fit {
-    width: 100%;
-    border-radius: 10px;
-    object-fit: contain;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
 }
 
 .ocr-ts-box {
