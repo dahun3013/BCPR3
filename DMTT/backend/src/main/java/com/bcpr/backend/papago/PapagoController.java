@@ -44,7 +44,7 @@ public class PapagoController {
 	}
 	
 	//Papago api 사용
-	@PostMapping("/user/papago/array")
+	@PostMapping("/papago/array")
 	 public String papaForArray(	
 			 @RequestParam(value = "text[]") List<String> text,
 			 @RequestParam(value = "from_language") String from_language,
@@ -58,7 +58,7 @@ public class PapagoController {
 	    return papagorepo.getText();
 	}
 	
-	@PostMapping("/user/papago/json")
+	@PostMapping("/papago/json")
 	 public String papaForJson(	
 			 @RequestParam(value = "text") String text,
 			 @RequestParam(value = "from_language") String from_language,
@@ -96,14 +96,12 @@ public class PapagoController {
 		public int upload(
 				@RequestParam("email") String email,
 				@RequestParam("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
-				@RequestParam("kind") String kind,
-				@RequestParam(value="input", required=false) MultipartFile input,
+				@RequestParam("input") String input,
 				@RequestParam("output") String output,
 				HttpServletRequest request)throws IOException {
 
-			PapagoSave pps = new PapagoSave(request.getServletContext().getRealPath("resources"));
-			String url = pps.document_transSave(email, kind, trans_date, input);
-			return mapper.insertTranslation_TranslaterContent(email, trans_date, kind, url, output);
+			
+			return mapper.insertTranslation_TranslaterContent(email, trans_date, input, output);
 		}
 		
 		//media_trans 보관함 아이템 불러오기 email 기준 전부

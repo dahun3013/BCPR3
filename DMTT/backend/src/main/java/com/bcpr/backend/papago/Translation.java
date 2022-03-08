@@ -15,9 +15,9 @@ public class Translation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long TRANSLATION_NO ;
-    private String email;
     private Date trans_date;
-    private String kind;
+    private String email;
+    @Lob
     private String input;
     @Lob
     private String output;

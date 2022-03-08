@@ -16,19 +16,16 @@ public interface PapagoMapper {
 	@Select("select count(*) from translation")
 	int getCountTranslation();
 
-	@Select("select * from translation")
-	List<Translation> getTranslation();
 	
 	@Select("select * from translation where email = #{email}")
 	List<Translation> getTranslation(@Param("email") String email);
 	
 	
-	@Insert("insert into translation(email,trans_date,kind,input,output) "
-			+"values(#{email},#{trans_date},#{kind},#{input,jdbcType=VARCHAR},#{output})")
+	@Insert("insert into translation(email,trans_date,input,output) "
+			+"values(#{email},#{trans_date},#{input},#{output})")
 	int insertTranslation_TranslaterContent(
 			@Param("email") String email,
 			@Param("trans_date") LocalDateTime trans_date,
-			@Param("kind") String kind,
 			@Param("input") String input,
 			@Param("output") String output);
 		
@@ -37,7 +34,7 @@ public interface PapagoMapper {
 		@Delete("delete from translation where email = #{email} and translation_no = #{translation_no}")
 		int deleteTranslation_TranslaterContent(
 				@Param("email") String email,
-		@Param("translation_no ") int translation_no );
+		@Param("translation_no") int translation_no);
 
 
 
