@@ -7,7 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Slf4j
-@CrossOrigin
 public class SttHelper {
 
     public  String getSTThelper(String path ,String lang) {
