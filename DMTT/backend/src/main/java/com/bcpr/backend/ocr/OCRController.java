@@ -12,6 +12,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,7 @@ public class OCRController {
 		HttpServletRequest request) throws IOException{
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String url = fsh.tempSave(file);
+		System.out.println(url);
 		OCRHelper oh = new OCRHelper();
 		String out = oh.forFile(url);
 		fsh.delete(url);
@@ -63,9 +65,9 @@ public class OCRController {
 	}
 	
 	//media_trans 보관함 아이템 불러오기 email 기준 전부
-	@GetMapping("/ocr/download")
+	@GetMapping("/ocr/download/{email}")
 	public List<Media_Trans> download(
-			@RequestParam("email") String email){
+			@PathVariable("email") String email){
 		//log.info("test : {}",test.get(0));
 		return mapper.getMedia_Trans(email);
 	}

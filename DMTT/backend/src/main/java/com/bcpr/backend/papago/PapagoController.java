@@ -69,7 +69,9 @@ public class PapagoController {
 		String t = papagorepo.translation(text, from_language, to_language);
 		papagorepo.setText(t);
 		log.info("test : {}",papagorepo);
-		  return papagorepo.getText();
+
+	    return papagorepo.getText();
+
 	}
 	/*
 	@PostMapping("/user/papago")

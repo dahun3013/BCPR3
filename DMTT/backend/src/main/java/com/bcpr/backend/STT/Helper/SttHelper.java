@@ -7,19 +7,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Slf4j
-public class SttJpnHelper {
+public class SttHelper {
 
-    public static String SttJpn(String path) {
+    public  String getSTThelper(String path ,String lang) {
         String clientId = "jdkthmlpk7";             // Application Client ID";
         String clientSecret = "JOvAP25012bTeQ7QQzgg4JLtd6MuEs1lSMXsHqbk";     // Application Client Secret";
         String result="";
         try {
             String imgFile = path;
-            System.out.println("path : "+path);
             File voiceFile = new File(imgFile);
 
-            String language = "Jpn";        // 언어 코드 ( Kor, Jpn, Eng, Chn )
-            String apiURL = "https://naveropenapi.apigw-pub.fin-ntruss.com/recog/v1/stt?lang=" + language;
+            String language = lang;        // 언어 코드 ( Kor, Jpn, Eng, Chn )
+            String apiURL = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=" + language;
             URL url = new URL(apiURL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -33,6 +32,7 @@ public class SttJpnHelper {
             System.out.println("아이디 : "+conn.getRequestProperty("X-NCP-APIGW-API-KEY-ID"));
             System.out.println("비밀번호 : "+conn.getRequestProperty("X-NCP-APIGW-API-KEY"));
             System.out.println("Content-Type : "+conn.getRequestProperty("Content-Type"));
+            System.out.println("voiceFile : "+voiceFile);
 
 
 

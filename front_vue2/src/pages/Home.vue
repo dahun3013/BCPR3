@@ -6,7 +6,7 @@
         <div>
           <h5></h5>
         </div>
-        <div @click="$emit('openModal')">
+        <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo">
         </div>
       </div>
@@ -22,7 +22,7 @@
 
       <div class="main-btn">
         <img src="@/assets/1.png" alt="문서변환" @click="$router.push('/ocr')">
-        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/tts')">
+        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/stt')">
         <img src="@/assets/3.png" alt="매체번역" @click="$router.push('/mtt')">
         <img src="@/assets/4.png" alt="간단번역" @click="$router.push('/papago')">
       </div>
@@ -30,7 +30,7 @@
       <br><br><br><br>
       
       <div style="text-align: center; font-weight: bold;">
-        <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
+        <p @click="$router.push('/storage')">[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
       </div>
       
       <br><br><br>
@@ -47,6 +47,28 @@
 
     </div><!--bottom-container-end-->
   </div><!--field-end-->
+  
+  <div class="login-modal px-5 py-5" v-if="loginModal == true">
+    <h4>로그인</h4>
+    <div class="loginBtns">
+      <div>
+        <img src="@/assets/naverLogo.png" alt=""> 네이버 아이디로 로그인
+      </div>
+      <div>
+        <img src="@/assets/kakaoLogo.png" alt="">카카오 아이디로 로그인
+      </div>
+      <div>
+        <img src="@/assets/googleLogo.png" alt="">구글 아이디로 로그인
+      </div>
+      <div>
+        <img src="@/assets/githubLogo.png" alt="">깃허브 아이디로 로그인
+      </div>
+    </div>
+    <div>
+      <button @click="loginModal = false">닫기</button>
+    </div>
+  </div><!--login-modal-end-->
+
 </template>
 
 <script>
@@ -55,16 +77,12 @@ export default {
   name: 'HomePage',
   data() {
     return {
-      
+      loginModal : false,
     }
   },
 
   components: {
 
-  },
-
-  props : {
-    modal : Boolean,
   },
 
   mounted() {
