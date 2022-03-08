@@ -9,12 +9,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.bcpr.backend.ocr.domain.Media_Trans;
-
 @Mapper
 public interface PapagoMapper {
 	@Select("select count(*) from translation")
 	int getCountTranslation();
+
+
+	@Select("select * from translation")
+	List<Translation> getTranslations();
 
 	
 	@Select("select * from translation where email = #{email}")
@@ -29,12 +31,16 @@ public interface PapagoMapper {
 			@Param("input") String input,
 			@Param("output") String output);
 		
+
 	
 		
 		@Delete("delete from translation where email = #{email} and translation_no = #{translation_no}")
 		int deleteTranslation_TranslaterContent(
 				@Param("email") String email,
 		@Param("translation_no") int translation_no);
+
+
+	
 
 
 
