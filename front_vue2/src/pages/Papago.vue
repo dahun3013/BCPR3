@@ -19,12 +19,12 @@
                 <div class="ts-input-cont">
                     <div class="ts-lg-ch">
                         <select name="ts-lg" id="ts-lg">
-                            <option value="kr">한국어</option>
+                            <option value="ko">한국어</option>
                             <option value="en">영어</option>
-                            <option value="jp">일본어</option>
-                            <option value="cn">중국어</option>
-                            <option value="gm">독일어</option>
-                            <option value="sp">스페인어</option>
+                            <option value="ja">일본어</option>
+                            <option value="zh-CN">중국어</option>
+                            <option value="de">독일어</option>
+                            <option value="es">스페인어</option>
                         </select>
                     </div>
                     <div>
@@ -38,12 +38,12 @@
                 <div class="ts-output-cont">
                     <div class="ts-lg-ch">
                         <select name="ts-lg" id="ts-lg">
-                            <option value="kr">한국어</option>
+                            <option value="ko">한국어</option>
                             <option value="en">영어</option>
-                            <option value="jp">일본어</option>
-                            <option value="cn">중국어</option>
-                            <option value="gm">독일어</option>
-                            <option value="sp">스페인어</option>
+                            <option value="ja">일본어</option>
+                            <option value="zh-CN">중국어</option>
+                            <option value="de">독일어</option>
+                            <option value="es">스페인어</option>
                         </select>
                     </div>
                     <div class="ppg-ts-box" style="margin-bottom: 30px">
