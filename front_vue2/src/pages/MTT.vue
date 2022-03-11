@@ -19,15 +19,27 @@
     <div class="mtt-bottom-container px-5 pt-5 pb-2">
       <div class="mtt-ts-container">
         <div class="mtt-ts-input-cont">
-          <div class="mtt-ts-box">
-            <input type="hidden" :value="image" alt="" />
-          </div>
-          <div class="mtt-cf-btn mt-4">
-            <label for="chooseFile">파일 가져오기</label>
-            <form method="post" enctype="multipart/form-data">
-              <audio class="player" controls ref="player">
+          <div>
+          <form>
+            <audio class="player" controls ref="player">
                 <source src="" ref="source" />
               </audio>
+            <div class="ocr-ts-lg-ch mt-4">
+              <select name="ts-lg" id="ts-lg" v-model="lang">
+                <option value="Kor">한국어</option>
+                <option value="Eng">영어</option>
+                <option value="Jpn">일본어</option>
+                <option value="Chn">중국어</option>
+              </select>
+            </div>
+              <!-- <button type="button" @click="sendData()">전송</button> -->
+            </form>
+          </div>
+          <div class="mtt-cf-btn mt-4">
+            
+            <label for="chooseFile">파일 가져오기</label>
+            <form method="post" enctype="multipart/form-data">
+              
               <input
                 ref="image"
                 @change="uploadImg()"
@@ -52,17 +64,19 @@
           </div>
 
           <div style="display: flex">
-            <div class="mtt-ts-lg-ch mt-4">
+            <div class="ocr-ts-lg-ch mt-4">
               <select name="ts-lg" id="ts-lg">
                 <option value="kr">한국어</option>
                 <option value="en">영어</option>
                 <option value="jp">일본어</option>
                 <option value="cn">중국어</option>
+                <option value="gm">독일어</option>
+                <option value="sp">스페인어</option>
               </select>
             </div>
-            <div class="mtt-trans-btn mt-4">
-              <button @click="Stttrans">번역하기</button>
-            </div>
+            <button @click="translation" class="ocr-trans-btn mt-4">
+              번역하기
+            </button>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -132,8 +146,8 @@ export default {
     };
   },
   components: {},
-
   methods: {
+    
     async uploadImg() {
       console.log("들어왔다");
       this.$refs.source.src = "";
@@ -146,8 +160,7 @@ export default {
       let form = new FormData();
       console.log(`url :` + url);
       form.append("file", image);
-      form.append("lang", "Kor"); //테스트용
-
+      form.append("lang",this.lang);
       await axios
         .post("/api/Stt", form, {
           headers: {
@@ -184,7 +197,6 @@ export default {
           const kakao_account = res.kakao_account;
           userInfo.email = kakao_account.email;
           userInfo.profile = kakao_account.profile.thumbnail_image_url;
-
           if (userInfo.email != null || userInfo.email != "") {
             axios
               .post("/api/user/save/normal", JSON.stringify(userInfo), {
@@ -295,54 +307,44 @@ export default {
 body {
   margin: 0;
 }
-
 textarea {
   resize: none;
 }
-
 .profile-logo > div > h2 {
   color: white;
   font-weight: bold;
 }
-
 .mtt-bottom-container {
   background: white;
   border-radius: 100px 0px 0px 0px;
 }
-
 .mtt-ts-container {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-
 .top-content {
   display: flex;
   justify-content: space-between;
   padding: 2rem 4rem 2rem 4rem;
   color: white;
 }
-
 .mtt-ts-lg-ch {
   margin-right: 1rem;
   text-align: left;
 }
-
 .mtt-ts-lg-ch > select {
   font-size: 1rem;
   padding: 0.5rem;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
 }
-
 select:hover {
   border-color: none;
 }
-
 select:focus {
   outline: none;
 }
-
 .mtt-ts-input-cont {
   width: 35%;
   margin: 1rem;
@@ -351,7 +353,6 @@ select:focus {
   border-radius: 25px;
   text-align: center;
 }
-
 .mtt-ts-box {
   width: 100%;
   height: 400px;
@@ -360,7 +361,6 @@ select:focus {
   padding: 1rem;
   text-align: left;
 }
-
 .mtt-cf-btn {
   padding: 0.5rem;
   background: white;
@@ -368,7 +368,6 @@ select:focus {
   border-radius: 10px;
   font-size: 1rem;
 }
-
 .mtt-trans-btn {
   width: 100%;
   margin-left: 1rem;
@@ -378,7 +377,6 @@ select:focus {
   border-radius: 10px;
   font-size: 1rem;
 }
-
 .mtt-trans-btn > button {
   width: 100%;
   color: white;
@@ -387,7 +385,6 @@ select:focus {
   border-radius: 10px;
   font-size: 1rem;
 }
-
 .ts-output-cont {
   width: 35%;
   margin: 1rem;
@@ -395,11 +392,9 @@ select:focus {
   border: 1px solid #dbdbdb;
   border-radius: 25px;
 }
-
 .output-record {
   text-align: end;
 }
-
 .output-record > button {
   text-align: center;
   width: 20%;
