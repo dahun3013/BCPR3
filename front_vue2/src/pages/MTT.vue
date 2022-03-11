@@ -360,6 +360,11 @@ select:focus {
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
+  overflow: auto;
+
+}
+.mtt-ts-box::-webkit-scrollbar{
+  display: none;
 }
 .mtt-cf-btn {
   padding: 0.5rem;
@@ -401,5 +406,8 @@ select:focus {
   padding: 1.25rem;
   background: #0d66ff;
   border-radius: 50px 0px 0px 0px;
+}
+.player{
+  width:100%;
 }
 </style>
