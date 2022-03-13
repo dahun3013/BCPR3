@@ -28,7 +28,13 @@
       "
       style="clear: both"
     >
-      <StorageCard :image="a.input" v-for="(a, i) in array" :key="i" />
+      <StorageCard
+        :image="a.input"
+        :email="a.email"
+        :media_no="a.media_no"
+        v-for="(a, i) in array"
+        :key="i"
+      />
     </div>
     <!--storage-bottom-container-end-->
   </div>

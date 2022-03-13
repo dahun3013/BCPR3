@@ -18,6 +18,8 @@
 export default {
   name: "StorageCard",
   props: {
+    media_no: Number,
+    email: String,
     image: String,
   },
 };
