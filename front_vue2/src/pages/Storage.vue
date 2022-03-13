@@ -16,9 +16,19 @@
     </div>
     <!--top-container-end-->
 
-    <div class="row storage-bottom-container px-5 pt-5 pb-2 row-cols-xl-3 justify-content-center"
-				style="clear: both;">
-        <StorageCard :image="image" v-for="(a,i) in image" :key="i" />
+    <div
+      class="
+        row
+        storage-bottom-container
+        px-5
+        pt-5
+        pb-2
+        row-cols-xl-3
+        justify-content-center
+      "
+      style="clear: both"
+    >
+      <StorageCard :image="a.input" v-for="(a, i) in array" :key="i" />
     </div>
     <!--storage-bottom-container-end-->
   </div>
@@ -60,13 +70,13 @@
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import StorageCard from "@/components/StorageCard.vue"
+import StorageCard from "@/components/StorageCard.vue";
 export default {
   name: "papagoPage",
   data() {
     return {
       image: "",
-      // array: "",
+      array: [],
       loginModal: false,
     };
   },
@@ -84,17 +94,23 @@ export default {
         .get("/api/ocr/download" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
-          let array = [];
-          array = res.data;
-          console.log("다운로드 성공");
+          this.array = [];
+          this.array = res.data;
 
-          this.image =
-            "http://localhost:8200/resources/media_trans/" +
-            this.$store.state.userInfo.email +
-            "/" +
-            array[0].input;
+          for (var i = 0; i < this.array.length; i++) {
+            //console.log("파일명 : " + this.array[i].input);
+            this.array[i].input =
+              "http://localhost:8200/resources/media_trans/" +
+              this.$store.state.userInfo.email +
+              "/" +
+              this.array[i].input;
+          }
+
+          //console.log("다운로드 개수 : " + this.array.length);
+
+          this.image = this.array[0].input;
           // 'http://localhost:8200/resourse/**_trans/이메일/파일명'
-            console.log(this.image);
+          console.log(this.image);
         })
         .catch((err) => {
           console.log(err);

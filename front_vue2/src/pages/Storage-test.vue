@@ -17,9 +17,7 @@
     <!--top-container-end-->
 
     <div class="storage-bottom-container px-5 pt-5 pb-2">
-
-      <StorageCard :image="image" v-for="(a,i) in array" :key="i" />
-
+      <StorageCard :image="image" v-for="(a, i) in array" :key="i" />
     </div>
     <!--storage-bottom-container-end-->
   </div>
@@ -61,13 +59,13 @@
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import StorageCard from "@/components/StorageCard.vue"
+import StorageCard from "@/components/StorageCard.vue";
 export default {
   name: "papagoPage",
   data() {
     return {
       image: "",
-      // array: "",
+      array: [],
       loginModal: false,
     };
   },
@@ -85,15 +83,15 @@ export default {
         .get("/api/ocr/download" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
-          let array = [];
-          array = res.data;
+          this.array = [];
+          this.array = res.data;
           // this.array.push(res.data);
-          console.log("다운로드 성공");
+          console.log("다운로드 성공 개수: " + this.array.length);
           this.image =
             "http://localhost:8200/resources/media_trans/" +
             this.$store.state.userInfo.email +
             "/" +
-            array[0].input;
+            this.array[0].input;
           // 'http://localhost:8200/resourse/**_trans/이메일/파일명'
         })
         .catch((err) => {
