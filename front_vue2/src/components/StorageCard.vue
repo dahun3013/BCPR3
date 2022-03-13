@@ -2,7 +2,7 @@
   <div class="storage-ts-container col mb-5">
     <div class="storage-ts-output-cont">
       <div class="storage-img-box">
-        <img :src="image" alt="" class="img-fit" />
+        <img :src="input" alt="" class="img-fit" />
       </div>
       <div style="display: flex">
         <button class="storage-ff1-btn mt-4">JPG / JPEG</button>
@@ -18,7 +18,12 @@
 export default {
   name: "StorageCard",
   props: {
-    image: String,
+    media_no: Number,
+    email: String,
+    kind: String,
+    input: String,
+    output: String,
+    trans_date: String,
   },
 };
 </script>
