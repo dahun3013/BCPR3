@@ -6,7 +6,6 @@ import OCR from '/src/pages/OCR.vue'
 import MTT from '/src/pages/MTT.vue'
 import STT from '/src/pages/STT.vue'
 import Storage from '/src/pages/Storage.vue'
-import StorageTest from '/src/pages/Storage-test.vue'
 
 const routes = [
   {
@@ -32,10 +31,6 @@ const routes = [
   {
     path: "/storage",
     component: Storage,
-  },
-  {
-    path: "/storage-test",
-    component: StorageTest,
   },
 ];
 
