@@ -100,7 +100,7 @@ export default {
       this.$store.state.userInfo.email != ""
     ) {
       axios
-        .get("/api/ocr/download" + "/" + this.$store.state.userInfo.email)
+        .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
           this.array = [];
