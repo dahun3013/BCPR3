@@ -29,9 +29,12 @@
       style="clear: both"
     >
       <StorageCard
-        :image="a.input"
-        :email="a.email"
         :media_no="a.media_no"
+        :email="a.email"
+        :kind="a.kind"
+        :input="a.input"
+        :output="a.output"
+        :trans_date="a.trans_date"
         v-for="(a, i) in array"
         :key="i"
       />
