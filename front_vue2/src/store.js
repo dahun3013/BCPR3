@@ -7,7 +7,7 @@ import createPersistedState from 'vuex-persistedstate';
 export const store = new Vuex.Store({
     plugins: [
         createPersistedState({
-            paths: ['userInfo']
+            paths: ['userInfo', 'access_token', 'refresh_token', 'isLogin', 'isLoginError']
         })
     ],
     // counter라는 state 속성을 추가

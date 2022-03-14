@@ -1,6 +1,7 @@
 package com.bcpr.backend.STT.Mapper;
 
 
+import com.bcpr.backend.ocr.domain.Media_Trans;
 import org.apache.ibatis.annotations.*;
 
 import com.bcpr.backend.STT.domain.Document_Trans;
@@ -16,12 +17,18 @@ public interface SttMapper{
     @Select("select * from document_trans")
     List<Document_Trans> getDocument_TransList();
 
-    @Select("select * from document_Trans where email = #{email}")
-    List<Document_Trans> getDocument_Trans(@Param("email") String email);
+    @Select("select * from document_trans where email = #{email}")
+    List<Document_Trans> getDocument_TransListByEmail(@Param("email") String email);
+
+    @Select("select * from document_trans where email = #{email} and document_trans = #{document_no}")
+    Media_Trans getDocument_Trans(
+            @Param("email") String email,
+            @Param("document_no") int document_no);
+
 
     @Insert("insert into document_Trans(email,trans_date,kind,input,output) "
             +"values(#{email},#{trans_date},#{kind},#{input,jdbcType=VARCHAR},#{output})")
-    int insertMedia_TransContent(
+    int insertDocument_TransContent(
             @Param("email") String email,
             @Param("trans_date") LocalDateTime trans_date,
             @Param("kind") String kind,

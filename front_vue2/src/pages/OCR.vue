@@ -6,7 +6,7 @@
           <h2>문서변환</h2>
         </div>
         <div>
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
@@ -62,6 +62,9 @@
               번역하기
             </button>
           </div>
+          <div v-show="isLogin">
+            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
+          </div>
         </div>
         <!--ts-output-cont-end-->
       </div>
@@ -115,6 +118,28 @@ export default {
   },
 
   methods: {
+    async upload() {
+      let form = new FormData();
+      form.append("email", this.$store.state.userInfo.email);
+      form.append("trans_date", new Date().toISOString());
+      form.append("kind", "images");
+      form.append("input", this.$refs["image"].files[0]);
+      form.append("output", this.text);
+
+      await axios
+        .post("/api/ocr/upload", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("refreshToken error : ", err.config);
+        });
+    },
+
     async translation() {
       let form = new FormData();
       form.append("text", this.text);
@@ -157,10 +182,15 @@ export default {
         });
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.$store.state.userInfo.email);
+  },
   computed: {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
+    isLogin() {
+      return this.$store.state.isLogin;
     },
   },
 };

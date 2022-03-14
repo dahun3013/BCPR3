@@ -6,7 +6,7 @@
           <h2>음성변환</h2>
         </div>
         <div>
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
@@ -175,10 +175,7 @@
       </div>
     </div>
     <!--stt-bottom-container-end-->
-  </div>
-  <!--field_end-->
-
-  <div class="px-5">
+      <div class="px-5">
     <hr />
   </div>
 
@@ -190,31 +187,15 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <div class="login-modal px-5 py-5" v-if="loginModal == true">
-    <h4>로그인</h4>
-    <div class="loginBtns">
-      <div>
-        <img src="@/assets/naverLogo.png" alt="" /> 네이버 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/kakaoLogo.png" alt="" />카카오 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/googleLogo.png" alt="" />구글 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/githubLogo.png" alt="" />깃허브 아이디로 로그인
-      </div>
-    </div>
-    <div>
-      <button @click="loginModal = false">닫기</button>
-    </div>
+    <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
   </div>
-  <!--login-modal-end-->
+  <!--field_end-->
+
 </template>
 
 <script>
-import axios from "axios";
+import Modal from '@/components/Modal.vue'
+import axios from 'axios'
 export default {
   name: "papagoPage",
   data() {
@@ -235,12 +216,70 @@ export default {
       document.getElementById("restart").style.display = "block";
       document.getElementById("line").style.display = "block";
     },
-    //숨기기
-    div_hide() {
-      document.getElementById("audio").style.display = "none";
-      document.getElementById("dlButton").style.display = "none";
-      document.getElementById("restart").style.display = "none";
-      document.getElementById("line").style.display = "none";
+    components : {
+        Modal,
+    },
+
+    methods: {
+        //보이기
+        div_show() {
+            document.getElementById("audio")
+                .style.display = "block";
+            document.getElementById("dlButton")
+                .style.display = "block";
+            document.getElementById("restart")
+                .style.display = "block";
+                document.getElementById("line")
+                .style.display = "block";
+        },
+        //숨기기
+        div_hide() {
+            document.getElementById("audio")
+                .style.display = "none";
+            document.getElementById("dlButton")
+                .style.display = "none";
+            document.getElementById("restart")
+                .style.display = "none";
+                 document.getElementById("line")
+                .style.display = "none";
+        },
+        sendData() {
+            axios({
+                    url: 'api/tts/server',
+                    method: 'post',
+                    data: {
+                        data1: this.text,
+                        data2: this.voice,
+                        data3: this.speed,
+                        data4: this.volume,
+                    }
+                })
+                .then((response) => {
+                    console.log(response)
+                })
+            if (this.text != "") {
+                document.getElementById("send")
+                    .style.display = "none";
+            }
+
+        },
+        restart() {
+            location.href = "http://localhost:8081/tts";
+        },
+        movepage() {
+            location.href = "http://localhost:8888/tts.mp3";
+        },
+        download() {
+            location.href = "http://localhost:8200/download";
+        },
+
+        play(sound) {
+            if (sound) {
+                var audio = new Audio(sound);
+                audio.play();
+            }
+        }
+
     },
     sendData() {
       axios({

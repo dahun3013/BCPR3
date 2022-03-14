@@ -20,7 +20,12 @@
       <div class="ts-container">
         <div class="ts-input-cont">
           <div class="ts-lg-ch">
-            <select v-model = "from_language" name="ts-lg" id="ts-lg1" onchange="categoryChange(this)">
+            <select
+              v-model="from_language"
+              name="ts-lg"
+              id="ts-lg1"
+              onchange="categoryChange(this)"
+            >
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -44,7 +49,7 @@
 
         <div class="ts-output-cont">
           <div class="ts-lg-ch">
-            <select v-model= "to_language" name="ts-lg" id="ts-lg2" >
+            <select v-model="to_language" name="ts-lg" id="ts-lg2">
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -95,34 +100,15 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <div class="login-modal px-5 py-5" v-if="loginModal == true">
-    <h4>로그인</h4>
-    <div class="loginBtns">
-      <div>
-        <img src="@/assets/naverLogo.png" alt="" /> 네이버 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/kakaoLogo.png" alt="" />카카오 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/googleLogo.png" alt="" />구글 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/githubLogo.png" alt="" />깃허브 아이디로 로그인
-      </div>
-    </div>
-    <div>
-      <button @click="loginModal = false">닫기</button>
-    </div>
-  </div>
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   <div v-show="isLogin">
             <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
           </div>
+
   <!--login-modal-end-->
 </template>
 
 <script>
-
 // import $ from 'jquery'
 import axios from "axios";
 export default {
@@ -133,7 +119,7 @@ export default {
       input: "",
       output: "",
       from_language: "ko",
-      to_language: "en"
+      to_language: "en",
     };
   },
   methods: {
@@ -152,11 +138,7 @@ export default {
         this.output = this.input;
         return;
       }
-      if (this.from_language == "ja" && this.to_language == "de") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
+
       if (this.from_language == "zh-CN" && this.to_language == "es") {
         alert("잘못된 요청입니다.");
         this.output = this.input;
@@ -197,7 +179,6 @@ export default {
         this.output = this.input;
         return;
       }
-      
 
       await axios
         .post("/api/papago/json", form, {
@@ -208,7 +189,6 @@ export default {
         .then((res) => {
           console.log(res);
           this.output = res.data;
-          
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);

@@ -21,32 +21,16 @@
 
     <div class="bottom-container px-5 pt-5">
       <div class="main-btn">
-        <img
-          src="@/assets/1.png"
-          alt="문서변환"
-          @click="$router.push('/ocr')"
-        />
-        <img
-          src="@/assets/2.png"
-          alt="음성변환"
-          @click="$router.push('/tts')"
-        />
-        <img
-          src="@/assets/3.png"
-          alt="매체변환"
-          @click="$router.push('/stt')"
-        />
-        <img
-          src="@/assets/4.png"
-          alt="간단번역"
-          @click="$router.push('/papago')"
-        />
+        <img src="@/assets/1.png" alt="문서변환" @click="$router.push('/ocr')">
+        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/tts')">
+        <img src="@/assets/3.png" alt="매체번역" @click="$router.push('/mtt')">
+        <img src="@/assets/4.png" alt="간단번역" @click="$router.push('/papago')">
       </div>
 
       <br /><br /><br /><br />
 
       <div style="text-align: center; font-weight: bold">
-        <p @click="$router.push('/PapagoStorage')">
+        <p @click="$router.push('/storage')">
           [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
         </p>
       </div>
@@ -64,10 +48,10 @@
       </div>
     </div>
     <!--bottom-container-end-->
+    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
   <!--field-end-->
 
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
@@ -106,6 +90,7 @@ body {
 .profile-logo {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .profile-logo > div {
@@ -127,39 +112,9 @@ body {
   text-align: center;
 }
 
-.login-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 30%;
-  height: 50%;
-
+.main-btn{
   text-align: center;
-  border-radius: 25px;
-  background-color: white;
-
-  color: black;
-  z-index: 8;
-  box-shadow: 2px 2px 10px lightgrey;
-}
-
-.loginBtns {
-  text-align: center;
-}
-
-.loginBtns > div {
-  width: 250px;
-  border: 1px solid black;
-}
-
-.loginBtns > div > img {
-  width: 50px;
-}
-
-.main-btn {
-  text-align: center;
+  cursor: pointer;
 }
 
 .bottom-container {

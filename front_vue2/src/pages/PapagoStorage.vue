@@ -60,7 +60,6 @@
 // import $ from 'jquery'
 import axios from "axios";
 import Modal from "@/components/Modal.vue";
-//import StorageCard from "@/components/StorageCard.vue";
 import PapagoStorageCard from "@/components/PapagoStorageCard.vue";
 export default {
   name: "papagoPage",
@@ -72,7 +71,6 @@ export default {
   },
   components: {
     PapagoStorageCard,
-    //StorageCard,
     Modal,
   },
   mounted() {
