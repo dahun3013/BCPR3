@@ -8,6 +8,9 @@
         <div style="text-align: center">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
+        <div @click="loginModal = true">
+          <img src="@/assets/weblogin1.png" alt="profile-logo" />
+        </div>
       </div>
       <!--profile-logo-end-->
     </div>
@@ -18,13 +21,8 @@
         <SSM />
       </div>
     </div>
+    <router-view name="storage"></router-view>
     <!--storage-bottom-container-end-->
-      <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-center">
-        <div>
-          <p>안내메세지 테스트</p>
-        </div>
-        <router-view></router-view>
-      </div>
   </div>
   <!--field_end-->
 
@@ -37,12 +35,15 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
+
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import SSM from "@/components/StorageSelectMenu.vue"
+import Modal from "@/components/Modal.vue";
+import SSM from "@/components/StorageSelectMenu.vue";
 
 export default {
   name: "papagoPage",
@@ -50,12 +51,16 @@ export default {
     return {
       image: "",
       array: [],
+      loginModal: false,
     };
   },
   components: {
+    Modal,
     SSM,
   },
   mounted() {
+    console.log(this.$store.state.userInfo.email);
+    console.log(this.$store.state.userInfo.profile);
     if (
       this.$store.state.userInfo.email != null ||
       this.$store.state.userInfo.email != ""

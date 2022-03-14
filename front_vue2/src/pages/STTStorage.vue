@@ -14,7 +14,7 @@
     <!--top-container-end-->
 
     <div class="storage-bottom-container px-5 pt-5 pb-2">
-      <SSM />
+      <SSM :state="3" />
     </div>
     <!--storage-bottom-container-end-->
   </div>

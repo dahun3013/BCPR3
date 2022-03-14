@@ -2,20 +2,16 @@
   <div class="field">
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
-        <div>
+        <div style="text-align: left">
           <h2>간단번역</h2>
         </div>
         <div>
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <!-- <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
-
     <div class="papago-bottom-container px-5 pt-5 pb-2">
       <div class="ts-container">
         <div class="ts-input-cont">
@@ -99,7 +95,6 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   <!--login-modal-end-->
 </template>
 
