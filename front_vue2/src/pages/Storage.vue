@@ -16,34 +16,28 @@
     </div>
     <!--top-container-end-->
 
-    <div class="storage-bottom-container px-5 pt-5 pb-2">
-      <div class="storage-ts-container">
-        <div class="storage-ts-output-cont">
-          <div class="storage-img-box">
-            <img :src="image" alt="" class="img-fit" />
-          </div>
-          <div style="display: flex">
-            <button class="storage-ff1-btn mt-4">JPG / JPEG</button>
-            <button class="storage-ff2-btn mt-4">PNG</button>
-          </div>
-        </div>
-        <!--ts-output-cont-end-->
-      </div>
-      <!--storage-ts-container-end-->
-
-      <div class="storage-ts-container">
-        <div class="storage-ts-output-cont">
-          <div class="storage-img-box">
-            <img :src="image" alt="" class="img-fit" />
-          </div>
-          <div style="display: flex">
-            <button class="storage-ff1-btn mt-4">JPG / JPEG</button>
-            <button class="storage-ff2-btn mt-4">PNG</button>
-          </div>
-        </div>
-        <!--ts-output-cont-end-->
-      </div>
-      <!--storage-ts-container-end-->
+    <div
+      class="
+        row
+        storage-bottom-container
+        px-5
+        pt-5
+        pb-2
+        row-cols-xl-3
+        justify-content-center
+      "
+      style="clear: both"
+    >
+      <StorageCard
+        :media_no="a.media_no"
+        :email="a.email"
+        :kind="a.kind"
+        :input="a.input"
+        :output="a.output"
+        :trans_date="a.trans_date"
+        v-for="(a, i) in array"
+        :key="i"
+      />
     </div>
     <!--storage-bottom-container-end-->
   </div>
@@ -85,15 +79,19 @@
 <script>
 // import $ from 'jquery'
 import axios from "axios";
+import StorageCard from "@/components/StorageCard.vue";
 export default {
   name: "papagoPage",
   data() {
     return {
       image: "",
+      array: [],
       loginModal: false,
     };
   },
-  components: {},
+  components: {
+    StorageCard,
+  },
   mounted() {
     console.log(this.$store.state.userInfo.email);
     console.log(this.$store.state.userInfo.profile);
@@ -102,18 +100,26 @@ export default {
       this.$store.state.userInfo.email != ""
     ) {
       axios
-        .get("/api/ocr/download" + "/" + this.$store.state.userInfo.email)
+        .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
-          let array = [];
-          array = res.data;
-          console.log("다운로드 성공");
-          this.image =
-            "http://localhost:8200/resources/media_trans/" +
-            this.$store.state.userInfo.email +
-            "/" +
-            array[0].input;
+          this.array = [];
+          this.array = res.data;
+
+          for (var i = 0; i < this.array.length; i++) {
+            //console.log("파일명 : " + this.array[i].input);
+            this.array[i].input =
+              "http://localhost:8200/resources/media_trans/" +
+              this.$store.state.userInfo.email +
+              "/" +
+              this.array[i].input;
+          }
+
+          //console.log("다운로드 개수 : " + this.array.length);
+
+          this.image = this.array[0].input;
           // 'http://localhost:8200/resourse/**_trans/이메일/파일명'
+          console.log(this.image);
         })
         .catch((err) => {
           console.log(err);

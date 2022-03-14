@@ -47,14 +47,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/").permitAll();
+<<<<<<< HEAD
 		
 
         http.authorizeRequests().antMatchers("/api/papago").permitAll();
+=======
+>>>>>>> 7230d7dc3e36ed388b3d323b5c147d87f5260466
 
         http.authorizeRequests().antMatchers("/api/papago/**").permitAll();
 
         http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
-        http.authorizeRequests().antMatchers("/Stt/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/Stt").permitAll();
+        http.authorizeRequests().antMatchers("/api/Stt/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/tts/**").permitAll();
+        http.authorizeRequests().antMatchers("/favicon.ico").permitAll();
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
         
         
