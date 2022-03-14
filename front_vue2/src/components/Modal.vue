@@ -1,22 +1,20 @@
 <template>
   <div class="login-modal px-5 py-5" v-if="loginModal == true">
-    <h4>로그인</h4>
+    <h4>간편 로그인</h4>
     <div class="loginBtns">
-      <div>
-        <img src="@/assets/naverLogo.png" alt="" /> 네이버 아이디로 로그인
+      <div @click="kakaoLogin" class="kakaoBtn">
+        <img src="@/assets/kakaoLogo.png" alt="" />
+        <br>
+        <!-- 카카오 아이디로 로그인 -->
       </div>
-      <div @click="kakaoLogin">
-        <img src="@/assets/kakaoLogo.png" alt="" />카카오 아이디로 로그인
-      </div>
-      <div @click="googleLogin">
-        <img src="@/assets/googleLogo.png" alt="" />구글 아이디로 로그인
+      <div @click="googleLogin" class="googleBtn">
+        <img src="@/assets/googleLogo.png" alt="" />
+        <br>
+        <!-- 구글 아이디로 로그인 -->
       </div>
       <div id="my-signin2" style="display: none"></div>
-      <div>
-        <img src="@/assets/githubLogo.png" alt="" />깃허브 아이디로 로그인
-      </div>
     </div>
-    <div>
+    <div class="closeBtn">
       <button @click="$emit('closeModal')">닫기</button>
     </div>
   </div>
@@ -152,4 +150,48 @@ export default {
 </script>
 
 <style>
+.login-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 30%;
+  height: 50%;
+
+  text-align: center;
+  border-radius: 25px;
+  background-color: white;
+
+  color: black;
+  z-index: 8;
+  box-shadow: 2px 2px 10px lightgrey;
+}
+
+.loginBtns {
+  justify-content: center;
+}
+
+.loginBtns > div {
+  width: 80%;
+  padding: 20px;
+  border: 1px solid #DBDBDB;
+  border-radius: 10px;
+}
+
+.kakaoBtn > img{
+  width: 30%;
+}
+
+.googleBtn > img{
+  width: 30%;
+}
+
+.closeBtn > button{
+  width: 30%;
+  background: white;
+  border: 1px solid #DBDBDB;
+  border-radius: 10px;
+  padding: 1%;
+}
 </style>
