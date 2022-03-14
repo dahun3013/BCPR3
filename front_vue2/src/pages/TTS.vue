@@ -135,7 +135,7 @@
                 <!--By.지원_전송버튼-->
                 <span class="send" id="send">
                     <button type="button" @click="sendData() + restart()">음성 변환하기</button>
-                    <!-- <button type="button" @click="div_hide() + sendData()">음성 변환하기</button> -->
+                    <!-- <button type="button" @click="div_show() + sendData()">음성 변환하기</button> -->
                 </span>
                 <hr id="line">
                 <!--결과-->
@@ -306,8 +306,8 @@ textarea {
 
 .stt-ts-container {
     width: 220%;
-    margin-left: 250px;
-    
+    margin-left: 220px;
+    display: block;
 }
 
 .stt-ts-box {
