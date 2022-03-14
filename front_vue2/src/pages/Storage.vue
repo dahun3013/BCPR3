@@ -20,6 +20,9 @@
     </div>
     <!--storage-bottom-container-end-->
       <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-center">
+        <div>
+          <p>안내메세지 테스트</p>
+        </div>
         <router-view></router-view>
       </div>
   </div>
