@@ -139,6 +139,63 @@ export default {
       form.append("text", this.input);
       form.append("from_language", this.from_language);
       form.append("to_language", this.to_language);
+
+      if (this.from_language == this.to_language) {
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "ja" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "ja" && this.to_language == "de") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "zh-CN" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "zh-CN" && this.to_language == "de") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "ja") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "zh-CN") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "ja") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "zh-CN") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "de") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      
+
       await axios
         .post("/api/papago/json", form, {
           headers: {
