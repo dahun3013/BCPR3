@@ -6,7 +6,7 @@
           <h2>간단번역</h2>
         </div>
         <div>
-          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
+          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
         </div>
         <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
@@ -20,7 +20,12 @@
       <div class="ts-container">
         <div class="ts-input-cont">
           <div class="ts-lg-ch">
-            <select v-model = "from_language" name="ts-lg" id="ts-lg1" onchange="categoryChange(this)">
+            <select
+              v-model="from_language"
+              name="ts-lg"
+              id="ts-lg1"
+              onchange="categoryChange(this)"
+            >
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -44,7 +49,7 @@
 
         <div class="ts-output-cont">
           <div class="ts-lg-ch">
-            <select v-model= "to_language" name="ts-lg" id="ts-lg2" >
+            <select v-model="to_language" name="ts-lg" id="ts-lg2">
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -94,13 +99,11 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
   <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
-
+  <!--login-modal-end-->
 </template>
 
 <script>
-
 // import $ from 'jquery'
 import axios from "axios";
 export default {
@@ -111,7 +114,7 @@ export default {
       input: "",
       output: "",
       from_language: "ko",
-      to_language: "en"
+      to_language: "en",
     };
   },
   methods: {
@@ -122,11 +125,51 @@ export default {
       form.append("to_language", this.to_language);
 
       if (this.from_language == this.to_language) {
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "ja" && this.to_language == "es") {
         alert("잘못된 요청입니다.");
         this.output = this.input;
         return;
       }
+
       if (this.from_language == "zh-CN" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "zh-CN" && this.to_language == "de") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "ja") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "zh-CN") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "ja") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "zh-CN") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "de") {
         alert("잘못된 요청입니다.");
         this.output = this.input;
         return;
@@ -141,7 +184,6 @@ export default {
         .then((res) => {
           console.log(res);
           this.output = res.data;
-          
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
