@@ -6,10 +6,7 @@
           <h5></h5>
         </div>
         <div @click="loginModal = true">
-          <ProfileItem
-            :email="this.$store.state.userInfo.email"
-            :image="this.$store.state.userInfo.profile"
-          />
+          <ProfileItem :email="null" :image="null" />
         </div>
       </div>
 
@@ -81,8 +78,8 @@ export default {
   data() {
     return {
       loginModal: false,
-      image:
-        "http://localhost:8200/resources/document_trans/dahun3013@gmail.com/images-20220303100000-OCR_multipart-form-data_2.PNG",
+      email: null,
+      image: null,
     };
   },
 
@@ -91,7 +88,12 @@ export default {
     ProfileItem,
   },
 
-  mounted() {},
+  mounted() {
+    if (this.$store.state.userInfo != null) {
+      this.email = this.$store.state.userInfo.email;
+      this.image = this.$store.state.userInfo.profile;
+    }
+  },
 };
 </script>
 

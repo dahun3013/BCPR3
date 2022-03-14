@@ -190,9 +190,7 @@ export default {
         });
     },
   },
-  mounted() {
-    console.log(this.$store.state.userInfo.email);
-  },
+  mounted() {},
   computed: {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
