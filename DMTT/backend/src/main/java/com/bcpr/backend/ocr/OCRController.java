@@ -134,10 +134,11 @@ public class OCRController {
     }
 	
 	//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)
-	@PostMapping("/ocr/delete")
-	public int delte(
+	@PostMapping("/ocr/remove")
+	public int remove(
 			@RequestParam("email") String email,
 			@RequestParam("media_no") int media_no) {
+		System.out.println("test: "+media_no);
 		return mapper.deleteMedia_TransContent(email,media_no);
 	}
 }

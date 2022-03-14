@@ -1,21 +1,32 @@
 import { createWebHistory, createRouter } from "vue-router";
-// import Vue from 'vue'
-import Papago from './components/Papago.vue';
-import Login from './components/Login.vue';
-// import VueRouter from 'vue-router'
 
-
-// Vue.use(VueRouter);
+import Papago from '@/pages/Papago.vue'
+import OCR from '@/pages/OCR.vue'
+import MTT from '@/pages/MTT.vue'
+import STT from '@/pages/STT.vue'
+import Storage from '@/pages/Storage.vue'
 
 const routes = [
   {
-    path: "/login",
-    component: Login,
-  },
-  {
     path: "/papago",
     component: Papago,
-  }
+  },
+  {
+    path: "/ocr",
+    component: OCR,
+  },
+  {
+    path: "/mtt",
+    component: MTT,
+  },
+  {
+    path: "/stt",
+    component: STT,
+  },
+  {
+    path: "/storage",
+    component: Storage,
+  },
 ];
 
 const router = createRouter({

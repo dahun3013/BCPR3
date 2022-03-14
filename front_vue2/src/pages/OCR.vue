@@ -92,35 +92,14 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <div class="login-modal px-5 py-5" v-if="loginModal == true">
-    <h4>로그인</h4>
-    <div class="loginBtns">
-      <div>
-        <img src="@/assets/naverLogo.png" alt="" /> 네이버 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/kakaoLogo.png" v-on:click="kakaoLogin" />카카오
-        아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/googleLogo.png" v-on:click="googleLogin" />구글
-        아이디로 로그인
-      </div>
-      <div id="my-signin2" style="display: none"></div>
-      <div>
-        <img src="@/assets/githubLogo.png" alt="" />깃허브 아이디로 로그인
-      </div>
-    </div>
-    <div>
-      <button @click="loginModal = false">닫기</button>
-    </div>
-  </div>
-  <!--login-modal-end-->
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
+import Modal from "@/components/Modal.vue";
 import axios from "axios";
+
 export default {
   name: "papagoPage",
   data() {
@@ -131,7 +110,9 @@ export default {
       loginModal: false,
     };
   },
-  components: {},
+  components: {
+    Modal,
+  },
 
   methods: {
     async translation() {
@@ -174,122 +155,6 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
-    },
-    kakaoLogin() {
-      // console.log(window.Kakao);
-      window.Kakao.Auth.login({
-        scope: "profile_image, account_email",
-        success: this.kakaoInfo,
-      });
-    },
-    async kakaoInfo(authObj) {
-      console.log(authObj);
-      const userInfo = {
-        email: null,
-        profile: null,
-      };
-      await window.Kakao.API.request({
-        url: "/v2/user/me",
-        success: (res) => {
-          const kakao_account = res.kakao_account;
-          userInfo.email = kakao_account.email;
-          userInfo.profile = kakao_account.profile.thumbnail_image_url;
-
-          if (userInfo.email != null || userInfo.email != "") {
-            axios
-              .post("/api/user/save/normal", JSON.stringify(userInfo), {
-                headers: { "Content-Type": `application/json` },
-              })
-              .then((res) => {
-                res;
-                console.log("가입성공");
-              })
-              .catch((err) => {
-                err;
-                console.log("기존가입");
-              });
-          }
-          alert("로그인 성공!");
-        },
-        fail: (error) => {
-          this.$router.push("/errorPage");
-          console.log(error);
-        },
-      });
-      let form = new FormData();
-      form.append("email", userInfo.email);
-      form.append("password", "DMTT");
-      this.$store.dispatch("getToken", form);
-      this.$store.dispatch("setUserInfo", userInfo);
-    },
-    kakaoLogout() {
-      // eslint-disable-next-line
-      if (!window.Kakao.Auth.getAccessToken()) {
-        console.log("Not logged in.");
-        return;
-      }
-      window.Kakao.Auth.logout(function (response) {
-        alert(response + "logout");
-        window.location.href = "/";
-      });
-      localStorage.clear(); // 전체삭제
-    },
-    //구글 버튼
-    googleLogin() {
-      var self = this;
-      window.gapi.signin2.render("my-signin2", {
-        scope: "profile email",
-        width: 240,
-        height: 50,
-        longtitle: true,
-        theme: "dark",
-        onsuccess: this.googleInfo,
-        onfailure: this.googleLogout,
-      });
-      setTimeout(function () {
-        if (!self.googleLoginCheck) {
-          const auth = window.gapi.auth2.getAuthInstance();
-          auth.isSignedIn.get();
-          document.querySelector(".abcRioButton").click();
-        }
-      }, 500);
-    },
-    //구글 로그인 이후 실행되는 콜백함수(성공)
-    async googleInfo(googleUser) {
-      //const user_join_type = "g"
-      const profile = googleUser.getBasicProfile();
-      const googleEmail = profile.getEmail();
-      const googleProfile = profile.getImageUrl();
-      let googleData = {};
-      googleData.email = googleEmail;
-      googleData.profile = googleProfile;
-      if (googleData.email != null || googleData.profile != "") {
-        await axios
-          .post("/api/user/save/normal", JSON.stringify(googleData), {
-            headers: { "Content-Type": `application/json` },
-          })
-          .then((res) => {
-            res;
-            console.log("가입성공");
-          })
-          .catch((err) => {
-            err;
-            console.log("가입에러");
-          });
-      }
-      let form = new FormData();
-      form.append("email", googleData.email);
-      form.append("password", "DMTT");
-      this.$store.dispatch("getToken", form);
-      this.$store.dispatch("setUserInfo", googleData);
-    },
-    googleLogout() {
-      // eslint-disable-next-line
-      const auth = gapi.auth2.getAuthInstance();
-      auth.signOut().then(function () {
-        console.log("User signed out.");
-      });
-      localStorage.clear();
     },
   },
   mounted() {},

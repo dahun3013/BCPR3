@@ -25,11 +25,11 @@ public class BackendApplication {
     CommandLineRunner run(UserService userService){
         return args -> {
         	// 권한생성
-            userService.saveRole(new Role(null,"ROLE_USER"));
+//            userService.saveRole(new Role(null,"ROLE_USER"));
             // 유저생성
-            //userService.saveUser(new User(null,"dahun3013@gmail.com","DMTT","",new ArrayList<>()));
+//            userService.saveUser(new User(null,"dahun3013@gmail.com","DMTT","",new ArrayList<>()));
             // 권한부여
-            //userService.addRoleToUser("dahun3013@gmail.com","ROLE_USER");
+//            userService.addRoleToUser("dahun3013@gmail.com","ROLE_USER");
 
         };
     }

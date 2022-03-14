@@ -52,7 +52,11 @@ public class UserResource {
     		@RequestBody HashMap<String, Object> map,
 			HttpServletRequest request) throws IOException{
     	
-    	User user = new User();
+    	User user = userService.getUser((String)map.get("email"));
+    	//System.out.println(user.getEmail());
+    	if(user != null)
+    		return ResponseEntity.ok().build();
+    	user = new User();
     	user.setEmail((String)map.get("email"));
     	user.setPassword("DMTT");
     	user.setProfile((String)map.get("profile"));

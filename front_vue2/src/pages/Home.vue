@@ -1,41 +1,59 @@
 <template>
   <div class="field">
     <div class="top-container px-5 py-5">
-  
       <div class="profile-logo">
         <div>
           <h5></h5>
         </div>
         <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo">
+          <img src="@/assets/weblogin1.png" alt="profile-logo" />
         </div>
       </div>
 
       <div class="top-banner my-5">
-        <h1 class="display-1" style="font-weight: bold;">PAGO BOOKS</h1>
-        <h5 class="mt-3">당신의 자료를 손쉽게 번역하고, 변환하고, 저장해보세요!</h5>
+        <h1 class="display-1" style="font-weight: bold">PAGO BOOKS</h1>
+        <h5 class="mt-3">
+          당신의 자료를 손쉽게 번역하고, 변환하고, 저장해보세요!
+        </h5>
       </div>
-
-    </div><!--top-container-end-->
+    </div>
+    <!--top-container-end-->
 
     <div class="bottom-container px-5 pt-5">
-
       <div class="main-btn">
-        <img src="@/assets/1.png" alt="문서변환" @click="$router.push('/ocr')">
-        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/stt')">
-        <img src="@/assets/3.png" alt="매체번역" @click="$router.push('/mtt')">
-        <img src="@/assets/4.png" alt="간단번역" @click="$router.push('/papago')">
+        <img
+          src="@/assets/1.png"
+          alt="문서변환"
+          @click="$router.push('/ocr')"
+        />
+        <img
+          src="@/assets/2.png"
+          alt="음성변환"
+          @click="$router.push('/tts')"
+        />
+        <img
+          src="@/assets/3.png"
+          alt="매체변환"
+          @click="$router.push('/stt')"
+        />
+        <img
+          src="@/assets/4.png"
+          alt="간단번역"
+          @click="$router.push('/papago')"
+        />
       </div>
 
-      <br><br><br><br>
-      
-      <div style="text-align: center; font-weight: bold;">
-        <p @click="$router.push('/storage')">[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
-      </div>
-      
-      <br><br><br>
+      <br /><br /><br /><br />
 
-      <hr>
+      <div style="text-align: center; font-weight: bold">
+        <p @click="$router.push('/storage')">
+          [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
+        </p>
+      </div>
+
+      <br /><br /><br />
+
+      <hr />
 
       <div class="footer container">
         <p class="mx-3">파고북스 이용약관</p>
@@ -44,52 +62,31 @@
         <p class="mx-3">책임의 한계와 법적고지</p>
         <p class="mx-3">준수사항</p>
       </div>
-
-    </div><!--bottom-container-end-->
-  </div><!--field-end-->
-  
-  <div class="login-modal px-5 py-5" v-if="loginModal == true">
-    <h4>로그인</h4>
-    <div class="loginBtns">
-      <div>
-        <img src="@/assets/naverLogo.png" alt=""> 네이버 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/kakaoLogo.png" alt="">카카오 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/googleLogo.png" alt="">구글 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/githubLogo.png" alt="">깃허브 아이디로 로그인
-      </div>
     </div>
-    <div>
-      <button @click="loginModal = false">닫기</button>
-    </div>
-  </div><!--login-modal-end-->
+    <!--bottom-container-end-->
+  </div>
+  <!--field-end-->
 
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
+import Modal from "@/components/Modal.vue";
 
 export default {
-  name: 'HomePage',
+  name: "HomePage",
   data() {
     return {
-      loginModal : false,
-    }
+      loginModal: false,
+    };
   },
 
   components: {
-
+    Modal,
   },
 
-  mounted() {
-    
-  },
-
-}
+  mounted() {},
+};
 </script>
 
 <style>
@@ -120,7 +117,7 @@ body {
   width: 65%;
 }
 
-.top-banner > h5{
+.top-banner > h5 {
   color: #f1f1f5;
   text-align: center;
 }
@@ -157,11 +154,11 @@ body {
   border: 1px solid black;
 }
 
-.loginBtns > div > img{
+.loginBtns > div > img {
   width: 50px;
 }
 
-.main-btn{
+.main-btn {
   text-align: center;
 }
 

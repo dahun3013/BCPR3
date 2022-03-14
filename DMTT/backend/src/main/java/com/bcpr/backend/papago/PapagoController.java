@@ -1,17 +1,24 @@
 package com.bcpr.backend.papago;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,15 +112,65 @@ public class PapagoController {
 		}
 		
 		//media_trans 보관함 아이템 불러오기 email 기준 전부
-		@GetMapping("/papago/download")
-		public List<Translation> download(
-				@RequestParam("email") String email){
+		@GetMapping("/papago/list/{email}")
+		public List<Translation> getList(
+				@PathVariable("email") String email){
 			//log.info("test : {}",test.get(0));
-			return mapper.getTranslation(email);
+			return mapper.getTranslationListByEmail(email);
 		}
 		
+		@GetMapping("/papago/download/{email}/{translation_no}/{kind}")
+		public void download(
+				@PathVariable("email") String email,
+				@PathVariable("translation_no") int translation_no,
+				@PathVariable("kind") String kind,
+				HttpServletRequest request,
+				HttpServletResponse response) throws Exception {
+			Translation t = mapper.getTranslation(email, translation_no);
+			
+			String path = "";
+			path = request.getServletContext().getRealPath("resources")
+					+"\\translation\\"
+					+ t.getEmail()
+					+ "\\";
+
+	        path += t.getTrans_date()+"-"+kind+".txt";
+	        try{ 
+	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
+	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
+	            // 파일안에 문자열 쓰기
+	            String text = "";
+	            text = t.getOutput();
+	            if(kind.equals("input"))
+	            	text = t.getInput();
+	           
+	            fw.write(text);
+	            fw.flush();
+	            // 객체 닫기
+	            fw.close();        
+	        }catch(Exception e){
+	            e.printStackTrace();
+	        }
+			
+			File file = new File(path);
+			byte[] fileByte = FileUtils.readFileToByteArray(file);
+			
+			response.setContentType("application/octet-stream");
+		    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(file.getName(), "UTF-8")+"\"");
+		    response.setHeader("Content-Transfer-Encoding", "binary");
+
+		    response.getOutputStream().write(fileByte);
+		    response.getOutputStream().flush();
+		    response.getOutputStream().close();
+		    
+		    if(file.exists() ){ 
+				if(file.delete()){ 
+				}
+			}
+	    }
+		
 		//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)
-		@PostMapping("/papago/delete")
+		@PostMapping("/papago/remove")
 		public int delete(
 				@RequestParam("email") String email,
 				@RequestParam("translation_no") int translation_no) {
