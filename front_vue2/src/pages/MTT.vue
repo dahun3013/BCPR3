@@ -20,26 +20,24 @@
       <div class="mtt-ts-container">
         <div class="mtt-ts-input-cont">
           <div>
-          <form>
-            <audio class="player" controls ref="player">
+            <form>
+              <audio class="player" controls ref="player">
                 <source src="" ref="source" />
               </audio>
-            <div class="ocr-ts-lg-ch mt-4">
-              <select name="ts-lg" id="ts-lg" v-model="lang">
-                <option value="Kor">한국어</option>
-                <option value="Eng">영어</option>
-                <option value="Jpn">일본어</option>
-                <option value="Chn">중국어</option>
-              </select>
-            </div>
+              <div class="ocr-ts-lg-ch mt-4">
+                <select name="ts-lg" id="ts-lg" v-model="lang">
+                  <option value="Kor">한국어</option>
+                  <option value="Eng">영어</option>
+                  <option value="Jpn">일본어</option>
+                  <option value="Chn">중국어</option>
+                </select>
+              </div>
               <!-- <button type="button" @click="sendData()">전송</button> -->
             </form>
           </div>
           <div class="mtt-cf-btn mt-4">
-            
             <label for="chooseFile">파일 가져오기</label>
             <form method="post" enctype="multipart/form-data">
-              
               <input
                 ref="image"
                 @change="uploadImg()"
@@ -77,7 +75,6 @@
             <button @click="translation" class="ocr-trans-btn mt-4">
               번역하기
             </button>
-            
           </div>
           <div v-show="isLogin">
             <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
@@ -112,13 +109,12 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
-
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
-import Modal from '@/components/Modal.vue'
+import Modal from "@/components/Modal.vue";
 import axios from "axios";
 
 export default {
@@ -162,13 +158,21 @@ export default {
 
     async translation() {
       let form = new FormData();
-      if(this.lang=="Kor"){this.lang="ko"}
-      if(this.lang=="Eng"){this.lang="en"}
-      if(this.lang=="Jpn"){this.lang="jp"}
-      if(this.lang=="Chn"){this.lang="cn"}
+      if (this.lang == "Kor") {
+        this.lang = "ko";
+      }
+      if (this.lang == "Eng") {
+        this.lang = "en";
+      }
+      if (this.lang == "Jpn") {
+        this.lang = "jp";
+      }
+      if (this.lang == "Chn") {
+        this.lang = "cn";
+      }
       form.append("text", this.text);
-      form.append("from_language",this.lang);
-      form.append("to_language",this.papagolang);
+      form.append("from_language", this.lang);
+      form.append("to_language", this.papagolang);
       await axios
         .post("/api/papago/json", form, {
           headers: {
@@ -196,7 +200,7 @@ export default {
       let form = new FormData();
       console.log(`url :` + url);
       form.append("file", image);
-      form.append("lang",this.lang);
+      form.append("lang", this.lang);
       await axios
         .post("/api/Stt", form, {
           headers: {
@@ -215,9 +219,7 @@ export default {
         });
     },
   },
-  mounted() {
-    console.log(this.$store.state.userInfo.email);
-  },
+  mounted() {},
   computed: {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
@@ -287,9 +289,8 @@ select:focus {
   padding: 1rem;
   text-align: left;
   overflow: auto;
-
 }
-.mtt-ts-box::-webkit-scrollbar{
+.mtt-ts-box::-webkit-scrollbar {
   display: none;
 }
 .mtt-cf-btn {
@@ -333,7 +334,7 @@ select:focus {
   background: #0d66ff;
   border-radius: 50px 0px 0px 0px;
 }
-.player{
-  width:100%;
+.player {
+  width: 100%;
 }
 </style>
