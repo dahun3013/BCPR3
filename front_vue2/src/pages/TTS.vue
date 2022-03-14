@@ -330,15 +330,18 @@ body {
 textarea {
   resize: none;
 }
+
 .stt-bottom-container {
   background: white;
   border-radius: 100px 0px 0px 0px;
 }
+
 .stt-ts-container {
   width: 220%;
   margin-left: 220px;
   display: block;
 }
+
 .stt-ts-box {
   width: 100%;
   height: 500px;
@@ -349,9 +352,11 @@ textarea {
   padding: 1rem;
   text-align: left;
 }
+
 .send {
   margin-left: 464px;
 }
+
 .voice,
 .speed,
 .volume {
@@ -363,10 +368,14 @@ textarea {
   text-decoration: none;
   cursor: pointer;
 }
+
 .speed,
 .volume {
   margin-left: 12px;
 }
+
+.send,
+.download >
 button {
   background-color: #0d66ff;
   border-radius: 10px;
@@ -376,6 +385,7 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
+
 .voiceSelect,
 .speedSelect,
 .volumeSelect {
@@ -384,28 +394,35 @@ button {
   height: 45px;
   border-radius: 10px;
 }
+
 .voiceSelect {
   width: 230px;
   text-align: center;
 }
+
 .speedSelect,
 .volumeSelect {
   width: 70px;
   text-align: center;
 }
+
 .download {
   margin-left: 20px;
 }
+
 audio {
   margin-top: 10px;
 }
+
 audio::-webkit-media-controls-panel {
   background-color: #0d66ff;
 }
+
 audio::-webkit-media-controls-play-button {
   background-color: white;
   border-radius: 50%;
 }
+
 .restart {
   margin-left: 20px;
 }
