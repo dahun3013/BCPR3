@@ -6,7 +6,7 @@
           <h2>간단번역</h2>
         </div>
         <div>
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
