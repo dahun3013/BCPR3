@@ -2,13 +2,13 @@
   <div class="field">
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
-        <div style="text-align: left">
-          <h2>보관함</h2>
+        <div>
+          <h2>문서변환 보관함</h2>
         </div>
-        <div style="text-align: center">
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
+        <div style="text-align: center; margin-right: 140px;">
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <div @click="loginModal = true" style="text-align: right">
+        <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
         </div>
       </div>
@@ -16,33 +16,24 @@
     </div>
     <!--top-container-end-->
 
-    <div
-      class="
-        row
-        storage-bottom-container
-        px-5
-        pt-5
-        pb-2
-        row-cols-xl-3
-        justify-content-center
-      "
-      style="clear: both"
-    >
-      <StorageCard
-        :media_no="a.media_no"
-        :email="a.email"
-        :kind="a.kind"
-        :input="a.input"
-        :output="a.output"
-        :trans_date="a.trans_date"
-        v-for="(a, i) in array"
-        :key="i"
-      />
-    </div>
-    <!--storage-bottom-container-end-->
+    <div class="storage-bottom-container px-5 pt-5 pb-2">
+        <SSM />
+    </div><!--storage-bottom-container-end-->
+  </div><!--field_end-->
+  
+  <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-center">
+    <StorageCard
+      :media_no="a.media_no"
+      :email="a.email"
+      :kind="a.kind"
+      :input="a.input"
+      :output="a.output"
+      :trans_date="a.trans_date"
+      v-for="(a, i) in array"
+      :key="i"
+    />
   </div>
-  <!--field_end-->
-
+  
   <div class="px-5"><hr /></div>
 
   <div class="footer container">
@@ -62,6 +53,7 @@
 import axios from "axios";
 import Modal from '@/components/Modal.vue'
 import StorageCard from "@/components/StorageCard.vue";
+import SSM from "@/components/StorageSelectMenu.vue"
 
 export default {
   name: "papagoPage",
@@ -75,6 +67,7 @@ export default {
   components: {
     StorageCard,
     Modal,
+    SSM,
   },
   mounted() {
     console.log(this.$store.state.userInfo.email);
@@ -139,10 +132,8 @@ textarea {
   font-weight: bold;
 }
 
-.storage-bottom-container {
-  display: flex;
-  background: white;
-  border-radius: 100px 0px 0px 0px;
+::-webkit-scrollbar {
+  display: none;
 }
 
 .storage-ts-container {

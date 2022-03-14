@@ -1,5 +1,5 @@
 <template>
-  <div class="storage-ts-container col mb-5">
+  <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
       <div style="float: left; width: 20%">
         <h2>문서변환</h2>
@@ -109,4 +109,69 @@ export default {
 </script>
 
 <style>
+.storage-ts-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.storage-img-box {
+  width: 100%;
+  height: 400px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.storage-img-box::-webkit-scrollbar {
+  display: none;
+}
+
+.img-fit {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.storage-ff1-btn {
+  width: 100%;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  color: white;
+  background: #0d66ff;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.storage-ff2-btn {
+  width: 100%;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  color: white;
+  background: #0d66ff;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.storage-ts-output-cont {
+  width: 100%;
+  margin: 1rem;
+  padding: 2rem 3rem 2rem 3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 25px;
+}
+
+.output-record {
+  text-align: end;
+}
+
+.output-record > button {
+  text-align: center;
+  width: 20%;
+  padding: 1.25rem;
+  background: #0d66ff;
+  border-radius: 50px 0px 0px 0px;
+}
 </style>

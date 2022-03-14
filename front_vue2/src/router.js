@@ -6,6 +6,7 @@ import OCR from '/src/pages/OCR.vue'
 import MTT from '/src/pages/MTT.vue'
 import TTS from '/src/pages/TTS.vue'
 import Storage from '/src/pages/Storage.vue'
+import OCRStorage from '/src/pages/OCRStorage.vue'
 import PapagoStorage from '/src/pages/PapagoStorage.vue'
 
 const routes = [
@@ -32,6 +33,10 @@ const routes = [
   {
     path: "/storage",
     component: Storage,
+  },
+  {
+    path: "/OCRStorage",
+    component: OCRStorage,
   },
   {
     path: "/PapagoStorage",
