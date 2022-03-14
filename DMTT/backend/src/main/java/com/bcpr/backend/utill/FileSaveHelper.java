@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bcpr.backend.ocr.domain.Media_Trans;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,6 +29,18 @@ public class FileSaveHelper {
 		String destPath = File.separator+email+File.separator+kind+"-"+formatDate(date)+"-"+file.getOriginalFilename();
 		result = kind+"-"+formatDate(date)+"-"+file.getOriginalFilename();
 		save(saveDir+basePath+destPath,file);
+		return result;
+	}
+	
+	public String media_transDownload(Media_Trans mt, String kind) throws IOException {
+		String basePath = File.separator+"media_trans";
+		String destPath = "";
+		if(kind.equals("input")) {
+			destPath = File.separator+mt.getEmail()+File.separator+mt.getInput();
+		}else {
+			destPath += mt.getTrans_date()+"-output.txt";
+		}
+		result = saveDir+basePath+destPath;
 		return result;
 	}
 	

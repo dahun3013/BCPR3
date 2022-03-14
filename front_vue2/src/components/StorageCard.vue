@@ -1,6 +1,7 @@
 <template>
   <div class="storage-ts-container col mb-5">
     <div class="storage-ts-output-cont">
+      <button @click="remove()" class="storage-ff2-btn mt-4">삭제</button>
       <div class="storage-img-box">
         <img :src="input" alt="" class="img-fit" v-show="showInput" />
         <output name="result" v-show="showOutput">
@@ -45,6 +46,20 @@ export default {
       else this.showInput = true;
       if (this.showOutput) this.showOutput = false;
       else this.showOutput = true;
+    },
+    async remove() {
+      let str = "/api/ocr/remove";
+      let form = new FormData();
+      form.append("email", this.email);
+      form.append("media_no", this.media_no);
+      await axios
+        .post(str, form)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     download() {
       let str = "/api/ocr/download/" + this.email + "/" + this.media_no + "/";
