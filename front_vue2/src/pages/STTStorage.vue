@@ -6,7 +6,7 @@
           <h2>보관함</h2>
         </div>
         <div style="text-align: center">
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <div @click="loginModal = true" style="text-align: right">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
