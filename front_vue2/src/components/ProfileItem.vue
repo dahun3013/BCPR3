@@ -1,6 +1,6 @@
 <template>
   <div id="profile">
-    <img :src="image" alt="profile-logo" />
+    <img :src="profile" alt="profile-logo" />
     <p>{{ email }}</p>
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   name: "ProfileItem",
   props: {
-    image: {
+    profile: {
       type: String,
       default: require("@/assets/weblogin1.png"),
     },

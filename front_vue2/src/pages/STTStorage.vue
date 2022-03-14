@@ -3,7 +3,7 @@
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
         <div style="text-align: left">
-          <h2>음성변환 보관함</h2>
+          <h2>매체변환 보관함</h2>
         </div>
         <div style="text-align: center">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
