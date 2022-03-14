@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class download {
 	
 	@GetMapping("/download")
-	public void download(HttpServletResponse response) throws Exception {
+	public void download(HttpServletResponse response,HttpServletRequest request) throws Exception {
         try {
-        	String path = "C:\\Users\\jdh33\\MyGitRepo\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources\\tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
+        	String path =request.getServletContext().getRealPath("resources")+"//"+"tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
         	
         	File file = new File(path);
         	response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더

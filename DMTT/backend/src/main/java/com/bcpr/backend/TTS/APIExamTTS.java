@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class APIExamTTS {
 	
 	@PostMapping("/server")
-    public  void getTTShelper(@RequestBody HashMap<String, Object> requestJsonHashMap) {
+    public  void getTTShelper(@RequestBody HashMap<String, Object> requestJsonHashMap,
+    		HttpServletRequest request) {
 	HashMap<String, Object> rtnMap = new HashMap<String, Object>();
 	rtnMap.put("text", requestJsonHashMap.get("data1"));
 	rtnMap.put("voice", requestJsonHashMap.get("data2"));
@@ -71,7 +73,7 @@ public class APIExamTTS {
              byte[] bytes = new byte[1024];
              // 랜덤한 이름으로 mp3 파일 생성
              String tempname = Long.valueOf(new Date().getTime()).toString();
-             File f = new File("C:\\study_boot\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources\\"+"tts"+".mp3");
+             File f = new File(request.getServletContext().getRealPath("resources")+"//"+"tts"+".mp3");
              f.createNewFile();
              OutputStream outputStream = new FileOutputStream(f);
              while ((read =is.read(bytes)) != -1) {
@@ -105,7 +107,7 @@ public class APIExamTTS {
                 
                 
               //-->Start_파일 경로 찾아오기.
-                String fileName="C:\\study_boot\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources\\"+"tts"+".mp3";
+                String fileName=request.getServletContext().getRealPath("resources")+"//"+"tts"+".mp3";
                 System.out.println(fileName);
                 File file = new File(fileName);    // 파일의 정보를 가져오기 위한 File클래스 
                 FileInputStream fin=new FileInputStream(file);

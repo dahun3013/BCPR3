@@ -25,6 +25,18 @@ export default {
     ProfileItem,
     Modal,
   },
+  computed: {
+    getProfile() {
+      if (this.$store.state.userInfo == null) return null;
+      console.log(this.$store.state.userInfo.email);
+      return this.$store.state.userInfo.profile;
+    },
+    getEmail() {
+      if (this.$store.state.userInfo == null) return null;
+      console.log(this.$store.state.userInfo.profile);
+      return this.$store.state.userInfo.email;
+    },
+  },
 };
 </script>
 
