@@ -20,8 +20,8 @@ public interface SttMapper{
     @Select("select * from document_trans where email = #{email}")
     List<Document_Trans> getDocument_TransListByEmail(@Param("email") String email);
 
-    @Select("select * from document_trans where email = #{email} and document_trans = #{document_no}")
-    Media_Trans getDocument_Trans(
+    @Select("select * from document_trans where email = #{email} and document_no = #{document_no}")
+    Document_Trans getDocument_Trans(
             @Param("email") String email,
             @Param("document_no") int document_no);
 
@@ -38,5 +38,5 @@ public interface SttMapper{
     @Delete("delete from document_Trans where email = #{email} and document_no = #{document_no}")
     int deleteMedia_TransContent(
             @Param("email") String email,
-            @Param("media_no") int document_no);
+            @Param("document_no") int document_no);
 }

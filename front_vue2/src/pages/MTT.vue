@@ -20,33 +20,35 @@
       <div class="mtt-ts-container">
         <div class="mtt-ts-input-cont">
           <div>
-          <form>
-            <audio class="player" controls ref="player">
+            <form>
+          
+              <audio class="player" controls ref="player" style="display:none">
                 <source src="" ref="source" />
               </audio>
-            <div class="ocr-ts-lg-ch mt-4">
-              <select name="ts-lg" id="ts-lg" v-model="lang">
-                <option value="Kor">한국어</option>
-                <option value="Eng">영어</option>
-                <option value="Jpn">일본어</option>
-                <option value="Chn">중국어</option>
-              </select>
-            </div>
+              <video class="player2" controls ref="player2">
+                <source src="" ref="source" />
+              </video>
+              <div class="ocr-ts-lg-ch mt-4">
+                <select name="ts-lg" id="ts-lg" v-model="lang">
+                  <option value="Kor" selected>한국어</option>
+                  <option value="Eng">영어</option>
+                  <option value="Jpn">일본어</option>
+                  <option value="Chn">중국어</option>
+                </select>
+              </div>
               <!-- <button type="button" @click="sendData()">전송</button> -->
             </form>
           </div>
           <div class="mtt-cf-btn mt-4">
-            
             <label for="chooseFile">파일 가져오기</label>
             <form method="post" enctype="multipart/form-data">
-              
               <input
                 ref="image"
                 @change="uploadImg()"
                 type="file"
                 id="chooseFile"
                 name="chooseFile"
-                accept="audio/*"
+                accept="audio/* video/*"
                 style="display: none"
               />
             </form>
@@ -65,18 +67,21 @@
 
           <div style="display: flex">
             <div class="ocr-ts-lg-ch mt-4">
-              <select name="ts-lg" id="ts-lg">
-                <option value="kr">한국어</option>
+              <select name="ts-lg" id="ts-lg" v-model="papagolang">
+                <option value="ko">한국어</option>
                 <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="cn">중국어</option>
-                <option value="gm">독일어</option>
-                <option value="sp">스페인어</option>
+                <option value="ja">일본어</option>
+                <option value="zh-CN">중국어</option>
+                <option value="de">독일어</option>
+                <option value="es">스페인어</option>
               </select>
             </div>
             <button @click="translation" class="ocr-trans-btn mt-4">
               번역하기
             </button>
+          </div>
+          <div v-show="isLogin">
+            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -108,13 +113,12 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
-
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
-import Modal from '@/components/Modal.vue'
+import Modal from "@/components/Modal.vue";
 import axios from "axios";
 
 export default {
@@ -123,29 +127,90 @@ export default {
     return {
       image: "",
       file: ``,
-      lang: "",
+      lang: "Kor",
       text: "",
+      papagolang: "en",
       loginModal: false,
+      showInput: false,
     };
   },
   components: {
     Modal,
   },
   methods: {
-    
+    async upload() {
+      let form = new FormData();
+      form.append("email", this.$store.state.userInfo.email);
+      form.append("trans_date", new Date().toISOString());
+      form.append("kind", "images");
+      form.append("input", this.$refs["image"].files[0]);
+      form.append("output", this.text);
+
+      await axios
+
+        .post("/api/Stt/upload", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("refreshToken error : ", err.config);
+        });
+    },
+
+    async translation() {
+      let form = new FormData();
+      if (this.lang == "Kor") {
+        this.lang = "ko";
+      }
+      if (this.lang == "Eng") {
+        this.lang = "en";
+      }
+      if (this.lang == "Jpn") {
+        this.lang = "ja";
+      }
+      if (this.lang == "Chn") {
+        this.lang = "zh-CN";
+      }
+      form.append("text", this.text);
+      form.append("from_language", this.lang);
+      form.append("to_language", this.papagolang);
+      await axios
+        .post("/api/papago/json", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          
+          console.log(res);
+          this.text = res.data;
+          console.log(this.text);
+          this.lang="Eng"
+          console.log(this.lang);
+        })
+        .catch((err) => {
+          console.log("refreshToken error : ", err.config);
+        });
+    },
     async uploadImg() {
       console.log("들어왔다");
+      this.showInput=true;
       this.$refs.source.src = "";
       var image = this.$refs["image"].files[0];
       const url = URL.createObjectURL(image);
       console.log(`image : ` + image);
       this.$refs.source.src = url;
       this.$refs.player.load();
+      this.$refs.player2.load();
       //this.image = url;
       let form = new FormData();
       console.log(`url :` + url);
       form.append("file", image);
-      form.append("lang",this.lang);
+      form.append("lang", this.lang);
       await axios
         .post("/api/Stt", form, {
           headers: {
@@ -163,126 +228,14 @@ export default {
           console.log("refreshToken error : ", err.config);
         });
     },
-    kakaoLogin() {
-      // console.log(window.Kakao);
-      window.Kakao.Auth.login({
-        scope: "profile_image, account_email",
-        success: this.kakaoInfo,
-      });
-    },
-    async kakaoInfo(authObj) {
-      console.log(authObj);
-      const userInfo = {
-        email: null,
-        profile: null,
-      };
-      await window.Kakao.API.request({
-        url: "/v2/user/me",
-        success: (res) => {
-          const kakao_account = res.kakao_account;
-          userInfo.email = kakao_account.email;
-          userInfo.profile = kakao_account.profile.thumbnail_image_url;
-          if (userInfo.email != null || userInfo.email != "") {
-            axios
-              .post("/api/user/save/normal", JSON.stringify(userInfo), {
-                headers: { "Content-Type": `application/json` },
-              })
-              .then((res) => {
-                res;
-                console.log("가입성공");
-              })
-              .catch((err) => {
-                err;
-                console.log("기존가입");
-              });
-          }
-          alert("로그인 성공!");
-        },
-        fail: (error) => {
-          this.$router.push("/errorPage");
-          console.log(error);
-        },
-      });
-      let form = new FormData();
-      form.append("email", userInfo.email);
-      form.append("password", "DMTT");
-      this.$store.dispatch("getToken", form);
-      this.$store.dispatch("setUserInfo", userInfo);
-    },
-    kakaoLogout() {
-      // eslint-disable-next-line
-      if (!window.Kakao.Auth.getAccessToken()) {
-        console.log("Not logged in.");
-        return;
-      }
-      window.Kakao.Auth.logout(function (response) {
-        alert(response + "logout");
-        window.location.href = "/";
-      });
-      localStorage.clear(); // 전체삭제
-    },
-    //구글 버튼
-    googleLogin() {
-      var self = this;
-      window.gapi.signin2.render("my-signin2", {
-        scope: "profile email",
-        width: 240,
-        height: 50,
-        longtitle: true,
-        theme: "dark",
-        onsuccess: this.googleInfo,
-        onfailure: this.googleLogout,
-      });
-      setTimeout(function () {
-        if (!self.googleLoginCheck) {
-          const auth = window.gapi.auth2.getAuthInstance();
-          auth.isSignedIn.get();
-          document.querySelector(".abcRioButton").click();
-        }
-      }, 500);
-    },
-    //구글 로그인 이후 실행되는 콜백함수(성공)
-    async googleInfo(googleUser) {
-      //const user_join_type = "g"
-      const profile = googleUser.getBasicProfile();
-      const googleEmail = profile.getEmail();
-      const googleProfile = profile.getImageUrl();
-      let googleData = {};
-      googleData.email = googleEmail;
-      googleData.profile = googleProfile;
-      if (googleData.email != null || googleData.profile != "") {
-        await axios
-          .post("/api/user/save/normal", JSON.stringify(googleData), {
-            headers: { "Content-Type": `application/json` },
-          })
-          .then((res) => {
-            res;
-            console.log("가입성공");
-          })
-          .catch((err) => {
-            err;
-            console.log("가입에러");
-          });
-      }
-      let form = new FormData();
-      form.append("email", googleData.email);
-      form.append("password", "DMTT");
-      this.$store.dispatch("getToken", form);
-      this.$store.dispatch("setUserInfo", googleData);
-    },
-    googleLogout() {
-      // eslint-disable-next-line
-      const auth = gapi.auth2.getAuthInstance();
-      auth.signOut().then(function () {
-        console.log("User signed out.");
-      });
-      localStorage.clear();
-    },
   },
   mounted() {},
   computed: {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
+    isLogin() {
+      return this.$store.state.isLogin;
     },
   },
 };
@@ -346,9 +299,8 @@ select:focus {
   padding: 1rem;
   text-align: left;
   overflow: auto;
-
 }
-.mtt-ts-box::-webkit-scrollbar{
+.mtt-ts-box::-webkit-scrollbar {
   display: none;
 }
 .mtt-cf-btn {
@@ -392,7 +344,10 @@ select:focus {
   background: #0d66ff;
   border-radius: 50px 0px 0px 0px;
 }
-.player{
+.player {
+  width: 100%;
+}
+.player2{
   width:100%;
 }
 </style>

@@ -20,14 +20,11 @@
       <div class="stt-ts-container">
         <div class="ts-output-cont">
           <div>
-            <textarea
-              class="stt-ts-box"
-              placeholder="여기에 만들고싶은 음성의 내용을 작성하세요.
+            <textarea class="stt-ts-box" v-model="text"></textarea>
+            <!-- <textarea class="stt-ts-box" placeholder="여기에 만들고싶은 음성의 내용을 작성하세요.
                     ■ 유용한 Tip~
                     ① 마침표, 쉼표, 띄어쓰기를 꼭 사용하세요. 쉼표를 적절히 자주 붙이면 내용이 명확해집니다.
-                    ② 마침표를 제외한 특수문자는 사용하지 마세요. 몇가지 음성에서만 물음표 사용이 가능합니다."
-              v-model="text"
-            ></textarea>
+                    ② 마침표를 제외한 특수문자는 사용하지 마세요. 몇가지 음성에서만 물음표 사용이 가능합니다." v-model="text"></textarea> -->
           </div>
           <hr />
           <!--By.지원_보이스선택-->
@@ -108,7 +105,7 @@
             <option value="-3">-3</option>
             <option value="-2">-2</option>
             <option value="-1">-1</option>
-            <option value="0">0</option>
+            <option value="0" selected>0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -175,27 +172,26 @@
       </div>
     </div>
     <!--stt-bottom-container-end-->
-      <div class="px-5">
-    <hr />
-  </div>
+    <div class="px-5">
+      <hr />
+    </div>
 
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
+    <div class="footer container">
+      <p class="mx-3">파고북스 이용약관</p>
+      <p class="mx-3">의견제안</p>
+      <p class="mx-3">개인정보처리방침</p>
+      <p class="mx-3">책임의 한계와 법적고지</p>
+      <p class="mx-3">준수사항</p>
+    </div>
 
-    <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
+    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
   <!--field_end-->
-
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue'
-import axios from 'axios'
+import Modal from "@/components/Modal.vue";
+import axios from "axios";
 export default {
   name: "papagoPage",
   data() {
@@ -203,10 +199,13 @@ export default {
       image: "",
       loginModal: false,
       text: "",
-      voice: "",
-      speed: "",
-      volume: "",
+      voice: "nara",
+      speed: "0",
+      volume: "0",
     };
+  },
+  components: {
+    Modal,
   },
   methods: {
     //보이기
@@ -216,93 +215,34 @@ export default {
       document.getElementById("restart").style.display = "block";
       document.getElementById("line").style.display = "block";
     },
-    components : {
-        Modal,
-    },
-
-    methods: {
-        //보이기
-        div_show() {
-            document.getElementById("audio")
-                .style.display = "block";
-            document.getElementById("dlButton")
-                .style.display = "block";
-            document.getElementById("restart")
-                .style.display = "block";
-                document.getElementById("line")
-                .style.display = "block";
-        },
-        //숨기기
-        div_hide() {
-            document.getElementById("audio")
-                .style.display = "none";
-            document.getElementById("dlButton")
-                .style.display = "none";
-            document.getElementById("restart")
-                .style.display = "none";
-                 document.getElementById("line")
-                .style.display = "none";
-        },
-        sendData() {
-            axios({
-                    url: 'api/tts/server',
-                    method: 'post',
-                    data: {
-                        data1: this.text,
-                        data2: this.voice,
-                        data3: this.speed,
-                        data4: this.volume,
-                    }
-                })
-                .then((response) => {
-                    console.log(response)
-                })
-            if (this.text != "") {
-                document.getElementById("send")
-                    .style.display = "none";
-            }
-
-        },
-        restart() {
-            location.href = "http://localhost:8081/tts";
-        },
-        movepage() {
-            location.href = "http://localhost:8888/tts.mp3";
-        },
-        download() {
-            location.href = "http://localhost:8200/download";
-        },
-
-        play(sound) {
-            if (sound) {
-                var audio = new Audio(sound);
-                audio.play();
-            }
-        }
-
+    //숨기기
+    div_hide() {
+      document.getElementById("audio").style.display = "none";
+      document.getElementById("dlButton").style.display = "none";
+      document.getElementById("restart").style.display = "none";
+      document.getElementById("line").style.display = "none";
     },
     sendData() {
-      axios({
-        url: "api/tts/server",
-        method: "post",
-        data: {
-          data1: this.text,
-          data2: this.voice,
-          data3: this.speed,
-          data4: this.volume,
-        },
-      }).then((response) => {
-        console.log(response);
-      });
-      if (this.text != "") {
-        document.getElementById("send").style.display = "none";
+      if ("" === this.text) {
+        alert("값을 입력해주세요.");
+        location.href = "http://localhost:8081/tts";
+      } else {
+        axios({
+          url: "api/tts/server",
+          method: "post",
+          data: {
+            data1: this.text,
+            data2: this.voice,
+            data3: this.speed,
+            data4: this.volume,
+          },
+        }).then((response) => {
+          console.log(response);
+        });
       }
     },
     restart() {
-      location.href = "http://localhost:8080/tts";
-    },
-    movepage() {
-      location.href = "http://localhost:8888/tts.mp3";
+      location.href = "http://localhost:8081/tts";
     },
     download() {
       location.href = "http://localhost:8200/download";
@@ -314,9 +254,12 @@ export default {
       }
     },
   },
-  created() {
-    this.sendData();
+  isLogin() {
+    return this.$store.state.isLogin;
   },
+  // created() {
+  //     this.sendData();
+  // },
   // mounted() {
   //     this.div_hide();
   // }
@@ -327,6 +270,7 @@ export default {
 body {
   margin: 0;
 }
+
 textarea {
   resize: none;
 }
@@ -338,8 +282,7 @@ textarea {
 
 .stt-ts-container {
   width: 220%;
-  margin-left: 220px;
-  display: block;
+  margin-left: 250px;
 }
 
 .stt-ts-box {
@@ -374,8 +317,6 @@ textarea {
   margin-left: 12px;
 }
 
-.send,
-.download >
 button {
   background-color: #0d66ff;
   border-radius: 10px;
