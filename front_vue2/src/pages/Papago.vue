@@ -20,7 +20,7 @@
       <div class="ts-container">
         <div class="ts-input-cont">
           <div class="ts-lg-ch">
-            <select v-model = "from_language" name="ts-lg" id="ts-lg">
+            <select v-model = "from_language" name="ts-lg" id="ts-lg1" onchange="categoryChange(this)">
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -44,7 +44,7 @@
 
         <div class="ts-output-cont">
           <div class="ts-lg-ch">
-            <select v-model= "to_language" name="ts-lg" id="ts-lg">
+            <select v-model= "to_language" name="ts-lg" id="ts-lg2" >
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
