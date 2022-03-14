@@ -69,7 +69,7 @@ public class OCRController {
 	public List<Media_Trans> download(
 			@PathVariable("email") String email){
 		//log.info("test : {}",test.get(0));
-		return mapper.getMedia_Trans(email);
+		return mapper.getMedia_TransListByEmail(email);
 	}
 	
 	//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)

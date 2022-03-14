@@ -1,7 +1,10 @@
 <template>
   <div class="storage-ts-container col mb-5">
     <div class="storage-ts-output-cont">
-      <button @click="remove()" class="storage-ff2-btn mt-4">삭제</button>
+      <v-row dense>
+        <h2>문서변환</h2>
+        <button @click="remove()">삭제</button>
+      </v-row>
       <div class="storage-img-box">
         <img :src="input" alt="" class="img-fit" v-show="showInput" />
         <output name="result" v-show="showOutput">
