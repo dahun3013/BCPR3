@@ -1,4 +1,5 @@
 <template>
+
     <div>
         <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
             <li class="nav-item mx-5" role="presentation">
