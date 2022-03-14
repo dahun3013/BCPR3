@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -14,8 +15,8 @@ import java.sql.Date;
 public class Translation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long TRANSLATION_NO ;
-    private Date trans_date;
+    private Long translation_no ;
+    private LocalDateTime trans_date;
     private String email;
 
     @Lob

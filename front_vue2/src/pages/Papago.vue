@@ -20,7 +20,7 @@
       <div class="ts-container">
         <div class="ts-input-cont">
           <div class="ts-lg-ch">
-            <select v-model="from_language" name="ts-lg" id="ts-lg">
+            <select v-model = "from_language" name="ts-lg" id="ts-lg1" onchange="categoryChange(this)">
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -44,7 +44,7 @@
 
         <div class="ts-output-cont">
           <div class="ts-lg-ch">
-            <select v-model="to_language" name="ts-lg" id="ts-lg">
+            <select v-model= "to_language" name="ts-lg" id="ts-lg2" >
               <option value="ko">한국어</option>
               <option value="en">영어</option>
               <option value="ja">일본어</option>
@@ -119,6 +119,7 @@
 </template>
 
 <script>
+
 // import $ from 'jquery'
 import axios from "axios";
 export default {
@@ -126,10 +127,10 @@ export default {
   data() {
     return {
       loginModal: false,
-      from_language: "ko",
-      to_language: "en",
       input: "",
       output: "",
+      from_language: "ko",
+      to_language: "en"
     };
   },
   methods: {
@@ -138,6 +139,73 @@ export default {
       form.append("text", this.input);
       form.append("from_language", this.from_language);
       form.append("to_language", this.to_language);
+
+      if (this.from_language == this.to_language) {
+<<<<<<< HEAD
+=======
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "ja" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "ja" && this.to_language == "de") {
+>>>>>>> 0b58ecc76d9dfc9b46721d6cabdd79873ebb3783
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0b58ecc76d9dfc9b46721d6cabdd79873ebb3783
+      if (this.from_language == "zh-CN" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+<<<<<<< HEAD
+=======
+      if (this.from_language == "zh-CN" && this.to_language == "de") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "ja") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "zh-CN") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "de" && this.to_language == "es") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "ja") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "zh-CN") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      if (this.from_language == "es" && this.to_language == "de") {
+        alert("잘못된 요청입니다.");
+        this.output = this.input;
+        return;
+      }
+      
+>>>>>>> 0b58ecc76d9dfc9b46721d6cabdd79873ebb3783
+
       await axios
         .post("/api/papago/json", form, {
           headers: {
@@ -147,6 +215,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.output = res.data;
+          
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);

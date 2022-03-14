@@ -2,6 +2,7 @@ package com.bcpr.backend.utill;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -83,7 +84,7 @@ public class FileSaveHelper {
 	}
 	
 	//업로드시간을 첨부이미지파일 식별을 위한 문자열로 변환하는 함수.
-	private String formatDate(LocalDateTime sDate) {
+	public String formatDate(LocalDateTime sDate) {
 		
 		String year = ""+sDate.getYear();
 		String month = (sDate.getMonthValue() < 10) ? "0"+sDate.getMonthValue() : ""+sDate.getMonthValue();
