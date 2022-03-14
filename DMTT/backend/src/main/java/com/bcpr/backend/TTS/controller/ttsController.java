@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bcpr.backend.TTS.domain.Voice_Trans;
 import com.bcpr.backend.TTS.helper.ttsHelper;
 import com.bcpr.backend.TTS.mapper.ttsMapper;
-import com.bcpr.backend.TTS.util.FileSaveHelper;
+import com.bcpr.backend.utill.FileSaveHelper;
 
 @RestController
 @RequestMapping("/api")
@@ -92,31 +92,14 @@ public class ttsController {
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Voice_Trans mt = mapper.getVoice_Trans(email, voice_no);
-		
-		String path = "";
-		path = request.getServletContext().getRealPath("resources")
-				+"\\voice_trans\\"
-				+ mt.getEmail()
-				+ "\\";
-		
-		if(kind.equals("input")) {
-			path += mt.getInput(); // 경로에 접근할 때 역슬래시('\') 사용
-			
-		}else {
-	        path += mt.getTrans_date()+"-output.txt";
-	        try{ 
-	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
-	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
-	            // 파일안에 문자열 쓰기
-	            fw.write(mt.getOutput());
-	            fw.flush();
-	            // 객체 닫기
-	            fw.close();        
-	        }catch(Exception e){
-	            e.printStackTrace();
-	        }
-		}
+		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		String path = fsh.makePath("voice_trans", email, mt.getOutput(), mt.getTrans_date(), kind);
+
 		File file = new File(path);
+		if(!kind.equals("output")) {
+	        fsh.saveFile(path, file, mt.getInput());
+		}
+		
 		byte[] fileByte = FileUtils.readFileToByteArray(file);
 		
 		response.setContentType("application/octet-stream");
@@ -127,9 +110,8 @@ public class ttsController {
 	    response.getOutputStream().flush();
 	    response.getOutputStream().close();
 	    
-	    if(kind.equals("output") && file.exists() ){ 
-			if(file.delete()){ 
-			}
+	    if(kind.equals("input")){ 
+			fsh.deleteFile(file);
 		}
     }
 	

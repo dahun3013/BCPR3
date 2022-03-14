@@ -18,10 +18,9 @@
 
     <div class="storage-bottom-container px-5 pt-5 pb-2">
       <div>
-        <SSM />
+        <SSM :state="0" />
       </div>
     </div>
-    <router-view name="storage"></router-view>
     <!--storage-bottom-container-end-->
   </div>
   <!--field_end-->

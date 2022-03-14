@@ -15,9 +15,6 @@ public class ttsService {
 		this.ttsMapper = ttsMapper;
 	}
 
-	public List<ttsVO> getAll(){
-		return ttsMapper.findAll();
-	}
 }
 		
 

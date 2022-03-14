@@ -63,7 +63,9 @@
             </button>
           </div>
           <div v-show="isLogin">
-            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
+            <div class="ppg-save-btn mt-4">
+              <button @click="upload">저장하기</button>
+            </div>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -109,8 +111,7 @@ export default {
       text: "",
     };
   },
-  components: {
-  },
+  components: {},
 
   methods: {
     async upload() {

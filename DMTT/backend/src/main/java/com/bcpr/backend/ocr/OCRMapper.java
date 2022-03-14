@@ -23,7 +23,7 @@ public interface OCRMapper {
 	@Select("select * from media_trans")
 	List<Media_Trans> getMedia_TransList();
 	
-	@Select("select * from media_trans where email = #{email}")
+	@Select("select * from media_trans where email = #{email} order by media_no desc")
 	List<Media_Trans> getMedia_TransListByEmail(@Param("email") String email);
 	
 	@Select("select * from media_trans where email = #{email} and media_no = #{media_no}")

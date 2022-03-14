@@ -6,12 +6,12 @@
     <div class="loginBtns mt-5 mb-5">
       <div @click="kakaoLogin" class="kakaoBtn mb-3">
         <img src="@/assets/kakaoLogo.png" alt="" />
-        <br>
+        <br />
         <!-- 카카오 아이디로 로그인 -->
       </div>
       <div @click="googleLogin" class="googleBtn">
         <img src="@/assets/googleLogo.png" alt="" />
-        <br>
+        <br />
         <!-- 구글 아이디로 로그인 -->
       </div>
       <div id="my-signin2" style="display: none"></div>
@@ -179,22 +179,22 @@ export default {
   margin-right: auto;
   width: 80%;
   padding: 20px;
-  border: 1px solid #DBDBDB;
+  border: 1px solid #dbdbdb;
   border-radius: 10px;
 }
 
-.kakaoBtn > img{
+.kakaoBtn > img {
   width: 30%;
 }
 
-.googleBtn > img{
+.googleBtn > img {
   width: 30%;
 }
 
-.closeBtn > button{
+.closeBtn > button {
   width: 30%;
-  background: white;
-  border: 1px solid #DBDBDB;
+  background: black;
+  border: 1px solid #dbdbdb;
   border-radius: 10px;
   padding: 1%;
 }

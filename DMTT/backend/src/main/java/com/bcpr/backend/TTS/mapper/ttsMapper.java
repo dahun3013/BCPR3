@@ -21,7 +21,7 @@ public interface ttsMapper {
 	@Select("select * from voice_trans")
 	List<Voice_Trans> getVoice_TransList();
 	
-	@Select("select * from voice_trans where email = #{email}")
+	@Select("select * from voice_trans where email = #{email} order by voicd_trans desc")
 	List<Voice_Trans> getVoice_TransListByEmail(@Param("email") String email);
 	
 	@Select("select * from voice_trans where email = #{email} and voice_no = #{voice_no}")
@@ -30,7 +30,7 @@ public interface ttsMapper {
 			@Param("voice_no") int voice_no);
 	
 	@Insert("insert into voice_trans(email,trans_date,kind,input,output) "
-			+"values(#{email},#{trans_date},#{kind},#{input,jdbcType=VARCHAR},#{output})")
+			+"values(#{email},#{trans_date},#{kind},#{input},#{output,jdbcType=VARCHAR})")
 	int insertVoice_TransContent(
 			@Param("email") String email,
 			@Param("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,

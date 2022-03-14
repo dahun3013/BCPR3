@@ -3,6 +3,8 @@ package com.bcpr.backend.STT.Mapper;
 
 import com.bcpr.backend.ocr.domain.Media_Trans;
 import org.apache.ibatis.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.bcpr.backend.STT.domain.Document_Trans;
 
@@ -17,7 +19,7 @@ public interface SttMapper{
     @Select("select * from document_trans")
     List<Document_Trans> getDocument_TransList();
 
-    @Select("select * from document_trans where email = #{email}")
+    @Select("select * from document_trans where email = #{email} order by document_no desc")
     List<Document_Trans> getDocument_TransListByEmail(@Param("email") String email);
 
     @Select("select * from document_trans where email = #{email} and document_no = #{document_no}")
@@ -30,7 +32,7 @@ public interface SttMapper{
             +"values(#{email},#{trans_date},#{kind},#{input,jdbcType=VARCHAR},#{output})")
     int insertDocument_TransContent(
             @Param("email") String email,
-            @Param("trans_date") LocalDateTime trans_date,
+            @Param("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
             @Param("kind") String kind,
             @Param("input") String input,
             @Param("output") String output);

@@ -62,7 +62,11 @@
             </form>
           </div>
           <div class="ppg-save-btn mt-4">
-            <button>보관하기</button>
+            <div v-show="isLogin">
+              <div class="ppg-save-btn mt-4">
+                <button @click="upload">저장하기</button>
+              </div>
+            </div>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -112,6 +116,41 @@ export default {
     };
   },
   methods: {
+    async upload() {
+      console.log(this.output);
+      if (
+        this.input != null &&
+        this.output != null &&
+        this.input !== "" &&
+        this.outpu !== ""
+      ) {
+        let form = new FormData();
+        form.append("email", this.$store.state.userInfo.email);
+        var date = new Date();
+
+        form.append(
+          "trans_date",
+          new Date(
+            date.getTime() - date.getTimezoneOffset() * 60000
+          ).toISOString()
+        );
+        form.append("input", this.input);
+        form.append("output", this.output);
+
+        await axios
+          .post("/api/papago/upload", form, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log("refreshToken error : ", err.config);
+          });
+      }
+    },
     async translation() {
       let form = new FormData();
       form.append("text", this.input);
@@ -188,6 +227,9 @@ export default {
   computed: {
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
+    isLogin() {
+      return this.$store.state.isLogin;
     },
   },
   mounted() {},

@@ -2,7 +2,7 @@
   <div class="storage-ts-container col mb-5">
     <div class="storage-ts-output-cont">
       <div style="float: left; width: 20%">
-        <h2>문서변환</h2>
+        <h2>매체변환</h2>
       </div>
       <div style="float: left; width: 75%">
         <h3>{{ trans_date }}</h3>
@@ -12,14 +12,14 @@
       </div>
       <div class="storage-img-box">
         <video class="img-fit" controls ref="player" v-show="showInput">
-          <source :src="input">
+          <source :src="input" />
         </video>
-        <div style="display:none">
-        <audio class="img-fit" controls ref="player">
-          <source :src="input">
-        </audio>
+        <div style="display: none">
+          <audio class="img-fit" controls ref="player">
+            <source :src="input" />
+          </audio>
         </div>
-        
+
         <output name="result" v-show="showOutput">
           <div v-html="content"></div>
         </output>
@@ -80,7 +80,8 @@ export default {
       this.$router.go("/storage");
     },
     download() {
-      let str = "/api/Stt/download/" + this.email + "/" + this.document_no + "/";
+      let str =
+        "/api/Stt/download/" + this.email + "/" + this.document_no + "/";
       if (this.showInput) str += "input";
       else str += "output";
 
@@ -117,7 +118,7 @@ export default {
 </script>
 
 <style>
-.player{
-  width:100%;
+.player {
+  width: 100%;
 }
 </style>

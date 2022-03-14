@@ -128,31 +128,16 @@ public class PapagoController {
 				HttpServletResponse response) throws Exception {
 			Translation t = mapper.getTranslation(email, translation_no);
 			
-			String path = "";
-			path = request.getServletContext().getRealPath("resources")
-					+"\\translation\\"
-					+ t.getEmail()
-					+ "\\";
+			FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+			String path = fsh.makePath("translation", email, null, t.getTrans_date(), kind);
 
-	        path += t.getTrans_date()+"-"+kind+".txt";
-	        try{ 
-	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
-	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
-	            // 파일안에 문자열 쓰기
-	            String text = "";
-	            text = t.getOutput();
-	            if(kind.equals("input"))
-	            	text = t.getInput();
-	           
-	            fw.write(text);
-	            fw.flush();
-	            // 객체 닫기
-	            fw.close();        
-	        }catch(Exception e){
-	            e.printStackTrace();
-	        }
-			
 			File file = new File(path);
+			String text = "";
+            text = t.getOutput();
+			if(kind.equals("input"))
+				text = t.getInput();
+	        fsh.saveFile(path, file, text);
+			
 			byte[] fileByte = FileUtils.readFileToByteArray(file);
 			
 			response.setContentType("application/octet-stream");
@@ -163,10 +148,7 @@ public class PapagoController {
 		    response.getOutputStream().flush();
 		    response.getOutputStream().close();
 		    
-		    if(file.exists() ){ 
-				if(file.delete()){ 
-				}
-			}
+		    fsh.deleteFile(file);
 	    }
 		
 		//media_trans 보관함 아이템 삭제 email, no 기준(협의필요)

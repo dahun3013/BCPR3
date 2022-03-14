@@ -21,8 +21,7 @@
         <div class="mtt-ts-input-cont">
           <div>
             <form>
-          
-              <audio class="player" controls ref="player" style="display:none">
+              <audio class="player" controls ref="player" style="display: none">
                 <source src="" ref="source" />
               </audio>
               <video class="player2" controls ref="player2">
@@ -81,7 +80,9 @@
             </button>
           </div>
           <div v-show="isLogin">
-            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
+            <div class="ppg-save-btn mt-4">
+              <button @click="upload">저장하기</button>
+            </div>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -112,7 +113,6 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
 </template>
 
 <script>
@@ -131,14 +131,19 @@ export default {
       showInput: false,
     };
   },
-  components: {
-
-  },
+  components: {},
   methods: {
     async upload() {
       let form = new FormData();
       form.append("email", this.$store.state.userInfo.email);
-      form.append("trans_date", new Date().toISOString());
+      var date = new Date();
+
+      form.append(
+        "trans_date",
+        new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        ).toISOString()
+      );
       form.append("kind", "images");
       form.append("input", this.$refs["image"].files[0]);
       form.append("output", this.text);
@@ -182,11 +187,10 @@ export default {
           },
         })
         .then((res) => {
-          
           console.log(res);
           this.text = res.data;
           console.log(this.text);
-          this.lang="Eng"
+          this.lang = "Eng";
           console.log(this.lang);
         })
         .catch((err) => {
@@ -195,7 +199,7 @@ export default {
     },
     async uploadImg() {
       console.log("들어왔다");
-      this.showInput=true;
+      this.showInput = true;
       this.$refs.source.src = "";
       var image = this.$refs["image"].files[0];
       const url = URL.createObjectURL(image);
@@ -344,7 +348,7 @@ select:focus {
 .player {
   width: 100%;
 }
-.player2{
-  width:100%;
+.player2 {
+  width: 100%;
 }
 </style>
