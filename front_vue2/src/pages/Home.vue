@@ -5,6 +5,11 @@
         <div>
           <h5></h5>
         </div>
+        <div @click="loginModal = true">
+          <!--이거 빼고 수정가능-->
+          <ProfileItem :profile="getProfile" :email="getEmail" />
+        </div>
+        <!--이거 빼고 수정가능-->
       </div>
 
       <div class="top-banner my-5">
@@ -43,44 +48,28 @@
       <br /><br /><br /><br />
 
       <div style="text-align: center; font-weight: bold">
-        <p @click="$router.push('/STTStorage')">
+        <p @click="$router.push('/Storage')">
           [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
         </p>
       </div>
 
       <br /><br /><br />
-
-      <hr />
-
-      <div class="footer container">
-        <p class="mx-3">파고북스 이용약관</p>
-        <p class="mx-3">의견제안</p>
-        <p class="mx-3">개인정보처리방침</p>
-        <p class="mx-3">책임의 한계와 법적고지</p>
-        <p class="mx-3">준수사항</p>
-      </div>
     </div>
     <!--bottom-container-end-->
-    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
   <!--field-end-->
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
-
 export default {
   name: "HomePage",
   data() {
-    return {
-      loginModal: false,
-    };
+    return {};
   },
 
-  components: {
-    Modal,
-  },
-
+  components: {},
+  methods: {},
+  computed: {},
   mounted() {},
 };
 </script>
