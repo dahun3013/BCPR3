@@ -1,10 +1,25 @@
 import axios from 'axios';
 import Vuex from "vuex";
 import router from "./router.js"
+import createPersistedState from 'vuex-persistedstate';
 
 
 export const store = new Vuex.Store({
+    plugins: [
+        createPersistedState({
+            storage: window.sessionStorage,
+            reducer: state => ({
+                state,
+                access_token: '',
+                refresh_token: '',
+                userInfo: null,
+                isLogin: false,
+                isLoginError: false,
+            })
+        })
+    ],
     // counter라는 state 속성을 추가
+
     state: {
         access_token: '',
         refresh_token: '',

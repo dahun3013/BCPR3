@@ -52,6 +52,7 @@ export default {
       let form = new FormData();
       form.append("email", this.email);
       form.append("media_no", this.media_no);
+
       await axios
         .post(str, form)
         .then((res) => {
@@ -60,6 +61,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      this.$router.go("/storage");
     },
     download() {
       let str = "/api/ocr/download/" + this.email + "/" + this.media_no + "/";
