@@ -3,20 +3,24 @@
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
         <div style="text-align: left">
-          <h2>보관함</h2>
+          <h2>음성변환 보관함</h2>
         </div>
         <div style="text-align: center">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
-        </div>
-        <div @click="loginModal = true" style="text-align: right">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
         </div>
       </div>
       <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
 
-    <div
+    <div class="storage-bottom-container px-5 pt-5 pb-2">
+        <SSM />
+    </div>
+    <!--storage-bottom-container-end-->
+  </div>
+  <!--field_end-->
+
+  <div
       class="
         row
         storage-bottom-container
@@ -39,9 +43,6 @@
         :key="i"
       />
     </div>
-    <!--storage-bottom-container-end-->
-  </div>
-  <!--field_end-->
 
   <div class="px-5"><hr /></div>
 
@@ -58,6 +59,7 @@
 // import $ from 'jquery'
 import axios from "axios";
 import STTStorageCard from '@/components/STTStorageCard.vue'
+import SSM from "@/components/StorageSelectMenu.vue"
 
 export default {
   name: "papagoPage",
@@ -69,6 +71,7 @@ export default {
   },
   components: {
     STTStorageCard,
+    SSM,
   },
   mounted() {
     console.log(this.$store.state.userInfo.email);
