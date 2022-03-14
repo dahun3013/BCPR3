@@ -8,9 +8,9 @@
         <div>
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <div @click="loginModal = true">
+        <!-- <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div>
+        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
@@ -113,12 +113,10 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
-import Modal from "@/components/Modal.vue";
 import axios from "axios";
 
 export default {
@@ -130,12 +128,11 @@ export default {
       lang: "Kor",
       text: "",
       papagolang: "en",
-      loginModal: false,
       showInput: false,
     };
   },
   components: {
-    Modal,
+
   },
   methods: {
     async upload() {

@@ -5,9 +5,9 @@
         <div>
           <h5></h5>
         </div>
-        <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div>
+        <div @click="loginModal = true"><!--이거 빼고 수정가능-->
+          <ProfileItem :profile="getProfile" :email="getEmail"/>
+        </div><!--이거 빼고 수정가능-->
       </div>
 
       <div class="top-banner my-5">

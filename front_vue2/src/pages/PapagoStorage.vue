@@ -52,26 +52,21 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import Modal from "@/components/Modal.vue";
 import PapagoStorageCard from "@/components/PapagoStorageCard.vue";
 export default {
   name: "papagoPage",
   data() {
     return {
       array: [],
-      loginModal: false,
     };
   },
   components: {
     PapagoStorageCard,
-    Modal,
   },
   mounted() {
     console.log(this.$store.state.userInfo.email);
