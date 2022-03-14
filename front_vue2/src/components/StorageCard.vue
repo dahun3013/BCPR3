@@ -1,10 +1,15 @@
 <template>
   <div class="storage-ts-container col mb-5">
     <div class="storage-ts-output-cont">
-      <v-row dense>
+      <div style="float: left; width: 20%">
         <h2>문서변환</h2>
+      </div>
+      <div style="float: left; width: 75%">
+        <h3>{{ trans_date }}</h3>
+      </div>
+      <div style="float: right; width: 5%">
         <button @click="remove()">삭제</button>
-      </v-row>
+      </div>
       <div class="storage-img-box">
         <img :src="input" alt="" class="img-fit" v-show="showInput" />
         <output name="result" v-show="showOutput">
