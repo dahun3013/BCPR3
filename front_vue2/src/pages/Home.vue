@@ -5,9 +5,6 @@
         <div>
           <h5></h5>
         </div>
-        <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div>
       </div>
 
       <div class="top-banner my-5">
@@ -21,10 +18,26 @@
 
     <div class="bottom-container px-5 pt-5">
       <div class="main-btn">
-        <img src="@/assets/1.png" alt="문서변환" @click="$router.push('/ocr')">
-        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/tts')">
-        <img src="@/assets/3.png" alt="매체번역" @click="$router.push('/mtt')">
-        <img src="@/assets/4.png" alt="간단번역" @click="$router.push('/papago')">
+        <img
+          src="@/assets/1.png"
+          alt="문서변환"
+          @click="$router.push('/ocr')"
+        />
+        <img
+          src="@/assets/2.png"
+          alt="음성변환"
+          @click="$router.push('/tts')"
+        />
+        <img
+          src="@/assets/3.png"
+          alt="매체번역"
+          @click="$router.push('/mtt')"
+        />
+        <img
+          src="@/assets/4.png"
+          alt="간단번역"
+          @click="$router.push('/papago')"
+        />
       </div>
 
       <br /><br /><br /><br />
@@ -51,7 +64,6 @@
     <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
   <!--field-end-->
-
 </template>
 
 <script>
@@ -112,11 +124,11 @@ body {
   text-align: center;
 }
 
-.main-btn{
+.main-btn {
   text-align: center;
 }
 
-.main-btn > img{
+.main-btn > img {
   cursor: pointer;
 }
 
