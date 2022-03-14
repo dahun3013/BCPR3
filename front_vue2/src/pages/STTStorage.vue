@@ -28,8 +28,8 @@
       "
       style="clear: both"
     >
-      <StorageCard
-        :media_no="a.media_no"
+      <STTStorageCard
+        :document_no="a.document_no"
         :email="a.email"
         :kind="a.kind"
         :input="a.input"
@@ -61,7 +61,7 @@
 // import $ from 'jquery'
 import axios from "axios";
 import Modal from '@/components/Modal.vue'
-import StorageCard from "@/components/StorageCard.vue";
+import STTStorageCard from '@/components/STTStorageCard.vue'
 
 export default {
   name: "papagoPage",
@@ -73,7 +73,7 @@ export default {
     };
   },
   components: {
-    StorageCard,
+    STTStorageCard,
     Modal,
   },
   mounted() {
@@ -84,7 +84,7 @@ export default {
       this.$store.state.userInfo.email != ""
     ) {
       axios
-        .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
+        .get("/api/Stt/list" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
           this.array = [];
@@ -93,7 +93,7 @@ export default {
           for (var i = 0; i < this.array.length; i++) {
             //console.log("파일명 : " + this.array[i].input);
             this.array[i].input =
-              "http://localhost:8200/resources/media_trans/" +
+              "http://localhost:8200/resources/document_trans/" +
               this.$store.state.userInfo.email +
               "/" +
               this.array[i].input;

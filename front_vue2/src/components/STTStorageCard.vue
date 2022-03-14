@@ -11,7 +11,9 @@
         <button @click="remove()">삭제</button>
       </div>
       <div class="storage-img-box">
-        <img :src="input" alt="" class="img-fit" v-show="showInput" />
+        <audio class="img-fit" controls ref="player" v-show="showInput">
+          <source :src="input">
+        </audio>
         <output name="result" v-show="showOutput">
           <div v-html="content"></div>
         </output>
@@ -33,9 +35,9 @@
 <script>
 import axios from "axios";
 export default {
-  name: "StorageCard",
+  name: "STTStorageCard",
   props: {
-    media_no: Number,
+    document_no: Number,
     email: String,
     kind: String,
     input: String,
@@ -56,10 +58,10 @@ export default {
       else this.showOutput = true;
     },
     async remove() {
-      let str = "/api/ocr/remove";
+      let str = "/api/Stt/remove";
       let form = new FormData();
       form.append("email", this.email);
-      form.append("media_no", this.media_no);
+      form.append("document_no", this.document_no);
 
       await axios
         .post(str, form)
@@ -72,7 +74,7 @@ export default {
       this.$router.go("/storage");
     },
     download() {
-      let str = "/api/ocr/download/" + this.email + "/" + this.media_no + "/";
+      let str = "/api/Stt/download/" + this.email + "/" + this.document_no + "/";
       if (this.showInput) str += "input";
       else str += "output";
 

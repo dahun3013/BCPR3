@@ -14,6 +14,7 @@ import com.bcpr.backend.STT.util.FileSaveHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.Document;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -73,24 +74,25 @@ public class Sttapicontroller {
             @PathVariable("kind") String kind,
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        Media_Trans mt = mapper.getDocument_Trans(email, document_no);
+        Document_Trans dt = mapper.getDocument_Trans(email, document_no);
+
 
         String path = "";
         path = request.getServletContext().getRealPath("resources")
-                +"\\document_no\\"
-                + mt.getEmail()
+                +"\\document_trans\\"
+                + dt.getEmail()
                 + "\\";
 
         if(kind.equals("input")) {
-            path += mt.getInput(); // 경로에 접근할 때 역슬래시('\') 사용
+            path += dt.getInput(); // 경로에 접근할 때 역슬래시('\') 사용
 
         }else {
-            path += mt.getTrans_date()+"-output.txt";
+            path += dt.getTrans_date()+"-output.txt";
             try{
                 // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
                 BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
                 // 파일안에 문자열 쓰기
-                fw.write(mt.getOutput());
+                fw.write(dt.getOutput());
                 fw.flush();
                 // 객체 닫기
                 fw.close();
@@ -113,5 +115,12 @@ public class Sttapicontroller {
             if(file.delete()){
             }
         }
+    }
+    @PostMapping("/Stt/remove")
+    public int remove(
+            @RequestParam("email") String email,
+            @RequestParam("document_no") int document_no) {
+        System.out.println("test: "+document_no);
+        return mapper.deleteMedia_TransContent(email,document_no);
     }
 }
