@@ -95,27 +95,8 @@
     <p class="mx-3">준수사항</p>
   </div>
 
-  <div class="login-modal px-5 py-5" v-if="loginModal == true">
-    <h4>로그인</h4>
-    <div class="loginBtns">
-      <div>
-        <img src="@/assets/naverLogo.png" alt="" /> 네이버 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/kakaoLogo.png" alt="" />카카오 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/googleLogo.png" alt="" />구글 아이디로 로그인
-      </div>
-      <div>
-        <img src="@/assets/githubLogo.png" alt="" />깃허브 아이디로 로그인
-      </div>
-    </div>
-    <div>
-      <button @click="loginModal = false">닫기</button>
-    </div>
-  </div>
-  <!--login-modal-end-->
+  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+
 </template>
 
 <script>
@@ -141,70 +122,15 @@ export default {
       form.append("to_language", this.to_language);
 
       if (this.from_language == this.to_language) {
-<<<<<<< HEAD
-=======
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "ja" && this.to_language == "es") {
         alert("잘못된 요청입니다.");
         this.output = this.input;
         return;
       }
-      if (this.from_language == "ja" && this.to_language == "de") {
->>>>>>> 0b58ecc76d9dfc9b46721d6cabdd79873ebb3783
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b58ecc76d9dfc9b46721d6cabdd79873ebb3783
       if (this.from_language == "zh-CN" && this.to_language == "es") {
         alert("잘못된 요청입니다.");
         this.output = this.input;
         return;
       }
-<<<<<<< HEAD
-=======
-      if (this.from_language == "zh-CN" && this.to_language == "de") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "de" && this.to_language == "ja") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "de" && this.to_language == "zh-CN") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "de" && this.to_language == "es") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "es" && this.to_language == "ja") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "es" && this.to_language == "zh-CN") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      if (this.from_language == "es" && this.to_language == "de") {
-        alert("잘못된 요청입니다.");
-        this.output = this.input;
-        return;
-      }
-      
->>>>>>> 0b58ecc76d9dfc9b46721d6cabdd79873ebb3783
 
       await axios
         .post("/api/papago/json", form, {
