@@ -47,18 +47,9 @@ export default {
     trans_date: String,
   },
   data() {
-    return {
-      showInput: true,
-      showOutput: false,
-    };
+    return {};
   },
   methods: {
-    changeShow() {
-      if (this.showInput) this.showInput = false;
-      else this.showInput = true;
-      if (this.showOutput) this.showOutput = false;
-      else this.showOutput = true;
-    },
     async remove() {
       let str = "/api/papago/remove";
       let form = new FormData();

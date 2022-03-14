@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class APIExamTTS {
 	
 	@PostMapping("/server")
-    public  void getTTShelper(@RequestBody HashMap<String, Object> requestJsonHashMap ) {
+    public  void getTTShelper(@RequestBody HashMap<String, Object> requestJsonHashMap) {
 	HashMap<String, Object> rtnMap = new HashMap<String, Object>();
 	rtnMap.put("text", requestJsonHashMap.get("data1"));
 	rtnMap.put("voice", requestJsonHashMap.get("data2"));
