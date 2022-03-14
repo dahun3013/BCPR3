@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Translation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long TRANSLATION_NO ;
+    private Long translation_no ;
     private Date trans_date;
     private String email;
 

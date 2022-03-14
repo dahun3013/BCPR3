@@ -16,7 +16,7 @@ public class download {
 	@GetMapping("/download")
 	public void download(HttpServletResponse response) throws Exception {
         try {
-        	String path = "C:\\study_boot\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources\\tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
+        	String path = "C:\\Users\\jdh33\\MyGitRepo\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources\\tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
         	
         	File file = new File(path);
         	response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
