@@ -37,11 +37,10 @@
 <script>
 import axios from "axios";
 export default {
-  name: "StorageCard",
+  name: "PapagoStorageCard",
   props: {
     translation_no: Number,
     email: String,
-    kind: String,
     input: String,
     output: String,
     trans_date: String,
@@ -76,8 +75,6 @@ export default {
         "/" +
         kind;
 
-      console.log(str);
-
       axios
         .get(str, {
           responseType: "blob",
@@ -89,7 +86,9 @@ export default {
           const url = window.URL.createObjectURL(new Blob([res.data]));
           const link = document.createElement("a");
           link.href = url;
+
           link.setAttribute("download", name); //or any other extension document.body.appendChild(link); link.click();
+
           document.body.appendChild(link);
           link.click();
           link.remove();

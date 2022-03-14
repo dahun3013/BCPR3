@@ -175,27 +175,26 @@
       </div>
     </div>
     <!--stt-bottom-container-end-->
-      <div class="px-5">
-    <hr />
-  </div>
+    <div class="px-5">
+      <hr />
+    </div>
 
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
+    <div class="footer container">
+      <p class="mx-3">파고북스 이용약관</p>
+      <p class="mx-3">의견제안</p>
+      <p class="mx-3">개인정보처리방침</p>
+      <p class="mx-3">책임의 한계와 법적고지</p>
+      <p class="mx-3">준수사항</p>
+    </div>
 
-    <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
+    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
   <!--field_end-->
-
 </template>
 
 <script>
-import Modal from '@/components/Modal.vue'
-import axios from 'axios'
+import Modal from "@/components/Modal.vue";
+import axios from "axios";
 export default {
   name: "papagoPage",
   data() {
@@ -216,110 +215,65 @@ export default {
       document.getElementById("restart").style.display = "block";
       document.getElementById("line").style.display = "block";
     },
-    components : {
-        Modal,
+    components: {
+      Modal,
     },
 
     methods: {
-        //보이기
-        div_show() {
-            document.getElementById("audio")
-                .style.display = "block";
-            document.getElementById("dlButton")
-                .style.display = "block";
-            document.getElementById("restart")
-                .style.display = "block";
-                document.getElementById("line")
-                .style.display = "block";
-        },
-        //숨기기
-        div_hide() {
-            document.getElementById("audio")
-                .style.display = "none";
-            document.getElementById("dlButton")
-                .style.display = "none";
-            document.getElementById("restart")
-                .style.display = "none";
-                 document.getElementById("line")
-                .style.display = "none";
-        },
-        sendData() {
-            axios({
-                    url: 'api/tts/server',
-                    method: 'post',
-                    data: {
-                        data1: this.text,
-                        data2: this.voice,
-                        data3: this.speed,
-                        data4: this.volume,
-                    }
-                })
-                .then((response) => {
-                    console.log(response)
-                })
-            if (this.text != "") {
-                document.getElementById("send")
-                    .style.display = "none";
-            }
-
-        },
-        restart() {
-            location.href = "http://localhost:8081/tts";
-        },
-        movepage() {
-            location.href = "http://localhost:8888/tts.mp3";
-        },
-        download() {
-            location.href = "http://localhost:8200/download";
-        },
-
-        play(sound) {
-            if (sound) {
-                var audio = new Audio(sound);
-                audio.play();
-            }
+      //보이기
+      div_show() {
+        document.getElementById("audio").style.display = "block";
+        document.getElementById("dlButton").style.display = "block";
+        document.getElementById("restart").style.display = "block";
+        document.getElementById("line").style.display = "block";
+      },
+      //숨기기
+      div_hide() {
+        document.getElementById("audio").style.display = "none";
+        document.getElementById("dlButton").style.display = "none";
+        document.getElementById("restart").style.display = "none";
+        document.getElementById("line").style.display = "none";
+      },
+      sendData() {
+        axios({
+          url: "api/tts/server",
+          method: "post",
+          data: {
+            data1: this.text,
+            data2: this.voice,
+            data3: this.speed,
+            data4: this.volume,
+          },
+        }).then((response) => {
+          console.log(response);
+        });
+        if (this.text != "") {
+          document.getElementById("send").style.display = "none";
         }
-
+      },
+      restart() {
+        location.href = "http://localhost:8080/tts";
+      },
+      movepage() {
+        location.href = "http://localhost:8888/tts.mp3";
+      },
+      download() {
+        location.href = "http://localhost:8200/download";
+      },
+      play(sound) {
+        if (sound) {
+          var audio = new Audio(sound);
+          audio.play();
+        }
+      },
     },
-    sendData() {
-      axios({
-        url: "api/tts/server",
-        method: "post",
-        data: {
-          data1: this.text,
-          data2: this.voice,
-          data3: this.speed,
-          data4: this.volume,
-        },
-      }).then((response) => {
-        console.log(response);
-      });
-      if (this.text != "") {
-        document.getElementById("send").style.display = "none";
-      }
+    created() {
+      this.sendData();
     },
-    restart() {
-      location.href = "http://localhost:8080/tts";
-    },
-    movepage() {
-      location.href = "http://localhost:8888/tts.mp3";
-    },
-    download() {
-      location.href = "http://localhost:8200/download";
-    },
-    play(sound) {
-      if (sound) {
-        var audio = new Audio(sound);
-        audio.play();
-      }
-    },
+    // mounted() {
+    //     this.div_hide();
+    // }
   },
-  created() {
-    this.sendData();
-  },
-  // mounted() {
-  //     this.div_hide();
-  // }
 };
 </script>
 
@@ -375,8 +329,7 @@ textarea {
 }
 
 .send,
-.download >
-button {
+.download > button {
   background-color: #0d66ff;
   border-radius: 10px;
   border: 2px solid white;
