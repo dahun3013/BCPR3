@@ -14,36 +14,36 @@
     <!--top-container-end-->
 
     <div class="storage-bottom-container px-5 pt-5 pb-2">
-        <SSM />
+      <SSM />
     </div>
-    
+
     <!--storage-bottom-container-end-->
   </div>
   <!--field_end-->
 
   <div
-      class="
-        row
-        storage-bottom-container
-        px-5
-        pt-5
-        pb-2
-        row-cols-xl-3
-        justify-content-center
-      "
-      style="clear: both"
-    >
-      <PapagoStorageCard
-        :translation_no="a.translation_no"
-        :email="a.email"
-        :kind="a.kind"
-        :input="a.input"
-        :output="a.output"
-        :trans_date="a.trans_date"
-        v-for="(a, i) in array"
-        :key="i"
-      />
-    </div>
+    class="
+      row
+      storage-bottom-container
+      px-5
+      pt-5
+      pb-2
+      row-cols-xl-3
+      justify-content-center
+    "
+    style="clear: both"
+  >
+    <PapagoStorageCard
+      :translation_no="a.translation_no"
+      :email="a.email"
+      :kind="a.kind"
+      :input="a.input"
+      :output="a.output"
+      :trans_date="a.trans_date"
+      v-for="(a, i) in array"
+      :key="i"
+    />
+  </div>
 
   <div class="px-5"><hr /></div>
 
@@ -60,7 +60,7 @@
 // import $ from 'jquery'
 import axios from "axios";
 import PapagoStorageCard from "@/components/PapagoStorageCard.vue";
-import SSM from "@/components/StorageSelectMenu.vue"
+import SSM from "@/components/StorageSelectMenu.vue";
 
 export default {
   name: "papagoPage",
