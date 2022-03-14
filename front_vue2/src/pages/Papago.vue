@@ -115,6 +115,9 @@
       <button @click="loginModal = false">닫기</button>
     </div>
   </div>
+  <div v-show="isLogin">
+            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
+          </div>
   <!--login-modal-end-->
 </template>
 
@@ -211,9 +214,13 @@ export default {
           console.log("refreshToken error : ", err.config);
         });
     },
+    upload(){}
   },
   components: {},
   computed: {
+     isLogin() {
+      return this.$store.state.isLogin;
+    },
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
     },
