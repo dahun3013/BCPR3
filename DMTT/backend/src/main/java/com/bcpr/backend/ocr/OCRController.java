@@ -67,11 +67,8 @@ public class OCRController {
 	//media_trans 보관함 아이템 불러오기 email 기준 전부
 	@GetMapping("/ocr/download/{email}")
 	public List<Media_Trans> download(
-			@PathVariable("email") String email,
-			HttpServletRequest request
-			){
+			@PathVariable("email") String email){
 		//log.info("test : {}",test.get(0));
-		System.out.println("test:"+request.getServletContext().getRealPath("resources"));
 		return mapper.getMedia_Trans(email);
 	}
 	

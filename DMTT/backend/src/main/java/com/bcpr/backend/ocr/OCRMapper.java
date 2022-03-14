@@ -20,7 +20,12 @@ public interface OCRMapper {
 	List<Media_Trans> getMedia_TransList();
 	
 	@Select("select * from media_trans where email = #{email}")
-	List<Media_Trans> getMedia_Trans(@Param("email") String email);
+	List<Media_Trans> getMedia_TransListByEmail(@Param("email") String email);
+	
+	@Select("select * from media_trans where email = #{email} and media_no = #{media_no}")
+	Media_Trans getMedia_Trans(
+			@Param("email") String email,
+			@Param("media_no") int media_no);
 	
 	@Insert("insert into media_trans(email,trans_date,kind,input,output) "
 			+"values(#{email},#{trans_date},#{kind},#{input,jdbcType=VARCHAR},#{output})")
