@@ -121,7 +121,14 @@ export default {
     async upload() {
       let form = new FormData();
       form.append("email", this.$store.state.userInfo.email);
-      form.append("trans_date", new Date().toISOString());
+      var date = new Date();
+
+      form.append(
+        "trans_date",
+        new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        ).toISOString()
+      );
       form.append("kind", "images");
       form.append("input", this.$refs["image"].files[0]);
       form.append("output", this.text);
@@ -143,8 +150,10 @@ export default {
     async translation() {
       let form = new FormData();
       form.append("text", this.text);
+      form.append("from_language", "ko");
+      form.append("to_language", "en");
       await axios
-        .post("/api/user/papago/json", form, {
+        .post("/api/papago/json", form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -159,7 +168,6 @@ export default {
         });
     },
     async uploadImg() {
-      console.log("들어왔다");
       var image = this.$refs["image"].files[0];
       const url = URL.createObjectURL(image);
       this.image = url;
