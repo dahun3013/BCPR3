@@ -8,9 +8,6 @@
         <div style="text-align: center">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <!-- <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
