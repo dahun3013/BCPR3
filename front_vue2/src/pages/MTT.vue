@@ -127,8 +127,9 @@ export default {
     return {
       image: "",
       file: ``,
-      lang: "",
+      lang: "Kor",
       text: "",
+      papagolang: "en",
       loginModal: false,
     };
   },
