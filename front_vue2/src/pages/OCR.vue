@@ -150,8 +150,10 @@ export default {
     async translation() {
       let form = new FormData();
       form.append("text", this.text);
+      form.append("from_language", "ko");
+      form.append("to_language", "en");
       await axios
-        .post("/api/user/papago/json", form, {
+        .post("/api/papago/json", form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
