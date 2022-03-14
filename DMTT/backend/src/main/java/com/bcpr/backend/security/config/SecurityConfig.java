@@ -48,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/").permitAll();
 
+
+
         http.authorizeRequests().antMatchers("/api/papago/**").permitAll();
+
         http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
         http.authorizeRequests().antMatchers("/api/Stt").permitAll();
         http.authorizeRequests().antMatchers("/api/Stt/**").permitAll();
