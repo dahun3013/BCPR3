@@ -11,9 +11,15 @@
         <button @click="remove()">삭제</button>
       </div>
       <div class="storage-img-box">
-        <audio class="img-fit" controls ref="player" v-show="showInput">
+        <video class="img-fit" controls ref="player" v-show="showInput">
+          <source :src="input">
+        </video>
+        <div style="display:none">
+        <audio class="img-fit" controls ref="player">
           <source :src="input">
         </audio>
+        </div>
+        
         <output name="result" v-show="showOutput">
           <div v-html="content"></div>
         </output>
@@ -111,4 +117,7 @@ export default {
 </script>
 
 <style>
+.player{
+  width:100%;
+}
 </style>

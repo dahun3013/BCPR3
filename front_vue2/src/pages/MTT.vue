@@ -21,12 +21,16 @@
         <div class="mtt-ts-input-cont">
           <div>
             <form>
-              <audio class="player" controls ref="player">
+          
+              <audio class="player" controls ref="player" style="display:none">
                 <source src="" ref="source" />
               </audio>
+              <video class="player2" controls ref="player2">
+                <source src="" ref="source" />
+              </video>
               <div class="ocr-ts-lg-ch mt-4">
                 <select name="ts-lg" id="ts-lg" v-model="lang">
-                  <option value="Kor">한국어</option>
+                  <option value="Kor" selected>한국어</option>
                   <option value="Eng">영어</option>
                   <option value="Jpn">일본어</option>
                   <option value="Chn">중국어</option>
@@ -44,7 +48,7 @@
                 type="file"
                 id="chooseFile"
                 name="chooseFile"
-                accept="audio/*"
+                accept="audio/* video/*"
                 style="display: none"
               />
             </form>
@@ -64,12 +68,12 @@
           <div style="display: flex">
             <div class="ocr-ts-lg-ch mt-4">
               <select name="ts-lg" id="ts-lg" v-model="papagolang">
-                <option value="kr">한국어</option>
+                <option value="ko">한국어</option>
                 <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="cn">중국어</option>
-                <option value="gm">독일어</option>
-                <option value="sp">스페인어</option>
+                <option value="ja">일본어</option>
+                <option value="zh-CN">중국어</option>
+                <option value="de">독일어</option>
+                <option value="es">스페인어</option>
               </select>
             </div>
             <button @click="translation" class="ocr-trans-btn mt-4">
@@ -127,6 +131,7 @@ export default {
       text: "",
       papagolang: "en",
       loginModal: false,
+      showInput: false,
     };
   },
   components: {
@@ -165,10 +170,10 @@ export default {
         this.lang = "en";
       }
       if (this.lang == "Jpn") {
-        this.lang = "jp";
+        this.lang = "ja";
       }
       if (this.lang == "Chn") {
-        this.lang = "cn";
+        this.lang = "zh-CN";
       }
       form.append("text", this.text);
       form.append("from_language", this.lang);
@@ -180,9 +185,12 @@ export default {
           },
         })
         .then((res) => {
+          
           console.log(res);
           this.text = res.data;
           console.log(this.text);
+          this.lang="Eng"
+          console.log(this.lang);
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
@@ -190,12 +198,14 @@ export default {
     },
     async uploadImg() {
       console.log("들어왔다");
+      this.showInput=true;
       this.$refs.source.src = "";
       var image = this.$refs["image"].files[0];
       const url = URL.createObjectURL(image);
       console.log(`image : ` + image);
       this.$refs.source.src = url;
       this.$refs.player.load();
+      this.$refs.player2.load();
       //this.image = url;
       let form = new FormData();
       console.log(`url :` + url);
@@ -336,5 +346,8 @@ select:focus {
 }
 .player {
   width: 100%;
+}
+.player2{
+  width:100%;
 }
 </style>
