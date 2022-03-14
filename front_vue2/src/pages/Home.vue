@@ -114,6 +114,9 @@ body {
 
 .main-btn{
   text-align: center;
+}
+
+.main-btn > img{
   cursor: pointer;
 }
 
