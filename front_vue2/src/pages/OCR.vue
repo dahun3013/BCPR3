@@ -8,9 +8,9 @@
         <div>
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <div @click="loginModal = true">
+        <!-- <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div>
+        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
@@ -94,13 +94,10 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
-import Modal from "@/components/Modal.vue";
 import axios from "axios";
 
 export default {
@@ -110,11 +107,9 @@ export default {
       googleAuth: null,
       image: "",
       text: "",
-      loginModal: false,
     };
   },
   components: {
-    Modal,
   },
 
   methods: {

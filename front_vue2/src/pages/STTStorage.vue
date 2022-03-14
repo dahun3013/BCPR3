@@ -52,15 +52,11 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
-
 </template>
 
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import Modal from '@/components/Modal.vue'
 import STTStorageCard from '@/components/STTStorageCard.vue'
 
 export default {
@@ -69,12 +65,10 @@ export default {
     return {
       image: "",
       array: [],
-      loginModal: false,
     };
   },
   components: {
     STTStorageCard,
-    Modal,
   },
   mounted() {
     console.log(this.$store.state.userInfo.email);

@@ -8,9 +8,9 @@
         <div style="text-align: center">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <div @click="loginModal = true">
+        <!-- <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div>
+        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
@@ -28,8 +28,6 @@
   </div>
   <!--field_end-->
 
-
-
   <div class="px-5"><hr /></div>
 
   <div class="footer container">
@@ -39,14 +37,11 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import Modal from "@/components/Modal.vue";
 import SSM from "@/components/StorageSelectMenu.vue"
 
 export default {
@@ -55,16 +50,12 @@ export default {
     return {
       image: "",
       array: [],
-      loginModal: false,
     };
   },
   components: {
-    Modal,
     SSM,
   },
   mounted() {
-    console.log(this.$store.state.userInfo.email);
-    console.log(this.$store.state.userInfo.profile);
     if (
       this.$store.state.userInfo.email != null ||
       this.$store.state.userInfo.email != ""
