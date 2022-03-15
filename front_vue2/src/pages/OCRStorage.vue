@@ -27,7 +27,7 @@
       justify-content-center
     "
   >
-    <StorageCard
+    <OCRStorageCard
       :media_no="a.media_no"
       :email="a.email"
       :kind="a.kind"
@@ -43,19 +43,18 @@
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import StorageCard from "@/components/StorageCard.vue";
+import OCRStorageCard from "@/components/OCRStorageCard.vue";
 import SSM from "@/components/StorageSelectMenu.vue";
 
 export default {
   name: "papagoPage",
   data() {
     return {
-      image: "",
       array: [],
     };
   },
   components: {
-    StorageCard,
+    OCRStorageCard,
     SSM,
   },
   mounted() {

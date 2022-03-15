@@ -18,7 +18,7 @@
       </div>
       <div style="display: flex">
         <button @click="changeShow()" class="storage-ff1-btn mt-4">
-          텍스트 보기
+          {{ text }}
         </button>
         <button @click="download()" class="storage-ff2-btn mt-4">
           다운로드
@@ -46,14 +46,26 @@ export default {
     return {
       showInput: true,
       showOutput: false,
+      btnText: "텍스트 보기",
     };
   },
   methods: {
+    changeText(check) {
+      if (check) this.btnText = "텍스트 보기";
+      else this.btnText = "사진 보기";
+    },
     changeShow() {
-      if (this.showInput) this.showInput = false;
-      else this.showInput = true;
-      if (this.showOutput) this.showOutput = false;
-      else this.showOutput = true;
+      if (this.showInput) {
+        this.showInput = false;
+      } else {
+        this.showInput = true;
+      }
+      if (this.showOutput) {
+        this.showOutput = false;
+      } else {
+        this.showOutput = true;
+      }
+      this.changeText(this.showInput);
     },
     async remove() {
       let str = "/api/ocr/remove";
@@ -104,74 +116,12 @@ export default {
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
     },
+    text() {
+      return this.btnText;
+    },
   },
 };
 </script>
 
 <style>
-.storage-ts-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.storage-img-box {
-  width: 100%;
-  height: 400px;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  overflow: auto;
-}
-
-.storage-img-box::-webkit-scrollbar {
-  display: none;
-}
-
-.img-fit {
-  width: 100%;
-  border-radius: 10px;
-  object-fit: contain;
-}
-
-.storage-ff1-btn {
-  width: 100%;
-  margin-right: 1rem;
-  padding: 0.5rem;
-  color: white;
-  background: #0d66ff;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.storage-ff2-btn {
-  width: 100%;
-  margin-left: 1rem;
-  padding: 0.5rem;
-  color: white;
-  background: #0d66ff;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.storage-ts-output-cont {
-  width: 100%;
-  margin: 1rem;
-  padding: 2rem 3rem 2rem 3rem;
-  border: 1px solid #dbdbdb;
-  border-radius: 25px;
-}
-
-.output-record {
-  text-align: end;
-}
-
-.output-record > button {
-  text-align: center;
-  width: 20%;
-  padding: 1.25rem;
-  background: #0d66ff;
-  border-radius: 50px 0px 0px 0px;
-}
 </style>
