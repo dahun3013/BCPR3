@@ -5,7 +5,7 @@
         <div>
           <h2>보관함</h2>
         </div>
-        <div class="title-name">
+        <div style="margin-left: 43%;">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
@@ -65,10 +65,6 @@ body {
 
 textarea {
   resize: none;
-}
-
-.title-name {
-  margin-left: 43%;
 }
 
 .profile-logo > div > h2 {

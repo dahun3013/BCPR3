@@ -5,7 +5,7 @@
         <div>
           <h2>음성변환</h2>
         </div>
-        <div class="title-name">
+        <div style="margin-left: 41%;">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <!-- <div @click="loginModal = true">
