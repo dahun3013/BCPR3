@@ -20,7 +20,7 @@
     </div>
     <!--storage-bottom-container-end-->
   </div>
-  <div class="px-5">보관함 안내 박스 테스트</div>
+  <div class="storage-info px-5">보관함 안내 박스 테스트</div>
   <!--field_end-->
   <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
