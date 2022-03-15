@@ -13,7 +13,11 @@
     </div>
     <!--top-container-end-->
 
+<<<<<<< HEAD
     <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
+=======
+    <div class="storage-bottom-container px-5 pt-5 pb-2">
+>>>>>>> 13cf2a07d7e33c4bb3a3d1b3d662df6d6770786f
       <SSM :state="2" />
     </div>
     <!--storage-bottom-container-end-->
@@ -182,7 +186,6 @@ select:focus {
   border-radius: 10px;
   object-fit: contain;
   display: block;
-  
 }
 
 .storage-ff1-btn {

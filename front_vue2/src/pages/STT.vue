@@ -51,7 +51,6 @@
               <!-- <button type="button" @click="sendData()">전송</button> -->
             </form>
           </div>
-          
         </div>
         <!--ts-input-cont-end-->
 
@@ -147,6 +146,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          alert("저장이 완료되었습니다.");
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
@@ -171,8 +171,8 @@ export default {
         alert("동일한 언어입니다.");
         return;
       }
-      if(this.text==""){
-        alert("공란입니다")
+      if (this.text == "") {
+        alert("공란입니다");
         return;
       }
       form.append("text", this.text);
@@ -213,7 +213,7 @@ export default {
         return;
       }
       const url = URL.createObjectURL(image);
-      
+
       this.$refs.source.src = url;
       this.$refs.player.load();
       this.$refs.player2.load();

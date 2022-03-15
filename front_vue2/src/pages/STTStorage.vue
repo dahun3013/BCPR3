@@ -182,7 +182,6 @@ select:focus {
   border-radius: 10px;
   object-fit: contain;
   display: block;
-  
 }
 
 .storage-ff1-btn {

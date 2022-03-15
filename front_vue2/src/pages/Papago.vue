@@ -134,6 +134,7 @@ export default {
           })
           .then((res) => {
             console.log(res);
+            alert("저장이 완료되었습니다.");
           })
           .catch((err) => {
             console.log("refreshToken error : ", err.config);

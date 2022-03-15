@@ -145,8 +145,8 @@
             <div class="tts-output-box">
               <!--By.지원_플레이어-->
               <div>
-                <audio controls="" controlsList="nodownload" id="audio">
-                  <source src="http://localhost:8888/tts.mp3" type="audio/mpeg" />
+                <audio controls="" controlsList="nodownload" id="audio" ref = "player" >
+                  <source src="" type="audio/mpeg" ref = "source"/>
                 </audio>
               </div>
               <!--By.지원_MP3다운로드-->
@@ -183,141 +183,143 @@
 import Modal from "@/components/Modal.vue";
 import axios from "axios";
 export default {
-    name: "papagoPage",
-    data() {
-        return {
-            image: "",
-            loginModal: false,
-            text: "",
-            voice: "nara",
-            speed: "0",
-            volume: "0",
-          
-        };
+  name: "papagoPage",
+  data() {
+    return {
+      image: "",
+      loginModal: false,
+      text: "",
+      voice: "nara",
+      speed: "0",
+      volume: "0",
+    };
+  },
+  components: {
+    Modal,
+  },
+  methods: {
+    async upload() {
+      let form = new FormData();
+      form.append("email", this.$store.state.userInfo.email);
+      var date = new Date();
+
+      form.append(
+        "trans_date",
+        new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        ).toISOString()
+      );
+      form.append("kind", "voice");
+      form.append("input", "abcd");
+
+      await axios
+
+        .post("/api/tts/upload", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          alert("저장이 완료되었습니다.");
+        })
+        .catch((err) => {
+          console.log("refreshToken error : ", err.config);
+        });
     },
-    components: {
-        Modal,
+
+    //보이기
+    div_show() {
+      document.getElementById("audio").style.display = "block";
+      document.getElementById("dlButton").style.display = "block";
+      document.getElementById("restart").style.display = "block";
+      document.getElementById("line").style.display = "block";
     },
-    methods: {
-        async upload() {
-            let form = new FormData();
-            form.append("email", this.$store.state.userInfo.email);
-            var date = new Date();
-
-            form.append(
-                "trans_date",
-                new Date(
-                    date.getTime() - date.getTimezoneOffset() * 60000
-                ).toISOString()
-            );
-            form.append("kind", "voice");
-            form.append("input", "abcd");
-
-            await axios
-
-                .post("/api/tts/upload", form, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.log("refreshToken error : ", err.config);
-                });
-        },
-
-        //보이기
-        div_show() {
-            document.getElementById("audio").style.display = "block";
-            document.getElementById("dlButton").style.display = "block";
-            document.getElementById("restart").style.display = "block";
-            document.getElementById("line").style.display = "block";
-        },
-        //숨기기
-        div_hide() {
-            document.getElementById("audio").style.display = "none";
-            document.getElementById("dlButton").style.display = "none";
-            document.getElementById("restart").style.display = "none";
-            document.getElementById("line").style.display = "none";
-        },
-        async sendData() {
-            if ("" === this.text) {
-                alert("값을 입력해주세요.");
-                this.$route.go("/tts");
-            } else {
-                let str = "/api/tts";
-                await axios
-                    .post(
-                        str, {
-                            data1: this.text,
-                            data2: this.voice,
-                            data3: this.speed,
-                            data4: this.volume,
-                        }, {
-                            responseType: "blob",
-                        }
-                    )
-                    .then((res) => {
-                        const url = window.URL.createObjectURL(new Blob([res.data]));
-                        this.$refs.source.src = url;
-                        this.$refs.player.load();
-                    });
+    //숨기기
+    div_hide() {
+      document.getElementById("audio").style.display = "none";
+      document.getElementById("dlButton").style.display = "none";
+      document.getElementById("restart").style.display = "none";
+      document.getElementById("line").style.display = "none";
+    },
+    async sendData() {
+      if ("" === this.text) {
+        alert("값을 입력해주세요.");
+        this.$route.go("/tts");
+      } else {
+        let str = "/api/tts";
+        await axios
+          .post(
+            str,
+            {
+              data1: this.text,
+              data2: this.voice,
+              data3: this.speed,
+              data4: this.volume,
+            },
+            {
+              responseType: "blob",
             }
-        },
+          )
+          .then((res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            this.$refs.source.src = url;
+            this.$refs.player.load();
+          });
+      }
+    },
 
-        // sendData() {
-        //     if ("" === this.text) {
-        //         alert("값을 입력해주세요.");
-        //         location.href = "http://localhost:8081/tts";
-        //     } else {
-        //         axios({
-        //             url: "api/tts/server",
-        //             method: "post",
-        //             data: {
-        //                 data1: this.text,
-        //                 data2: this.voice,
-        //                 data3: this.speed,
-        //                 data4: this.volume,
-        //             },
-        //         }).then((response) => {
-        //             console.log(response);
-        //         });
-        //     }
-        // },
-        restart() {
-            location.href = "http://localhost:8081/tts";
-        },
-        download() {
-            location.href = "http://localhost:8200/download";
-        },
-        play(sound) {
-            if (sound) {
-                var audio = new Audio(sound);
-                audio.play();
-            }
-        },
-    },
-    isLogin() {
-        return this.$store.state.isLogin;
-    },
-    // created() {
-    //     this.sendData();
+    // sendData() {
+    //     if ("" === this.text) {
+    //         alert("값을 입력해주세요.");
+    //         location.href = "http://localhost:8081/tts";
+    //     } else {
+    //         axios({
+    //             url: "api/tts/server",
+    //             method: "post",
+    //             data: {
+    //                 data1: this.text,
+    //                 data2: this.voice,
+    //                 data3: this.speed,
+    //                 data4: this.volume,
+    //             },
+    //         }).then((response) => {
+    //             console.log(response);
+    //         });
+    //     }
     // },
-    // mounted() {
-    //     this.div_hide();
-    // }
+    restart() {
+      location.href = "http://localhost:8081/tts";
+    },
+    download() {
+      location.href = "http://localhost:8200/download";
+    },
+    play(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    },
+  },
+  isLogin() {
+    return this.$store.state.isLogin;
+  },
+  // created() {
+  //     this.sendData();
+  // },
+  // mounted() {
+  //     this.div_hide();
+  // }
 };
 </script>
 
 <style>
 body {
-    margin: 0;
+  margin: 0;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 .tts-bottom-container {
@@ -363,8 +365,8 @@ textarea {
 }
 
 .voiceSelect {
-    width: 230px;
-    text-align: center;
+  width: 230px;
+  text-align: center;
 }
 
 .speedSelect,
@@ -374,7 +376,7 @@ textarea {
 }
 
 .download {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .tts-output-box {
@@ -382,15 +384,15 @@ textarea {
 }
 
 audio::-webkit-media-controls-panel {
-    background-color: #0d66ff;
+  background-color: #0d66ff;
 }
 
 audio::-webkit-media-controls-play-button {
-    background-color: white;
-    border-radius: 50%;
+  background-color: white;
+  border-radius: 50%;
 }
 
 .restart {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 </style>
