@@ -111,7 +111,7 @@ export default {
         this.input != null &&
         this.output != null &&
         this.input !== "" &&
-        this.outpu !== ""
+        this.output !== ""
       ) {
         let form = new FormData();
         form.append("email", this.$store.state.userInfo.email);
