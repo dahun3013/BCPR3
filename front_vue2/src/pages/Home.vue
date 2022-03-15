@@ -1,15 +1,6 @@
 <template>
   <div class="field">
     <div class="top-container px-5 py-5">
-      <div class="profile-logo">
-        <div>
-          <h5></h5>
-        </div>
-        <div @click="loginModal = true"><!--이거 빼고 수정가능-->
-          <ProfileItem :profile="getProfile" :email="getEmail"/>
-        </div><!--이거 빼고 수정가능-->
-      </div>
-
       <div class="top-banner my-5">
         <h1 class="display-1" style="font-weight: bold">PAGO BOOKS</h1>
         <h5 class="mt-3">
@@ -51,11 +42,11 @@
         </p>
       </div>
 
-      <br /><br /><br />
+      <br /><br /><br /><br />
     </div>
     <!--bottom-container-end-->
-  </div>
-  <!--field-end-->
+  </div><!--field-end-->
+
 </template>
 
 <script>
@@ -64,11 +55,6 @@ export default {
   data() {
     return {};
   },
-
-  components: {},
-  methods: {},
-  computed: {},
-  mounted() {},
 };
 </script>
 
@@ -88,17 +74,11 @@ body {
 
 .profile-logo {
   display: flex;
-  justify-content: space-between;
   cursor: pointer;
 }
 
-.profile-logo > div {
-  text-align: center;
-  vertical-align: middle;
-}
-
-.profile-logo > div > img {
-  width: 65%;
+.title-name {
+  justify-content: center;
 }
 
 .top-banner > h5 {
