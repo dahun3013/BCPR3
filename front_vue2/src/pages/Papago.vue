@@ -6,7 +6,7 @@
           <h2>간단번역</h2>
         </div>
         <div>
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <div @click="loginModal = true">
           <img src="@/assets/weblogin1.png" alt="profile-logo" />
@@ -65,8 +65,9 @@
               </output>
             </form>
           </div>
-          <div class="ppg-save-btn mt-4">
-            <button>보관하기</button>
+           
+          <div class="ppg-save-btn mt-4" v-show="isLogin">
+           <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -99,12 +100,8 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
-  <div v-show="isLogin">
-            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
-          </div>
-
+<Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+ 
   <!--login-modal-end-->
 </template>
 
@@ -194,7 +191,32 @@ export default {
           console.log("refreshToken error : ", err.config);
         });
     },
-    upload(){}
+    async upload(){
+      if(this.input !=null && this.output != ""){
+      let form = new FormData();
+      form.append("email", this.$store.state.userInfo.email);
+      form.append("trans_date", new Date().toISOString());
+      form.append("input", this.input);
+      form.append("output", this.output);
+    
+      await axios
+      .post("/api/papago/upload", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("refreshToken error : ", err.config);
+      });
+    }
+        }
+  },
+
+  mounted() {
+    console.log(this.$store.state.userInfo.email);
   },
   components: {},
   computed: {
@@ -203,9 +225,8 @@ export default {
     },
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
-    },
+    }
   },
-  mounted() {},
 };
 </script>
 
