@@ -1,17 +1,6 @@
 <template>
   <div class="field">
     <div class="top-container px-5 py-5">
-      <div class="profile-logo">
-        <div>
-          <h5></h5>
-        </div>
-        <div @click="loginModal = true">
-          <!--이거 빼고 수정가능-->
-          <ProfileItem :profile="getProfile" :email="getEmail" />
-        </div>
-        <!--이거 빼고 수정가능-->
-      </div>
-
       <div class="top-banner my-5">
         <h1 class="display-1" style="font-weight: bold">PAGO BOOKS</h1>
         <h5 class="mt-3">
@@ -22,7 +11,7 @@
     <!--top-container-end-->
 
     <div class="bottom-container px-5 pt-5">
-      <div class="main-btn">
+      <div class="main-btn my-5">
         <img
           src="@/assets/1.png"
           alt="문서변환"
@@ -36,19 +25,24 @@
         <img
           src="@/assets/3.png"
           alt="매체번역"
-          @click="$router.push('/mtt')"
+          @click="$router.push('/stt')"
         />
         <img
           src="@/assets/4.png"
           alt="간단번역"
           @click="$router.push('/papago')"
         />
+        <img
+          src="@/assets/5.png"
+          alt="보관함"
+          @click="$router.push('/Storage')"
+        />
       </div>
 
-      <br /><br /><br /><br />
+      <br /><br />
 
       <div style="text-align: center; font-weight: bold">
-        <p @click="$router.push('/STTStorage')">
+        <p>
           [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
         </p>
       </div>
@@ -56,25 +50,16 @@
       <br /><br /><br />
     </div>
     <!--bottom-container-end-->
-  </div>
-  <!--field-end-->
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+  </div><!--field-end-->
+
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
 export default {
   name: "HomePage",
   data() {
-    return {
-      loginModal: false,
-    };
+    return {};
   },
-
-  components: { Modal },
-  methods: {},
-  computed: {},
-  mounted() {},
 };
 </script>
 
@@ -94,17 +79,11 @@ body {
 
 .profile-logo {
   display: flex;
-  justify-content: space-between;
   cursor: pointer;
 }
 
-.profile-logo > div {
-  text-align: center;
-  vertical-align: middle;
-}
-
-.profile-logo > div > img {
-  width: 65%;
+.title-name {
+  justify-content: center;
 }
 
 .top-banner > h5 {
