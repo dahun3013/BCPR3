@@ -26,7 +26,7 @@
       </div>
       <div style="display: flex">
         <button @click="changeShow()" class="storage-ff1-btn mt-4">
-          텍스트 보기
+          {{ text }}
         </button>
         <button @click="download()" class="storage-ff2-btn mt-4">
           다운로드
@@ -54,14 +54,26 @@ export default {
     return {
       showInput: true,
       showOutput: false,
+      btnText: "텍스트 보기",
     };
   },
   methods: {
+    changeText(check) {
+      if (check) this.btnText = "텍스트 보기";
+      else this.btnText = "미디어 보기";
+    },
     changeShow() {
-      if (this.showInput) this.showInput = false;
-      else this.showInput = true;
-      if (this.showOutput) this.showOutput = false;
-      else this.showOutput = true;
+      if (this.showInput) {
+        this.showInput = false;
+      } else {
+        this.showInput = true;
+      }
+      if (this.showOutput) {
+        this.showOutput = false;
+      } else {
+        this.showOutput = true;
+      }
+      this.changeText(this.showInput);
     },
     async remove() {
       let str = "/api/Stt/remove";
@@ -112,6 +124,9 @@ export default {
   computed: {
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
+    text() {
+      return this.btnText;
     },
   },
 };

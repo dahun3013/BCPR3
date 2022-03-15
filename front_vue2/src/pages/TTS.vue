@@ -9,8 +9,8 @@
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <!-- <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div> -->
+            <img src="@/assets/weblogin1.png" alt="profile-logo" />
+          </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
@@ -22,9 +22,9 @@
           <div>
             <textarea class="tts-ts-box" v-model="text"></textarea>
             <!-- <textarea class="tts-ts-box" placeholder="여기에 만들고싶은 음성의 내용을 작성하세요.
-                    ■ 유용한 Tip~
-                    ① 마침표, 쉼표, 띄어쓰기를 꼭 사용하세요. 쉼표를 적절히 자주 붙이면 내용이 명확해집니다.
-                    ② 마침표를 제외한 특수문자는 사용하지 마세요. 몇가지 음성에서만 물음표 사용이 가능합니다." v-model="text"></textarea> -->
+                      ■ 유용한 Tip~
+                      ① 마침표, 쉼표, 띄어쓰기를 꼭 사용하세요. 쉼표를 적절히 자주 붙이면 내용이 명확해집니다.
+                      ② 마침표를 제외한 특수문자는 사용하지 마세요. 몇가지 음성에서만 물음표 사용이 가능합니다." v-model="text"></textarea> -->
           </div>
           <hr />
           <div style="display: flex">
@@ -130,14 +130,11 @@
             </select>
             <!--By.지원_전송버튼-->
             <div>
-              <button type="button" @click="sendData()">음성 변환하기</button>
+              <button type="button" @click="sendData() + div_show()">
+                음성 변환하기
+              </button>
             </div>
-            <!-- <button type="button" @click="div_show() + sendData()">음성 변환하기</button> -->
           </div>
-          <!--By.지원_재생버튼-->
-          <!-- <div class="play" id="plButton">
-                    <button type="button" @click="play('http://localhost:8888/tts.mp3')">재생</button>
-                </div> -->
           <hr id="line" />
           <!--결과-->
           <div class="tts-output-box">
@@ -159,10 +156,12 @@
               </button>
             </div>
           </div>
-          <!--By.지원_다시하기버튼-->
-          <!-- <div class="restart" id="restart">
-                    <button type="button" id="restart" @click="restart()">다시하기</button>
-                </div> -->
+          <!--By.지원_저장하기버튼-->
+          <div v-show="isLogin">
+            <div class="ppg-save-btn mt-4" id="save">
+              <button @click="upload">저장하기</button>
+            </div>
+          </div>
         </div>
         <br />
 
@@ -178,32 +177,30 @@
         </div>
       </div>
       <!--tts-bottom-container-end-->
-      <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
     <!--field_end-->
   </div>
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
 import axios from "axios";
 export default {
   name: "papagoPage",
   data() {
     return {
-      image: "",
-      loginModal: false,
       text: "",
       voice: "nara",
       speed: "0",
       volume: "0",
     };
   },
-  components: {
-    Modal,
-  },
+  components: {},
   methods: {
     async upload() {
+      if (this.text == null || this.text === "") {
+        alert("데이터를 입력해주세요.");
+        return;
+      }
       let form = new FormData();
       form.append("email", this.$store.state.userInfo.email);
       var date = new Date();
@@ -215,7 +212,7 @@ export default {
         ).toISOString()
       );
       form.append("kind", "voice");
-      form.append("input", "abcd");
+      form.append("input", this.text);
 
       await axios
 
@@ -235,16 +232,18 @@ export default {
 
     //보이기
     div_show() {
-      document.getElementById("audio").style.display = "block";
-      document.getElementById("dlButton").style.display = "block";
-      document.getElementById("restart").style.display = "block";
-      document.getElementById("line").style.display = "block";
+      if ("" != this.text) {
+        document.getElementById("audio").style.display = "block";
+        document.getElementById("dlButton").style.display = "block";
+        document.getElementById("save").style.display = "block";
+        document.getElementById("line").style.display = "block";
+      }
     },
     //숨기기
     div_hide() {
       document.getElementById("audio").style.display = "none";
       document.getElementById("dlButton").style.display = "none";
-      document.getElementById("restart").style.display = "none";
+      document.getElementById("save").style.display = "none";
       document.getElementById("line").style.display = "none";
     },
     async sendData() {
@@ -306,15 +305,17 @@ export default {
       }
     },
   },
-  isLogin() {
-    return this.$store.state.isLogin;
-  },
   // created() {
   //     this.sendData();
   // },
-  // mounted() {
-  //     this.div_hide();
-  // }
+  mounted() {
+    this.div_hide();
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+  },
 };
 </script>
 

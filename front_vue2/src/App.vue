@@ -7,6 +7,7 @@
       </div>
       <!--이거 빼고 수정가능-->
       <div class="logoutBtn" @click="logout" v-show="isLogin">로그아웃</div>
+      <div class="logoutBtnEmpty" v-show="!isLogin">로그아웃</div>
     </div>
     <router-view></router-view>
   </div>
@@ -80,6 +81,14 @@ export default {
 .logoutBtn {
   color: white;
   border: 1px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 20px 10px 20px;
+}
+
+.logoutBtnEmpty {
+  color: #0d66ff;
+  border: 1px solid #0d66ff;
   border-radius: 10px;
   cursor: pointer;
   padding: 10px 20px 10px 20px;
