@@ -42,9 +42,7 @@ public class FileSaveHelper {
 		String destPath = File.separator+email+File.separator+kind+"-"+formatDate(date)+"-"+file.getName();
 		result = kind+"-"+formatDate(date)+"-"+file.getName();
 		File newFile = new File(saveDir+basePath+destPath);
-		Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		
-		saveFile(saveDir+basePath+destPath,newFile,null);
+		copyFile(file,newFile);
 		return result;
 	}
 	
@@ -90,6 +88,14 @@ public class FileSaveHelper {
 			log.info("임시파일이 존재하지 않습니다."); 
 		}
 	}
+	public void copyFile(File file, File newFile) throws IOException {
+		if(!newFile.exists()) {
+			if(newFile.getParentFile().mkdirs()) {
+			}
+			Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			newFile.createNewFile();
+		}
+	}
 	public void saveFile(String path, File file, String str) throws IOException {
 		if(!file.exists()) {
 			if(file.getParentFile().mkdirs()) {
@@ -122,8 +128,8 @@ public class FileSaveHelper {
 		File newFileName = new File(path);
 		if(!newFileName.exists()) {
 			if(newFileName.getParentFile().mkdirs()) {
-				newFileName.createNewFile();
 			}
+			newFileName.createNewFile();
 		}
 		
 		try {
