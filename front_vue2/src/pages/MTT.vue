@@ -27,14 +27,6 @@
               <video class="player2" controls ref="player2">
                 <source src="" ref="source" />
               </video>
-              <div class="ocr-ts-lg-ch mt-4">
-                <select name="ts-lg" id="ts-lg" v-model="lang">
-                  <option value="Kor" selected>한국어</option>
-                  <option value="Eng">영어</option>
-                  <option value="Jpn">일본어</option>
-                  <option value="Chn">중국어</option>
-                </select>
-              </div>
               <!-- <button type="button" @click="sendData()">전송</button> -->
             </form>
           </div>
@@ -51,6 +43,14 @@
                 style="display: none"
               />
             </form>
+             <div class="ocr-ts-lg-ch mt-4">
+                <select name="ts-lg" id="ts-lg" v-model="lang">
+                  <option value="Kor" selected>한국어</option>
+                  <option value="Eng">영어</option>
+                  <option value="Jpn">일본어</option>
+                  <option value="Chn">중국어</option>
+                </select>
+              </div>
           </div>
         </div>
         <!--ts-input-cont-end-->
@@ -230,6 +230,7 @@ export default {
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
+          alert("파일 용량은 최대 12mb 까지 입니다.")
         });
     },
   },
