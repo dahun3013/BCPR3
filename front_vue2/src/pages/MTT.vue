@@ -177,7 +177,7 @@ export default {
       if (this.lang == "Chn") {
         this.lang = "zh-CN";
       }
-      if(this.text==""){
+      if (this.text == "") {
         alert("텍스트가 비어있습니다");
       }
       form.append("text", this.text);
@@ -191,6 +191,18 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          if (res.data.includes("errorCode:N2MT06")) {
+            alert("지원하지 않는 번역기입니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:N2MT08")) {
+            alert("번역기 용량이 초과되었습니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:010")) {
+            alert("파파고 사용제한이 초과되었습니다.");
+            return;
+          }
           this.text = res.data;
           console.log(this.text);
           this.lang = "Eng";
