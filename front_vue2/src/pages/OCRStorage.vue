@@ -5,15 +5,14 @@
         <div>
           <h2>문서변환 보관함</h2>
         </div>
-        <div style="text-align: center; margin-right: 140px">
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
-      <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
 
-    <div class="storage-bottom-container px-5 pt-5 pb-2">
+    <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
       <SSM :state="1" />
     </div>
     <!--storage-bottom-container-end-->
@@ -94,17 +93,7 @@ export default {
         });
     }
   },
-  methods: {
-    uploadImg() {
-      console.log("들어왔다");
-      var image = this.$refs["image"].files[0];
-
-      const url = URL.createObjectURL(image);
-      this.image = url;
-      console.log(url);
-      console.log(this.image);
-    },
-  },
+  methods: {},
 };
 </script>
 

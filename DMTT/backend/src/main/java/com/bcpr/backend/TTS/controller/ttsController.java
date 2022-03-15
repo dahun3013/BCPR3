@@ -41,25 +41,35 @@ public class ttsController {
 	
 	//tts api 사용
 	@PostMapping("/tts")
-    public  String getTTShelper(
+    public void getTTShelper(
     		@RequestBody HashMap<String, Object> requestJsonHashMap,
-    		HttpServletRequest request)  throws IOException {
-	HashMap<String, Object> rtnMap = new HashMap<String, Object>();
-	rtnMap.put("text", requestJsonHashMap.get("data1"));
-	rtnMap.put("voice", requestJsonHashMap.get("data2"));
-	rtnMap.put("speed", requestJsonHashMap.get("data3")); 
-	rtnMap.put("volume", requestJsonHashMap.get("data4")); 
-	String tts = (String) rtnMap.get("text");
-	String voice = (String) rtnMap.get("voice");
-	String speed = (String) rtnMap.get("speed");
-	String volume = (String) rtnMap.get("volume");
-	String path = request.getServletContext().getRealPath("resources");
-	System.out.println(rtnMap);
-	ttsHelper TH = new ttsHelper();
-	String out = (String) TH.getTTShelper(tts,voice,speed,volume,path);
-	System.out.println("out : " + out );
+    		HttpServletRequest request,
+    		HttpServletResponse response)  throws IOException {
+		HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+		rtnMap.put("text", requestJsonHashMap.get("data1"));
+		rtnMap.put("voice", requestJsonHashMap.get("data2"));
+		rtnMap.put("speed", requestJsonHashMap.get("data3")); 
+		rtnMap.put("volume", requestJsonHashMap.get("data4")); 
+		String tts = (String) rtnMap.get("text");
+		String voice = (String) rtnMap.get("voice");
+		String speed = (String) rtnMap.get("speed");
+		String volume = (String) rtnMap.get("volume");
+		String path = request.getServletContext().getRealPath("resources");
+		System.out.println(rtnMap);
+		ttsHelper TH = new ttsHelper();
+		String out = (String) TH.getTTShelper(tts,voice,speed,volume,path);
+		out = path+"\\tts.mp3";
+		System.out.println("out : " + out );
+		File file = new File(out);
+		byte[] fileByte = FileUtils.readFileToByteArray(file);
+		
+		response.setContentType("application/octet-stream");
+	    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(file.getName(), "UTF-8")+"\"");
+	    response.setHeader("Content-Transfer-Encoding", "binary");
 	
-	 return out;
+	    response.getOutputStream().write(fileByte);
+	    response.getOutputStream().flush();
+	    response.getOutputStream().close();
 	}
 	
 	//voice_trans 보관함에 저장

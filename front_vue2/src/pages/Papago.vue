@@ -5,7 +5,7 @@
         <div style="text-align: left">
           <h2>간단번역</h2>
         </div>
-        <div>
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
