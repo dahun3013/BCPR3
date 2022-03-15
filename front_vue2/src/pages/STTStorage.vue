@@ -3,7 +3,7 @@
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
         <div style="text-align: left">
-          <h2>음성변환 보관함</h2>
+          <h2>매체변환 보관함</h2>
         </div>
         <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
@@ -14,7 +14,7 @@
     <!--top-container-end-->
 
     <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
-      <SSM :state="2" />
+      <SSM :state="3" />
     </div>
     <!--storage-bottom-container-end-->
   </div>
