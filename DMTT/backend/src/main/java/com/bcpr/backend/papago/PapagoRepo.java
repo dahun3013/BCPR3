@@ -43,8 +43,8 @@ public class PapagoRepo {
 	}
 
 	public String translation(String trans, String from_language, String to_language){
-		String clientId = "SaCm2YYueh7Q0fyGTlXB";//애플리케이션 클라이언트 아이디값";
-		String clientSecret = "N3gbaDledg";//애플리케이션 클라이언트 시크릿값";
+		String clientId = "5hswTVCEh8qsag8H8Vqc";//애플리케이션 클라이언트 아이디값";
+		String clientSecret = "34YzfcOHvX";//애플리케이션 클라이언트 시크릿값";
 		//파파고 API 서버 주소
 		String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 		String text;
@@ -57,13 +57,17 @@ public class PapagoRepo {
 			requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 		
 			String responseBody = post(apiURL, requestHeaders, text, from_language, to_language);
-		  
+			System.out.println(responseBody);
 			JSONParser jsonParser = new JSONParser(); 
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody); 
+			if(jsonObject.containsKey("errorCode")) {
+				System.out.println(jsonObject.get("errorCode"));
+				return "errorCode:"+(String)jsonObject.get("errorCode");
+			}
+				
 			JSONObject objMessage = (JSONObject) jsonObject.get("message"); 
 			JSONObject objResult= (JSONObject) objMessage.get("result"); 
-			String translatedText = (String) objResult.get("translatedText"); 
-			System.out.println(translatedText);
+			String translatedText = (String) objResult.get("translatedText");
 			return translatedText;
 			
 		  } catch (Exception e) {
