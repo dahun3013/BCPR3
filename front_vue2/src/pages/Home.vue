@@ -11,7 +11,7 @@
     <!--top-container-end-->
 
     <div class="bottom-container px-5 pt-5">
-      <div class="main-btn">
+      <div class="main-btn my-5">
         <img
           src="@/assets/1.png"
           alt="문서변환"
@@ -32,9 +32,14 @@
           alt="간단번역"
           @click="$router.push('/papago')"
         />
+        <img
+          src="@/assets/5.png"
+          alt="보관함"
+          @click="$router.push('/Storage')"
+        />
       </div>
 
-      <br /><br /><br /><br />
+      <br /><br />
 
       <div style="text-align: center; font-weight: bold">
         <p @click="$router.push('/Storage')">
@@ -42,7 +47,7 @@
         </p>
       </div>
 
-      <br /><br /><br /><br />
+      <br /><br /><br />
     </div>
     <!--bottom-container-end-->
   </div><!--field-end-->
