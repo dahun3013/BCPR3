@@ -1,5 +1,5 @@
 <template>
-  <div class="storage-ts-container col mb-5">
+  <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
       <div style="float: left; width: 20%">
         <h2>매체변환</h2>

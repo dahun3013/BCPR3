@@ -25,7 +25,7 @@
       row
       storage-bottom-container
       px-5
-      pt-5
+      pt-2
       pb-2
       row-cols-xl-3
       justify-content-center
@@ -42,16 +42,6 @@
       v-for="(a, i) in array"
       :key="i"
     />
-  </div>
-
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
   </div>
 </template>
 
@@ -143,7 +133,7 @@ textarea {
 }
 
 .storage-ts-container {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: center;
 }
@@ -177,7 +167,7 @@ select:focus {
 
 .storage-img-box {
   width: 100%;
-  height: 400px;
+  height: 300px;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   overflow: auto;
@@ -191,6 +181,8 @@ select:focus {
   width: 100%;
   border-radius: 10px;
   object-fit: contain;
+  display: block;
+  
 }
 
 .storage-ff1-btn {
@@ -216,7 +208,7 @@ select:focus {
 }
 
 .storage-ts-output-cont {
-  width: 100%;
+  width: 50%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;

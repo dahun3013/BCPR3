@@ -5,12 +5,9 @@
         <div>
           <h2>문서변환</h2>
         </div>
-        <div>
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <!-- <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
@@ -96,16 +93,6 @@
     <!--ocr-bottom-container-end-->
   </div>
   <!--field_end-->
-
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
 </template>
 
 <script>
@@ -244,6 +231,10 @@ body {
 
 textarea {
   resize: none;
+}
+
+.title-name {
+  align-items: center;
 }
 
 .profile-logo > div > h2 {

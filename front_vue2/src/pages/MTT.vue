@@ -5,12 +5,9 @@
         <div>
           <h2>매체번역</h2>
         </div>
-        <div>
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
-        <!-- <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div> -->
       </div>
       <!--profile-logo-end-->
     </div>
@@ -27,18 +24,7 @@
               <video class="player2" controls ref="player2">
                 <source src="" ref="source" />
               </video>
-              <div class="ocr-ts-lg-ch mt-4">
-                <select name="ts-lg" id="ts-lg" v-model="lang">
-                  <option value="Kor" selected>한국어</option>
-                  <option value="Eng">영어</option>
-                  <option value="Jpn">일본어</option>
-                  <option value="Chn">중국어</option>
-                </select>
-              </div>
-              <!-- <button type="button" @click="sendData()">전송</button> -->
-            </form>
-          </div>
-          <div class="mtt-cf-btn mt-4">
+              <div class="mtt-cf-btn mt-4">
             <label for="chooseFile">파일 가져오기</label>
             <form method="post" enctype="multipart/form-data">
               <input
@@ -52,6 +38,18 @@
               />
             </form>
           </div>
+              <div class="ocr-ts-lg-ch mt-4">
+                <select name="ts-lg" id="ts-lg" v-model="lang">
+                  <option value="Kor" selected>한국어</option>
+                  <option value="Eng">영어</option>
+                  <option value="Jpn">일본어</option>
+                  <option value="Chn">중국어</option>
+                </select>
+              </div>
+              <!-- <button type="button" @click="sendData()">전송</button> -->
+            </form>
+          </div>
+          
         </div>
         <!--ts-input-cont-end-->
 
@@ -103,16 +101,6 @@
     <!--mtt-bottom-container-end-->
   </div>
   <!--field_end-->
-
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
 </template>
 
 <script>
@@ -177,8 +165,13 @@ export default {
       if (this.lang == "Chn") {
         this.lang = "zh-CN";
       }
-      if (this.text == "") {
-        alert("텍스트가 비어있습니다");
+      if (this.to_language == this.lang) {
+        alert("동일한 언어입니다.");
+        return;
+      }
+      if(this.text==""){
+        alert("공란입니다")
+        return;
       }
       form.append("text", this.text);
       form.append("from_language", this.lang);
@@ -204,27 +197,26 @@ export default {
             return;
           }
           this.text = res.data;
-          console.log(this.text);
           this.lang = "Eng";
-          console.log(this.lang);
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
     },
     async uploadImg() {
-      console.log("들어왔다");
-      this.showInput = true;
       this.$refs.source.src = "";
       var image = this.$refs["image"].files[0];
+      if (image == null || image === "") {
+        alert("잘못된 파일 형식입니다.");
+        return;
+      }
       const url = URL.createObjectURL(image);
-      console.log(`image : ` + image);
+      
       this.$refs.source.src = url;
       this.$refs.player.load();
       this.$refs.player2.load();
       //this.image = url;
       let form = new FormData();
-      console.log(`url :` + url);
       form.append("file", image);
       form.append("lang", this.lang);
       await axios

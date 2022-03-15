@@ -89,17 +89,6 @@
     <!--papago-bottom-container-end-->
   </div>
   <!--field_end-->
-
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
-  <!--login-modal-end-->
 </template>
 
 <script>

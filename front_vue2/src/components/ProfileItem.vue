@@ -1,7 +1,6 @@
 <template>
   <div id="profile">
     <img :src="profile" alt="profile-logo" />
-    <p>{{ email }}</p>
   </div>
 </template>
 <script>
@@ -25,9 +24,11 @@ export default {
 };
 </script>
 <style scoped>
-#ProfileItem {
-  width: 5vw;
-  height: 5vh;
-  background-color: slategray;
-}
+  #profile > img {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin-right: 1rem;
+    border-radius: 10px;
+  }
 </style>
