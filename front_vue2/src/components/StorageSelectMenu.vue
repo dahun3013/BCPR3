@@ -1,10 +1,6 @@
 <template>
   <div>
-    <ul
-      class="nav nav-pills mb-3"
-      id="pills-tab"
-      role="tablist"
-    >
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
       <li class="nav-item mx-5" role="presentation">
         <button
           class="nav-link"
@@ -32,6 +28,7 @@
           role="tab"
           aria-controls="pills-profile"
           aria-selected="false"
+          @click="$router.push('/TTSStorage')"
         >
           음성변환
         </button>
@@ -83,22 +80,18 @@ export default {
   },
   methods: {
     isStateOne() {
-      console.log("1 : " + this.state);
       if (this.state == 1) return true;
       else return false;
     },
     isStateTwo() {
-      console.log("2 : " + this.state);
       if (this.state == 2) return true;
       else return false;
     },
     isStateThree() {
-      console.log("3 : " + this.state);
       if (this.state == 3) return true;
       else return false;
     },
     isStateFour() {
-      console.log("4 : " + this.state);
       if (this.state == 4) return true;
       else return false;
     },

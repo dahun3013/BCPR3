@@ -2,18 +2,19 @@
   <div class="field">
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
-        <div>
-          <h2>문서변환 보관함</h2>
+        <div style="text-align: left">
+          <h2>매체변환 보관함</h2>
         </div>
-        <div class="title-name">
+        <div style="text-align: center">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
+      <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
 
-    <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
-      <SSM :state="1" />
+    <div class="storage-bottom-container px-5 pt-5 pb-2">
+      <SSM :state="3" />
     </div>
     <!--storage-bottom-container-end-->
   </div>
@@ -22,13 +23,17 @@
   <div
     class="
       row
-      gx-4 gx-lg-5
-      row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3
+      storage-bottom-container
+      px-5
+      pt-2
+      pb-2
+      row-cols-xl-3
       justify-content-center
     "
+    style="clear: both"
   >
-    <StorageCard
-      :media_no="a.media_no"
+    <TTSStorageCard
+      :voice_no="a.voice_no"
       :email="a.email"
       :kind="a.kind"
       :input="a.input"
@@ -43,7 +48,7 @@
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import StorageCard from "@/components/StorageCard.vue";
+import TTSStorageCard from "@/components/TTSStorageCard.vue";
 import SSM from "@/components/StorageSelectMenu.vue";
 
 export default {
@@ -55,7 +60,7 @@ export default {
     };
   },
   components: {
-    StorageCard,
+    TTSStorageCard,
     SSM,
   },
   mounted() {
@@ -66,7 +71,7 @@ export default {
       this.$store.state.userInfo.email != ""
     ) {
       axios
-        .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
+        .get("/api/tts/list" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
           this.array = [];
@@ -75,7 +80,7 @@ export default {
           for (var i = 0; i < this.array.length; i++) {
             //console.log("파일명 : " + this.array[i].input);
             this.array[i].input =
-              "http://localhost:8200/resources/media_trans/" +
+              "http://localhost:8200/resources/voice_trans/" +
               this.$store.state.userInfo.email +
               "/" +
               this.array[i].input;
@@ -93,7 +98,17 @@ export default {
         });
     }
   },
-  methods: {},
+  methods: {
+    uploadImg() {
+      console.log("들어왔다");
+      var image = this.$refs["image"].files[0];
+
+      const url = URL.createObjectURL(image);
+      this.image = url;
+      console.log(url);
+      console.log(this.image);
+    },
+  },
 };
 </script>
 
@@ -111,12 +126,14 @@ textarea {
   font-weight: bold;
 }
 
-::-webkit-scrollbar {
-  display: none;
+.storage-bottom-container {
+  display: flex;
+  background: white;
+  border-radius: 100px 0px 0px 0px;
 }
 
 .storage-ts-container {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: center;
 }
@@ -150,7 +167,7 @@ select:focus {
 
 .storage-img-box {
   width: 100%;
-  height: 400px;
+  height: 300px;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   overflow: auto;
@@ -164,6 +181,8 @@ select:focus {
   width: 100%;
   border-radius: 10px;
   object-fit: contain;
+  display: block;
+  
 }
 
 .storage-ff1-btn {
@@ -189,7 +208,7 @@ select:focus {
 }
 
 .storage-ts-output-cont {
-  width: 100%;
+  width: 50%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;

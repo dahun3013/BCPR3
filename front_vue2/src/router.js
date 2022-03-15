@@ -9,6 +9,7 @@ import Storage from '/src/pages/Storage.vue'
 import OCRStorage from '/src/pages/OCRStorage.vue'
 import PapagoStorage from '/src/pages/PapagoStorage.vue'
 import STTStorage from '/src/pages/STTStorage.vue'
+import TTSStorage from '/src/pages/TTSStorage.vue'
 
 const routes = [
   {
@@ -46,6 +47,10 @@ const routes = [
   {
     path: "/STTStorage",
     component: STTStorage,
+  },
+  {
+    path: "/TTSStorage",
+    component: TTSStorage,
   },
 ];
 
