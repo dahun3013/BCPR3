@@ -133,7 +133,7 @@
                 </span> -->
                 <!--By.지원_전송버튼-->
                 <span class="send" id="send">
-                    <button type="button" @click="sendData() + restart()">
+                    <button type="button" @click="sendData()">
                         음성 변환하기
                     </button>
                     <!-- <button type="button" @click="div_show() + sendData()">음성 변환하기</button> -->
@@ -142,8 +142,8 @@
                 <!--결과-->
                 <!--By.지원_플레이어-->
                 <span>
-                    <audio controls="" controlsList="nodownload" id="audio">
-                        <source src="http://localhost:8888/tts.mp3" type="audio/mpeg" />
+                    <audio controls="" controlsList="nodownload" id="audio" ref="player">
+                        <source src="" type="audio/mpeg" ref="source"/>
                     </audio>
                 </span>
                 <!--By.지원_MP3다운로드-->
@@ -153,7 +153,7 @@
                     </button>
                 </span>
                 <!--By.지원_저장하기버튼-->
-                <div >
+                <div>
                     <div class="ppg-save-btn mt-4">
                         <button @click="upload">저장하기</button>
                     </div>
@@ -202,6 +202,7 @@ export default {
             voice: "nara",
             speed: "0",
             volume: "0",
+          
         };
     },
     components: {
@@ -251,25 +252,50 @@ export default {
             document.getElementById("restart").style.display = "none";
             document.getElementById("line").style.display = "none";
         },
-        sendData() {
+        async sendData() {
             if ("" === this.text) {
                 alert("값을 입력해주세요.");
-                location.href = "http://localhost:8081/tts";
+                this.$route.go("/tts");
             } else {
-                axios({
-                    url: "api/tts/server",
-                    method: "post",
-                    data: {
-                        data1: this.text,
-                        data2: this.voice,
-                        data3: this.speed,
-                        data4: this.volume,
-                    },
-                }).then((response) => {
-                    console.log(response);
-                });
+                let str = "/api/tts";
+                await axios
+                    .post(
+                        str, {
+                            data1: this.text,
+                            data2: this.voice,
+                            data3: this.speed,
+                            data4: this.volume,
+                        }, {
+                            responseType: "blob",
+                        }
+                    )
+                    .then((res) => {
+                        const url = window.URL.createObjectURL(new Blob([res.data]));
+                        this.$refs.source.src = url;
+                        this.$refs.player.load();
+                    });
             }
         },
+
+        // sendData() {
+        //     if ("" === this.text) {
+        //         alert("값을 입력해주세요.");
+        //         location.href = "http://localhost:8081/tts";
+        //     } else {
+        //         axios({
+        //             url: "api/tts/server",
+        //             method: "post",
+        //             data: {
+        //                 data1: this.text,
+        //                 data2: this.voice,
+        //                 data3: this.speed,
+        //                 data4: this.volume,
+        //             },
+        //         }).then((response) => {
+        //             console.log(response);
+        //         });
+        //     }
+        // },
         restart() {
             location.href = "http://localhost:8081/tts";
         },

@@ -28,6 +28,7 @@
           role="tab"
           aria-controls="pills-profile"
           aria-selected="false"
+          @click="$router.push('/TTSStorage')"
         >
           음성변환
         </button>
