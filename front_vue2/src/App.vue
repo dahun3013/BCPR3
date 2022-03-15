@@ -19,7 +19,9 @@
     <p class="mx-3">책임의 한계와 법적고지</p>
     <p class="mx-3">준수사항</p>
   </div>
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+  <div v-show="!isLogin">
+    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+  </div>
 </template>
 
 <script>
@@ -32,6 +34,9 @@ export default {
     return {
       loginModal: false,
     };
+  },
+  mounted() {
+    console.log(this.isLogin);
   },
   components: {
     ProfileItem,
@@ -54,6 +59,9 @@ export default {
   methods: {
     logout() {
       this.$store.commit("logout");
+    },
+    showModal() {
+      return true;
     },
   },
 };
