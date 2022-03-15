@@ -130,9 +130,7 @@
             </select>
             <!--By.지원_전송버튼-->
             <div>
-              <button type="button" @click="sendData() + restart()">
-                음성 변환하기
-              </button>
+              <button type="button" @click="sendData()">음성 변환하기</button>
             </div>
             <!-- <button type="button" @click="div_show() + sendData()">음성 변환하기</button> -->
           </div>
@@ -145,8 +143,13 @@
           <div class="tts-output-box">
             <!--By.지원_플레이어-->
             <div>
-              <audio controls="" controlsList="nodownload" id="audio">
-                <source src="http://localhost:8888/tts.mp3" type="audio/mpeg" />
+              <audio
+                controls=""
+                controlsList="nodownload"
+                id="audio"
+                ref="player"
+              >
+                <source src="" type="audio/mpeg" ref="source" />
               </audio>
             </div>
             <!--By.지원_MP3다운로드-->
@@ -223,6 +226,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          alert("저장이 완료되었습니다.");
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
