@@ -49,13 +49,23 @@
           </div>
           <div style="display: flex">
             <div class="ocr-ts-lg-ch mt-4">
-              <select name="ts-lg" id="ts-lg">
-                <option value="kr">한국어</option>
+              <select name="ts-lg" id="ts-lg" v-model="from_language">
+                <option value="ko">한국어</option>
                 <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="cn">중국어</option>
-                <option value="gm">독일어</option>
-                <option value="sp">스페인어</option>
+                <option value="ja">일본어</option>
+                <option value="zh-CN">중국어</option>
+                <option value="de">독일어</option>
+                <option value="es">스페인어</option>
+              </select>
+            </div>
+            <div class="ocr-ts-lg-ch mt-4">
+              <select name="ts-lg" id="ts-lg" v-model="to_language">
+                <option value="ko">한국어</option>
+                <option value="en">영어</option>
+                <option value="ja">일본어</option>
+                <option value="zh-CN">중국어</option>
+                <option value="de">독일어</option>
+                <option value="es">스페인어</option>
               </select>
             </div>
             <button @click="translation" class="ocr-trans-btn mt-4">
@@ -109,12 +119,18 @@ export default {
       googleAuth: null,
       image: "",
       text: "",
+      from_language: "ko",
+      to_language: "en",
     };
   },
   components: {},
 
   methods: {
     async upload() {
+      if (this.image == null || this.image === "") {
+        alert("데이터를 입력해주세요.");
+        return;
+      }
       let form = new FormData();
       form.append("email", this.$store.state.userInfo.email);
       var date = new Date();
@@ -137,17 +153,24 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          alert("저장이 완료되었습니다.");
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
+          alert("잘못된 요청입니다.");
         });
     },
 
     async translation() {
+      console.log(this.to_language);
+      if (this.to_language == this.from_language) {
+        alert("동일한 언어입니다.");
+        return;
+      }
       let form = new FormData();
       form.append("text", this.text);
-      form.append("from_language", "ko");
-      form.append("to_language", "en");
+      form.append("from_language", this.from_language);
+      form.append("to_language", this.to_language);
       await axios
         .post("/api/papago/json", form, {
           headers: {
@@ -156,6 +179,18 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          if (res.data.includes("errorCode:N2MT06")) {
+            alert("지원하지 않는 번역기입니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:N2MT08")) {
+            alert("번역기 용량이 초과되었습니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:010")) {
+            alert("파파고 사용제한이 초과되었습니다.");
+            return;
+          }
           this.text = res.data;
           console.log(this.text);
         })
@@ -165,6 +200,10 @@ export default {
     },
     async uploadImg() {
       var image = this.$refs["image"].files[0];
+      if (image == null || image === "") {
+        alert("잘못된 파일 형식입니다.");
+        return;
+      }
       const url = URL.createObjectURL(image);
       this.image = url;
       let form = new FormData();

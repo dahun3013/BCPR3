@@ -57,13 +57,17 @@ public class PapagoRepo {
 			requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 		
 			String responseBody = post(apiURL, requestHeaders, text, from_language, to_language);
-		  
+			System.out.println(responseBody);
 			JSONParser jsonParser = new JSONParser(); 
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(responseBody); 
+			if(jsonObject.containsKey("errorCode")) {
+				System.out.println(jsonObject.get("errorCode"));
+				return "errorCode:"+(String)jsonObject.get("errorCode");
+			}
+				
 			JSONObject objMessage = (JSONObject) jsonObject.get("message"); 
 			JSONObject objResult= (JSONObject) objMessage.get("result"); 
-			String translatedText = (String) objResult.get("translatedText"); 
-			System.out.println(translatedText);
+			String translatedText = (String) objResult.get("translatedText");
 			return translatedText;
 			
 		  } catch (Exception e) {
