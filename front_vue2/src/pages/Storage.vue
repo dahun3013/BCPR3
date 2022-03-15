@@ -20,16 +20,13 @@
     </div>
     <!--storage-bottom-container-end-->
   </div>
-  <div class="px-5">
-    보관함 안내 박스 테스트
-  </div>
+  <div class="px-5">보관함 안내 박스 테스트</div>
   <!--field_end-->
   <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
-import axios from "axios";
 import Modal from "@/components/Modal.vue";
 import SSM from "@/components/StorageSelectMenu.vue";
 
@@ -45,52 +42,6 @@ export default {
   components: {
     Modal,
     SSM,
-  },
-  mounted() {
-    console.log(this.$store.state.userInfo.email);
-    console.log(this.$store.state.userInfo.profile);
-    if (
-      this.$store.state.userInfo.email != null ||
-      this.$store.state.userInfo.email != ""
-    ) {
-      axios
-        .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
-        .then((res) => {
-          console.log(res.data);
-          this.array = [];
-          this.array = res.data;
-
-          for (var i = 0; i < this.array.length; i++) {
-            //console.log("파일명 : " + this.array[i].input);
-            this.array[i].input =
-              "http://localhost:8200/resources/media_trans/" +
-              this.$store.state.userInfo.email +
-              "/" +
-              this.array[i].input;
-          }
-
-          //console.log("다운로드 개수 : " + this.array.length);
-
-          this.image = this.array[0].input;
-          // 'http://localhost:8200/resourse/**_trans/이메일/파일명'
-          console.log(this.image);
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log("다운로드 실패");
-        });
-    }
-  },
-  methods: {
-    uploadImg() {
-      console.log("들어왔다");
-      var image = this.$refs["image"].files[0];
-
-      const url = URL.createObjectURL(image);
-      this.image = url;
-      console.log(url);
-      console.log(this.image);
-    },
   },
 };
 </script>
