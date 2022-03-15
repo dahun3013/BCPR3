@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ttsHelper {
 
-	public  String getTTShelper(String tts ,String voice,String speed,String volume) {
+	public  String getTTShelper(String tts ,String voice,String speed,String volume,String path) {
 		System.out.println(tts);
 		System.out.println(voice);
 		System.out.println(speed);
@@ -48,7 +48,7 @@ public class ttsHelper {
              byte[] bytes = new byte[1024];
              // 랜덤한 이름으로 mp3 파일 생성
              String tempname = Long.valueOf(new Date().getTime()).toString();
-             File f = new File("C:\\study_boot\\BCPR3\\DMTT\\backend\\src\\main\\webapp\\resources"+"//"+"tts1" + ".mp3");
+             File f = new File(path+"\\"+"tts1" + ".mp3");
              f.createNewFile();
              OutputStream outputStream = new FileOutputStream(f);
              while ((read =is.read(bytes)) != -1) {

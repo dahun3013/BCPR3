@@ -53,29 +53,30 @@ public class ttsController {
 	String voice = (String) rtnMap.get("voice");
 	String speed = (String) rtnMap.get("speed");
 	String volume = (String) rtnMap.get("volume");
+	String path = request.getServletContext().getRealPath("resources");
 	System.out.println(rtnMap);
 	ttsHelper TH = new ttsHelper();
-	String out = (String) TH.getTTShelper(tts,voice,speed,volume);
+	String out = (String) TH.getTTShelper(tts,voice,speed,volume,path);
 	System.out.println("out : " + out );
 	
 	 return out;
 	}
 	
-//	//voice_trans 보관함에 저장
-//	@PostMapping("/tts/upload")
-//	public int upload(
-//			@RequestParam("email") String email,
-//			@RequestParam("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
-//			@RequestParam("kind") String kind,
-//			@RequestParam(value="input", required=false) String input,
-//			@RequestParam("output") String output,
-//			HttpServletRequest request)throws IOException {
-//
-//		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
-//		String url = fsh.voice_transSave(email, kind, trans_date, input);
-//		return mapper.insertVoice_TransContent(email,trans_date,kind,url,output);
-//	}
-//	
+	//voice_trans 보관함에 저장
+	@PostMapping("/tts/upload")
+	public int upload(
+			@RequestParam("email") String email,
+			@RequestParam("trans_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
+			@RequestParam("kind") String kind,
+			@RequestParam("input") String input,
+			HttpServletRequest request)throws IOException {
+
+		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		File file = new File(request.getServletContext().getRealPath("resources")+"\\tts.mp3");
+		String url = fsh.copyFile("voice_trans",email, kind, trans_date, file);
+		return mapper.insertVoice_TransContent(email,trans_date,kind,input,url);
+	}
+	
 	//voice_trans 보관함 아이템 불러오기 email 기준 전부
 	@GetMapping("/tts/list/{email}")
 	public List<Voice_Trans> getList(
