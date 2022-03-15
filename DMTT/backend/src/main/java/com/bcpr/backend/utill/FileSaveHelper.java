@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -35,13 +37,33 @@ public class FileSaveHelper {
 		return result;
 	}
 	
+	public String copyFile(String parent, String email, String kind, LocalDateTime date, File file) throws IOException {
+		String basePath = File.separator+parent;
+		String destPath = File.separator+email+File.separator+kind+"-"+formatDate(date)+"-"+file.getName();
+		result = kind+"-"+formatDate(date)+"-"+file.getName();
+		File newFile = new File(saveDir+basePath+destPath);
+		Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		
+		saveFile(saveDir+basePath+destPath,newFile,null);
+		return result;
+	}
+	
 	public String makePath(String parent, String email, String fileName, LocalDateTime date, String kind) throws IOException {
 		String basePath = File.separator+parent;
-		String destPath = "";
-		if(kind.equals("input")&&fileName != null) {
-			destPath = File.separator+email+File.separator+fileName;
+		String destPath = File.separator+email+File.separator;
+		
+		if(parent.equals("voice_trans")) {
+			if(kind.equals("output")&&fileName != null) {
+				destPath += fileName;
+			}else {
+				destPath += formatDate(date)+"-input.txt";
+			}
 		}else {
-			destPath += File.separator+formatDate(date)+"-output.txt";
+			if(kind.equals("input")&&fileName != null) {
+				destPath += fileName;
+			}else {
+				destPath += formatDate(date)+"-output.txt";
+			}
 		}
 		result = saveDir+basePath+destPath;
 		return result;
@@ -72,18 +94,21 @@ public class FileSaveHelper {
 		if(!file.exists()) {
 			if(file.getParentFile().mkdirs()) {
 			}
+			file.createNewFile();
 		}
-		try{ 
-            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
-            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
-            // 파일안에 문자열 쓰기
-            fw.write(str);
-            fw.flush();
-            // 객체 닫기
-            fw.close();        
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+		if(str!=null && str.equals("")) {
+			try{ 
+	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
+	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
+	            // 파일안에 문자열 쓰기
+	            fw.write(str);
+	            fw.flush();
+	            // 객체 닫기
+	            fw.close();        
+	        }catch(Exception e){
+	            e.printStackTrace();
+	        }
+		}
 	}
 	public void deleteFile(File file) throws IOException{
 		if(file.exists()) {

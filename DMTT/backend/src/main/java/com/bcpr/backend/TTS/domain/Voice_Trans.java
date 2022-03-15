@@ -19,7 +19,7 @@ public class Voice_Trans {
     private String email;
     private LocalDateTime trans_date;
     private String kind;
-    private String input;
     @Lob
+    private String input;
     private String output;
 }
