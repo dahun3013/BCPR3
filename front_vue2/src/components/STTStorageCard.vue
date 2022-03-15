@@ -10,7 +10,7 @@
       <div style="float: right; width: 5%">
         <button @click="remove()">삭제</button>
       </div>
-      
+      <div class="storage-img-box">
         <video class="img-fit" controls ref="player" v-show="showInput">
           <source :src="input" />
         </video>
@@ -23,7 +23,7 @@
         <output name="result" v-show="showOutput">
           <div v-html="content"></div>
         </output>
-      
+      </div>
       <div style="display: flex">
         <button @click="changeShow()" class="storage-ff1-btn mt-4">
           텍스트 보기
