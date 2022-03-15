@@ -1,5 +1,5 @@
 <template>
-  <div class="login-modal px-5 py-5" v-if="loginModal == true">
+  <div class="login-modal px-5 py-5" v-if="loginModal">
     <div class="login-text my-4">
       <h4>로그인</h4>
     </div>
@@ -37,6 +37,7 @@ export default {
         scope: "profile_image, account_email",
         success: this.kakaoInfo,
       });
+      this.$emit("closeModal");
     },
     async kakaoInfo(authObj) {
       console.log(authObj);
@@ -65,7 +66,6 @@ export default {
                 console.log("기존가입");
               });
           }
-          alert("로그인 성공!");
         },
         fail: (error) => {
           this.$router.push("/errorPage");
@@ -106,9 +106,10 @@ export default {
         if (!self.googleLoginCheck) {
           const auth = window.gapi.auth2.getAuthInstance();
           auth.isSignedIn.get();
-          document.querySelector(".abcRioButton").click();
+          const btn = document.querySelector(".abcRioButton");
+          if (btn != null) btn.click();
         }
-      }, 500);
+      }, 100);
     },
     //구글 로그인 이후 실행되는 콜백함수(성공)
     async googleInfo(googleUser) {
@@ -138,6 +139,7 @@ export default {
       form.append("password", "DMTT");
       this.$store.dispatch("getToken", form);
       this.$store.dispatch("setUserInfo", googleData);
+      this.$emit("closeModal");
     },
     googleLogout() {
       // eslint-disable-next-line
