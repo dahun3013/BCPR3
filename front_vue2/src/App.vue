@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="profileBox mx-5 mt-5">
+    <div class="profileBox mt-5">
+      <!--이거 빼고 수정가능-->
       <div @click="loginModal = true">
-        <!--이거 빼고 수정가능-->
         <ProfileItem :profile="getProfile" :email="getEmail" />
       </div>
       <!--이거 빼고 수정가능-->
@@ -63,6 +63,7 @@ export default {
 <style>
 .profileBox {
   float: right;
+  margin-right: 3rem;
 }
 
 .profileBox > div {

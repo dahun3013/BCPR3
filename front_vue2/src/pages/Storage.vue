@@ -2,10 +2,10 @@
   <div class="field">
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
-        <div style="text-align: left">
+        <div>
           <h2>보관함</h2>
         </div>
-        <div style="text-align: center">
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
@@ -13,12 +13,15 @@
     </div>
     <!--top-container-end-->
 
-    <div class="storage-bottom-container px-5 pt-5 pb-2">
+    <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
       <div>
         <SSM :state="0" />
       </div>
     </div>
     <!--storage-bottom-container-end-->
+  </div>
+  <div class="px-5">
+    보관함 안내 박스 테스트
   </div>
   <!--field_end-->
   <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
@@ -99,6 +102,11 @@ body {
 
 textarea {
   resize: none;
+}
+
+.title-name {
+  margin-left: auto;
+  margin-right: 68vh;
 }
 
 .profile-logo > div > h2 {

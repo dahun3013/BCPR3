@@ -25,7 +25,7 @@
         <img
           src="@/assets/3.png"
           alt="매체번역"
-          @click="$router.push('/mtt')"
+          @click="$router.push('/stt')"
         />
         <img
           src="@/assets/4.png"
