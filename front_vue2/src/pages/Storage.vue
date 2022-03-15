@@ -47,7 +47,6 @@ export default {
   name: "papagoPage",
   data() {
     return {
-      image: "",
       array: [],
       loginModal: false,
     };
