@@ -21,7 +21,7 @@ public interface ttsMapper {
 	@Select("select * from voice_trans")
 	List<Voice_Trans> getVoice_TransList();
 	
-	@Select("select * from voice_trans where email = #{email} order by voicd_trans desc")
+	@Select("select * from voice_trans where email = #{email} order by voice_no desc")
 	List<Voice_Trans> getVoice_TransListByEmail(@Param("email") String email);
 	
 	@Select("select * from voice_trans where email = #{email} and voice_no = #{voice_no}")

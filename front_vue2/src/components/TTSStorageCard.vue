@@ -2,7 +2,7 @@
   <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
       <div style="float: left; width: 20%">
-        <h2>매체변환</h2>
+        <h2>음성변환</h2>
       </div>
       <div style="float: left; width: 75%">
         <h3>{{ trans_date }}</h3>
@@ -11,22 +11,17 @@
         <button @click="remove()">삭제</button>
       </div>
       <div class="storage-img-box">
-        <video class="img-fit" controls ref="player" v-show="showInput">
-          <source :src="input" />
-        </video>
-        <div style="display: none">
-          <audio class="img-fit" controls ref="player">
-            <source :src="input" />
-          </audio>
-        </div>
+        <audio class="img-fit" controls ref="player" v-show="showOutput">
+          <source :src="output" />
+        </audio>
 
-        <output name="result" v-show="showOutput">
+        <output name="result" v-show="showInput">
           <div v-html="content"></div>
         </output>
       </div>
       <div style="display: flex">
         <button @click="changeShow()" class="storage-ff1-btn mt-4">
-          텍스트 보기
+          {{ text }}
         </button>
         <button @click="download()" class="storage-ff2-btn mt-4">
           다운로드
@@ -52,16 +47,28 @@ export default {
   },
   data() {
     return {
-      showInput: true,
-      showOutput: false,
+      showInput: false,
+      showOutput: true,
+      btnText: "텍스트 보기",
     };
   },
   methods: {
+    changeText(check) {
+      if (check) this.btnText = "텍스트 보기";
+      else this.btnText = "오디오 보기";
+    },
     changeShow() {
-      if (this.showInput) this.showInput = false;
-      else this.showInput = true;
-      if (this.showOutput) this.showOutput = false;
-      else this.showOutput = true;
+      if (this.showInput) {
+        this.showInput = false;
+      } else {
+        this.showInput = true;
+      }
+      if (this.showOutput) {
+        this.showOutput = false;
+      } else {
+        this.showOutput = true;
+      }
+      this.changeText(this.showOutput);
     },
     async remove() {
       let str = "/api/tts/remove";
@@ -80,8 +87,7 @@ export default {
       this.$router.go("/storage");
     },
     download() {
-      let str =
-        "/api/tts/download/" + this.email + "/" + this.voice_no + "/";
+      let str = "/api/tts/download/" + this.email + "/" + this.voice_no + "/";
       if (this.showInput) str += "input";
       else str += "output";
 
@@ -111,7 +117,10 @@ export default {
   },
   computed: {
     content() {
-      return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
+      return this.input.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
+    text() {
+      return this.btnText;
     },
   },
 };

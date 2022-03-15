@@ -177,32 +177,30 @@
         </div>
       </div>
       <!--tts-bottom-container-end-->
-      <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
     <!--field_end-->
   </div>
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
 import axios from "axios";
 export default {
   name: "papagoPage",
   data() {
     return {
-      image: "",
-      loginModal: false,
       text: "",
       voice: "nara",
       speed: "0",
       volume: "0",
     };
   },
-  components: {
-    Modal,
-  },
+  components: {},
   methods: {
     async upload() {
+      if (this.text == null || this.text === "") {
+        alert("데이터를 입력해주세요.");
+        return;
+      }
       let form = new FormData();
       form.append("email", this.$store.state.userInfo.email);
       var date = new Date();
@@ -214,7 +212,7 @@ export default {
         ).toISOString()
       );
       form.append("kind", "voice");
-      form.append("input", "abcd");
+      form.append("input", this.text);
 
       await axios
 

@@ -55,7 +55,6 @@ export default {
   name: "papagoPage",
   data() {
     return {
-      image: "",
       array: [],
     };
   },
@@ -78,19 +77,12 @@ export default {
           this.array = res.data;
 
           for (var i = 0; i < this.array.length; i++) {
-            //console.log("파일명 : " + this.array[i].input);
-            this.array[i].input =
+            this.array[i].output =
               "http://localhost:8200/resources/voice_trans/" +
               this.$store.state.userInfo.email +
               "/" +
-              this.array[i].input;
+              this.array[i].output;
           }
-
-          //console.log("다운로드 개수 : " + this.array.length);
-
-          this.image = this.array[0].input;
-          // 'http://localhost:8200/resourse/**_trans/이메일/파일명'
-          console.log(this.image);
         })
         .catch((err) => {
           console.log(err);
@@ -98,17 +90,7 @@ export default {
         });
     }
   },
-  methods: {
-    uploadImg() {
-      console.log("들어왔다");
-      var image = this.$refs["image"].files[0];
-
-      const url = URL.createObjectURL(image);
-      this.image = url;
-      console.log(url);
-      console.log(this.image);
-    },
-  },
+  methods: {},
 };
 </script>
 
