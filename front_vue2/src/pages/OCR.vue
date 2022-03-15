@@ -36,7 +36,7 @@
         </div>
         <!--ts-input-cont-end-->
 
-        <div class="ts-output-cont">
+        <div class="ocr-output-cont">
           <div class="ocr-ts-box">
             <form action="#">
               <output name="result" for="text">
@@ -260,6 +260,14 @@ textarea {
   color: white;
 }
 
+.ocr-output-cont {
+  width: 40%;
+  margin: 1rem;
+  padding: 2rem 3rem 2rem 3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 25px;
+}
+
 .ocr-ts-lg-ch {
   margin-right: 1rem;
   text-align: left;
@@ -281,7 +289,7 @@ select:focus {
 }
 
 .ocr-ts-input-cont {
-  width: 35%;
+  width: 40%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;

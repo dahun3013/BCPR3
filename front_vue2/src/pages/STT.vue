@@ -13,9 +13,9 @@
     </div>
     <!--top-container-end-->
 
-    <div class="mtt-bottom-container px-5 pt-5 pb-2">
-      <div class="mtt-ts-container">
-        <div class="mtt-ts-input-cont">
+    <div class="stt-bottom-container px-5 pt-5 pb-2">
+      <div class="stt-ts-container">
+        <div class="stt-ts-input-cont">
           <div>
             <form>
               <audio class="player" controls ref="player" style="display: none">
@@ -24,27 +24,29 @@
               <video class="player2" controls ref="player2">
                 <source src="" ref="source" />
               </video>
-              <div class="mtt-cf-btn mt-4">
-            <label for="chooseFile">파일 가져오기</label>
-            <form method="post" enctype="multipart/form-data">
-              <input
-                ref="image"
-                @change="uploadImg()"
-                type="file"
-                id="chooseFile"
-                name="chooseFile"
-                accept="audio/* video/*"
-                style="display: none"
-              />
-            </form>
-          </div>
-              <div class="ocr-ts-lg-ch mt-4">
-                <select name="ts-lg" id="ts-lg" v-model="lang">
-                  <option value="Kor" selected>한국어</option>
-                  <option value="Eng">영어</option>
-                  <option value="Jpn">일본어</option>
-                  <option value="Chn">중국어</option>
-                </select>
+              <div class="stt-input-btn">
+                <div class="stt-ts-lg-ch mt-4">
+                  <select name="ts-lg" id="ts-lg" v-model="lang">
+                    <option value="Kor" selected>한국어</option>
+                    <option value="Eng">영어</option>
+                    <option value="Jpn">일본어</option>
+                    <option value="Chn">중국어</option>
+                  </select>
+                </div>
+                <div class="stt-cf-btn mt-4">
+                  <label for="chooseFile">파일 가져오기</label>
+                  <form method="post" enctype="multipart/form-data">
+                    <input
+                      ref="image"
+                      @change="uploadImg()"
+                      type="file"
+                      id="chooseFile"
+                      name="chooseFile"
+                      accept="audio/* video/*"
+                      style="display: none"
+                    />
+                  </form>
+                </div>
               </div>
               <!-- <button type="button" @click="sendData()">전송</button> -->
             </form>
@@ -53,8 +55,8 @@
         </div>
         <!--ts-input-cont-end-->
 
-        <div class="ts-output-cont">
-          <div class="mtt-ts-box">
+        <div class="stt-output-cont">
+          <div class="stt-ts-box">
             <form action="#">
               <output name="result" for="text">
                 <div v-html="content"></div>
@@ -63,7 +65,7 @@
           </div>
 
           <div style="display: flex">
-            <div class="ocr-ts-lg-ch mt-4">
+            <div class="stt-ts-lg-ch mt-4">
               <select name="ts-lg" id="ts-lg" v-model="papagolang">
                 <option value="ko">한국어</option>
                 <option value="en">영어</option>
@@ -73,7 +75,7 @@
                 <option value="es">스페인어</option>
               </select>
             </div>
-            <button @click="translation" class="ocr-trans-btn mt-4">
+            <button @click="translation" class="stt-trans-btn mt-4">
               번역하기
             </button>
           </div>
@@ -98,7 +100,7 @@
         <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
       </div>
     </div>
-    <!--mtt-bottom-container-end-->
+    <!--stt-bottom-container-end-->
   </div>
   <!--field_end-->
 </template>
@@ -253,53 +255,68 @@ export default {
 body {
   margin: 0;
 }
+
 textarea {
   resize: none;
 }
+
 .profile-logo > div > h2 {
   color: white;
   font-weight: bold;
 }
-.mtt-bottom-container {
+
+.stt-bottom-container {
   background: white;
   border-radius: 100px 0px 0px 0px;
 }
-.mtt-ts-container {
+
+.stt-ts-container {
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 .top-content {
   display: flex;
   justify-content: space-between;
   padding: 2rem 4rem 2rem 4rem;
   color: white;
 }
-.mtt-ts-lg-ch {
+
+.stt-input-btn {
+  display: flex;
+}
+
+.stt-ts-lg-ch {
   margin-right: 1rem;
   text-align: left;
 }
-.mtt-ts-lg-ch > select {
+
+.stt-ts-lg-ch > select {
   font-size: 1rem;
   padding: 0.5rem;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
 }
+
 select:hover {
   border-color: none;
 }
+
 select:focus {
   outline: none;
 }
-.mtt-ts-input-cont {
-  width: 35%;
+
+.stt-ts-input-cont {
+  width: 40%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;
   border-radius: 25px;
   text-align: center;
 }
-.mtt-ts-box {
+
+.stt-ts-box {
   width: 100%;
   height: 400px;
   border: 1px solid #dbdbdb;
@@ -308,26 +325,31 @@ select:focus {
   text-align: left;
   overflow: auto;
 }
-.mtt-ts-box::-webkit-scrollbar {
+
+.stt-ts-box::-webkit-scrollbar {
   display: none;
 }
-.mtt-cf-btn {
+
+.stt-cf-btn {
+  width: 100%;
   padding: 0.5rem;
   background: white;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   font-size: 1rem;
 }
-.mtt-trans-btn {
+
+.stt-trans-btn {
   width: 100%;
   margin-left: 1rem;
   padding: 0.5rem;
+  color: white;
   background: #0d66ff;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   font-size: 1rem;
 }
-.mtt-trans-btn > button {
+.stt-trans-btn > button {
   width: 100%;
   color: white;
   background: #0d66ff;
@@ -335,8 +357,8 @@ select:focus {
   border-radius: 10px;
   font-size: 1rem;
 }
-.ts-output-cont {
-  width: 35%;
+.stt-output-cont {
+  width: 40%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;
@@ -357,5 +379,7 @@ select:focus {
 }
 .player2 {
   width: 100%;
+  height: 400px;
+  border-radius: 10px;
 }
 </style>

@@ -16,146 +16,150 @@
     </div>
     <!--top-container-end-->
 
-    <div class="stt-bottom-container px-5 pt-5 pb-2">
-      <div class="stt-ts-container">
-        <div class="ts-output-cont">
+    <div class="tts-bottom-container px-5 pt-5 pb-2">
+      <div class="tts-ts-container">
+        <div class="tts-output-cont">
           <div>
-            <textarea class="stt-ts-box" v-model="text"></textarea>
-            <!-- <textarea class="stt-ts-box" placeholder="여기에 만들고싶은 음성의 내용을 작성하세요.
+            <textarea class="tts-ts-box" v-model="text"></textarea>
+            <!-- <textarea class="tts-ts-box" placeholder="여기에 만들고싶은 음성의 내용을 작성하세요.
                     ■ 유용한 Tip~
                     ① 마침표, 쉼표, 띄어쓰기를 꼭 사용하세요. 쉼표를 적절히 자주 붙이면 내용이 명확해집니다.
                     ② 마침표를 제외한 특수문자는 사용하지 마세요. 몇가지 음성에서만 물음표 사용이 가능합니다." v-model="text"></textarea> -->
           </div>
           <hr />
-          <!--By.지원_보이스선택-->
-          <span class="voice">음성 종류</span>
-          <select name="voice" v-model="voice" class="voiceSelect">
-            <option value="">--음성을 선택해주세요--</option>
-            <option value="nara">아라 한국어 여성</option>
-            <option value="nara_call">아라(상담원) 한국어 여성</option>
-            <option value="nminyoung">민영 한국어 여성</option>
-            <option value="nyejin">예진 한국어 여성</option>
-            <option value="mijin">미진 한국어 여성</option>
-            <option value="jinho">진호 한국어 남성</option>
-            <option value="clara">클라라 영어 여성</option>
-            <option value="matt">매트 영어 남성</option>
-            <option value="shinji">신지 일본어 남성</option>
-            <option value="meimei">메이메이 중국어 여성</option>
-            <option value="liangliang">량량 중국어 남성</option>
-            <option value="jose">호세 스페인어 남성</option>
-            <option value="carmen">카르멘 스페인어 여성</option>
-            <option value="nminsang">민상 한국어 남성</option>
-            <option value="nsinu">신우 한국어 남성</option>
-            <option value="nhajun">하준 한국어 남성(아동)</option>
-            <option value="ndain">다인 한국어 여성(아동)</option>
-            <option value="njiyun">지윤 한국어 여성</option>
-            <option value="nsujin">수진 한국어 여성</option>
-            <option value="njinho">진호 한국어 남성</option>
-            <option value="njihun">지훈 한국어 남성</option>
-            <option value="njooahn">주안 한국어 남성</option>
-            <option value="nseonghoon">성훈 한국어 남성</option>
-            <option value="njihwan">지환 한국어 남성</option>
-            <option value="nsiyoon">시윤 한국어 남성</option>
-            <option value="ngaram">가람 한국어 남성</option>
-            <option value="ntomoko">토모코 일본어 여성</option>
-            <option value="nnaomi">나오미 일본어 여성</option>
-            <option value="dnaomi_joyful">나오미(기쁨) 일본어 여성</option>
-            <option value="dnaomi_formal">나오미(뉴스) 일본어 여성</option>
-            <option value="driko">리코 일본어 여성</option>
-            <option value="deriko">에리코 일본어 여성</option>
-            <option value="nsayuri">사유리 일본어 여성</option>
-            <option value="ngoeun">고은 한국어 여성</option>
-            <option value="neunyoung">은영 한국어 여성</option>
-            <option value="nsunkyung">선경 한국어 여성</option>
-            <option value="nyujin">유진 한국어 여성</option>
-            <option value="ntaejin">태진 한국어 남성</option>
-            <option value="nyoungil">영일 한국어 남성</option>
-            <option value="nseungpyo">승표 한국어 남성</option>
-            <option value="nwontak">원탁 한국어 남성</option>
-            <option value="dara_ang">아라(화남) 한국어 여성</option>
-            <option value="nsunhee">선희 한국어 여성</option>
-            <option value="nminseo">민서 한국어 여성</option>
-            <option value="njiwon">지원 한국어 여성</option>
-            <option value="nbora">보라 한국어 여성</option>
-            <option value="njonghyun">종현 한국어 남성</option>
-            <option value="njoonyoung">준영 한국어 남성</option>
-            <option value="njaewook">재욱 한국어 남성</option>
-            <option value="danna">안나 영어 여성</option>
-            <option value="djoey">조이 영어 여성</option>
-            <option value="dhajime">하지메 일본어 남성</option>
-            <option value="ddaiki">다이키 일본어 남성</option>
-            <option value="dayumu">아유무 일본어 남성</option>
-            <option value="dmio">미오 일본어 여성</option>
-            <option value="chiahua">차화 대만어 여성</option>
-            <option value="kuanlin">관린 대만어 남성</option>
-            <option value="dnaomi_joyful">나오미(기쁨) 일본어 여성</option>
-            <option value="dnaomi_formal">나오미(뉴스) 일본어 여성</option>
-            <option value="driko">리코 일본어 여성</option>
-            <option value="deriko">에리코 일본어 여성</option>
-            <option value="nes_c_hyeri">혜리 한국어 여성</option>
-            <option value="nes_c_sohyun">소현 한국어 여성</option>
-            <option value="nes_c_mikyung">미경 한국어 여성</option>
-            <option value="nes_c_kihyo">기효 한국어 남성</option>
-          </select>
-          <!--By.지원_속도조절-->
-          <span class="speed">속도</span>
-          <select name="voiceSpeed" v-model="speed" class="speedSelect">
-            <option value="-5">-5</option>
-            <option value="-4">-4</option>
-            <option value="-3">-3</option>
-            <option value="-2">-2</option>
-            <option value="-1">-1</option>
-            <option value="0" selected>0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <!--By.지원_볼륨조절-->
-          <span class="volume">볼륨</span>
-          <select name="voiceVolume" v-model="volume" class="volumeSelect">
-            <option value="-5">-5</option>
-            <option value="-4">-4</option>
-            <option value="-3">-3</option>
-            <option value="-2">-2</option>
-            <option value="-1">-1</option>
-            <option value="0" selected>0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <!--By.지원_재생버튼-->
-          <!-- <span class="play" id="plButton">
-                    <button type="button" @click="play('http://localhost:8888/tts.mp3')">재생</button>
-                </span> -->
-          <!--By.지원_전송버튼-->
-          <span class="send" id="send">
-            <button type="button" @click="sendData() + restart()">
-              음성 변환하기
-            </button>
+          <div style="display: flex;">
+            <!--By.지원_보이스선택-->
+            <div class="voice">음성 종류</div>
+            <select name="voice" v-model="voice" class="voiceSelect">
+              <option value="">--음성을 선택해주세요--</option>
+              <option value="nara">아라 한국어 여성</option>
+              <option value="nara_call">아라(상담원) 한국어 여성</option>
+              <option value="nminyoung">민영 한국어 여성</option>
+              <option value="nyejin">예진 한국어 여성</option>
+              <option value="mijin">미진 한국어 여성</option>
+              <option value="jinho">진호 한국어 남성</option>
+              <option value="clara">클라라 영어 여성</option>
+              <option value="matt">매트 영어 남성</option>
+              <option value="shinji">신지 일본어 남성</option>
+              <option value="meimei">메이메이 중국어 여성</option>
+              <option value="liangliang">량량 중국어 남성</option>
+              <option value="jose">호세 스페인어 남성</option>
+              <option value="carmen">카르멘 스페인어 여성</option>
+              <option value="nminsang">민상 한국어 남성</option>
+              <option value="nsinu">신우 한국어 남성</option>
+              <option value="nhajun">하준 한국어 남성(아동)</option>
+              <option value="ndain">다인 한국어 여성(아동)</option>
+              <option value="njiyun">지윤 한국어 여성</option>
+              <option value="nsujin">수진 한국어 여성</option>
+              <option value="njinho">진호 한국어 남성</option>
+              <option value="njihun">지훈 한국어 남성</option>
+              <option value="njooahn">주안 한국어 남성</option>
+              <option value="nseonghoon">성훈 한국어 남성</option>
+              <option value="njihwan">지환 한국어 남성</option>
+              <option value="nsiyoon">시윤 한국어 남성</option>
+              <option value="ngaram">가람 한국어 남성</option>
+              <option value="ntomoko">토모코 일본어 여성</option>
+              <option value="nnaomi">나오미 일본어 여성</option>
+              <option value="dnaomi_joyful">나오미(기쁨) 일본어 여성</option>
+              <option value="dnaomi_formal">나오미(뉴스) 일본어 여성</option>
+              <option value="driko">리코 일본어 여성</option>
+              <option value="deriko">에리코 일본어 여성</option>
+              <option value="nsayuri">사유리 일본어 여성</option>
+              <option value="ngoeun">고은 한국어 여성</option>
+              <option value="neunyoung">은영 한국어 여성</option>
+              <option value="nsunkyung">선경 한국어 여성</option>
+              <option value="nyujin">유진 한국어 여성</option>
+              <option value="ntaejin">태진 한국어 남성</option>
+              <option value="nyoungil">영일 한국어 남성</option>
+              <option value="nseungpyo">승표 한국어 남성</option>
+              <option value="nwontak">원탁 한국어 남성</option>
+              <option value="dara_ang">아라(화남) 한국어 여성</option>
+              <option value="nsunhee">선희 한국어 여성</option>
+              <option value="nminseo">민서 한국어 여성</option>
+              <option value="njiwon">지원 한국어 여성</option>
+              <option value="nbora">보라 한국어 여성</option>
+              <option value="njonghyun">종현 한국어 남성</option>
+              <option value="njoonyoung">준영 한국어 남성</option>
+              <option value="njaewook">재욱 한국어 남성</option>
+              <option value="danna">안나 영어 여성</option>
+              <option value="djoey">조이 영어 여성</option>
+              <option value="dhajime">하지메 일본어 남성</option>
+              <option value="ddaiki">다이키 일본어 남성</option>
+              <option value="dayumu">아유무 일본어 남성</option>
+              <option value="dmio">미오 일본어 여성</option>
+              <option value="chiahua">차화 대만어 여성</option>
+              <option value="kuanlin">관린 대만어 남성</option>
+              <option value="dnaomi_joyful">나오미(기쁨) 일본어 여성</option>
+              <option value="dnaomi_formal">나오미(뉴스) 일본어 여성</option>
+              <option value="driko">리코 일본어 여성</option>
+              <option value="deriko">에리코 일본어 여성</option>
+              <option value="nes_c_hyeri">혜리 한국어 여성</option>
+              <option value="nes_c_sohyun">소현 한국어 여성</option>
+              <option value="nes_c_mikyung">미경 한국어 여성</option>
+              <option value="nes_c_kihyo">기효 한국어 남성</option>
+            </select>
+            <!--By.지원_속도조절-->
+            <div class="speed">속도</div>
+            <select name="voiceSpeed" v-model="speed" class="speedSelect">
+              <option value="-5">-5</option>
+              <option value="-4">-4</option>
+              <option value="-3">-3</option>
+              <option value="-2">-2</option>
+              <option value="-1">-1</option>
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <!--By.지원_볼륨조절-->
+            <div class="volume">볼륨</div>
+            <select name="voiceVolume" v-model="volume" class="volumeSelect">
+              <option value="-5">-5</option>
+              <option value="-4">-4</option>
+              <option value="-3">-3</option>
+              <option value="-2">-2</option>
+              <option value="-1">-1</option>
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <!--By.지원_전송버튼-->
+            <div>
+              <button type="button" @click="sendData() + restart()">
+                음성 변환하기
+              </button>
+            </div>
             <!-- <button type="button" @click="div_show() + sendData()">음성 변환하기</button> -->
-          </span>
+          </div>
+          <!--By.지원_재생버튼-->
+          <!-- <div class="play" id="plButton">
+                    <button type="button" @click="play('http://localhost:8888/tts.mp3')">재생</button>
+                </div> -->
           <hr id="line" />
           <!--결과-->
-          <!--By.지원_플레이어-->
-          <span>
-            <audio controls="" controlsList="nodownload" id="audio">
-              <source src="http://localhost:8888/tts.mp3" type="audio/mpeg" />
-            </audio>
-          </span>
-          <!--By.지원_MP3다운로드-->
-          <span class="download" id="dlButton">
-            <button type="button" value="page move" @click="download()">
-              MP3 다운로드
-            </button>
-          </span>
+          <div class="tts-output-box">
+            <!--By.지원_플레이어-->
+            <div>
+              <audio controls="" controlsList="nodownload" id="audio">
+                <source src="http://localhost:8888/tts.mp3" type="audio/mpeg" />
+              </audio>
+            </div>
+            <!--By.지원_MP3다운로드-->
+            <div class="download" id="dlButton">
+              <button type="button" value="page move" @click="download()">
+                MP3 다운로드
+              </button>
+            </div>
+          </div>
           <!--By.지원_다시하기버튼-->
-          <!-- <span class="restart" id="restart">
+          <!-- <div class="restart" id="restart">
                     <button type="button" id="restart" @click="restart()">다시하기</button>
-                </span> -->
+                </div> -->
         </div>
       </div>
       <br />
@@ -171,19 +175,7 @@
         <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
       </div>
     </div>
-    <!--stt-bottom-container-end-->
-    <div class="px-5">
-      <hr />
-    </div>
-
-    <div class="footer container">
-      <p class="mx-3">파고북스 이용약관</p>
-      <p class="mx-3">의견제안</p>
-      <p class="mx-3">개인정보처리방침</p>
-      <p class="mx-3">책임의 한계와 법적고지</p>
-      <p class="mx-3">준수사항</p>
-    </div>
-
+    <!--tts-bottom-container-end-->
     <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
   <!--field_end-->
@@ -275,29 +267,32 @@ textarea {
   resize: none;
 }
 
-.stt-bottom-container {
+.tts-bottom-container {
   background: white;
   border-radius: 100px 0px 0px 0px;
 }
 
-.stt-ts-container {
-  width: 220%;
-  margin-left: 250px;
+.tts-ts-container {
+  width: 100%;
 }
 
-.stt-ts-box {
+.tts-ts-box {
   width: 100%;
-  height: 500px;
+  height: 300px;
   margin-top: 10px;
   margin-bottom: 10px;
-  border: 1.5px solid #dbdbdb;
+  border: 1px solid #dbdbdb;
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
 }
 
-.send {
-  margin-left: 464px;
+.tts-output-cont {
+  width: 80%;
+  margin: 1rem;
+  padding: 2rem 3rem 2rem 3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 25px;
 }
 
 .voice,
@@ -305,34 +300,12 @@ textarea {
 .volume {
   background-color: #0d66ff;
   border-radius: 10px;
-  border: 2px solid white;
   color: white;
-  padding: 15px 20px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.speed,
-.volume {
-  margin-left: 12px;
-}
-
-button {
-  background-color: #0d66ff;
-  border-radius: 10px;
-  border: 2px solid white;
-  color: white;
-  padding: 15px 20px;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .voiceSelect,
 .speedSelect,
 .volumeSelect {
-  margin-top: 10px;
-  margin-left: 8px;
-  height: 45px;
   border-radius: 10px;
 }
 
@@ -343,7 +316,7 @@ button {
 
 .speedSelect,
 .volumeSelect {
-  width: 70px;
+  width: 100px;
   text-align: center;
 }
 
@@ -351,8 +324,8 @@ button {
   margin-left: 20px;
 }
 
-audio {
-  margin-top: 10px;
+.tts-output-box {
+  display: flex;
 }
 
 audio::-webkit-media-controls-panel {

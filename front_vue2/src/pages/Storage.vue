@@ -105,8 +105,7 @@ textarea {
 }
 
 .title-name {
-  margin-left: auto;
-  margin-right: 68vh;
+  margin: auto;
 }
 
 .profile-logo > div > h2 {
