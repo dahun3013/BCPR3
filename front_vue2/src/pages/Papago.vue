@@ -13,8 +13,8 @@
     </div>
     <!--top-container-end-->
     <div class="papago-bottom-container px-5 pt-5 pb-2">
-      <div class="ts-container">
-        <div class="ts-input-cont">
+      <div class="ppg-container">
+        <div class="ppg-input-cont">
           <div class="ts-lg-ch">
             <select
               v-model="from_language"
@@ -43,7 +43,7 @@
         </div>
         <!--ts-input-cont-end-->
 
-        <div class="ts-output-cont">
+        <div class="ppg-output-cont">
           <div class="ts-lg-ch">
             <select v-model="to_language" name="ts-lg" id="ts-lg2">
               <option value="ko">한국어</option>
@@ -71,7 +71,7 @@
         </div>
         <!--ts-output-cont-end-->
       </div>
-      <!--ts-container-end-->
+      <!--ppg-container-end-->
 
       <br />
 
@@ -249,7 +249,7 @@ textarea {
   border-radius: 100px 0px 0px 0px;
 }
 
-.ts-container {
+.ppg-container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -260,6 +260,14 @@ textarea {
   justify-content: space-between;
   padding: 2rem 4rem 2rem 4rem;
   color: white;
+}
+
+.ppg-output-cont {
+  width: 40%;
+  margin: 1rem;
+  padding: 2rem 3rem 2rem 3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 25px;
 }
 
 .ts-lg-ch {
@@ -282,8 +290,8 @@ select:focus {
   outline: none;
 }
 
-.ts-input-cont {
-  width: 35%;
+.ppg-input-cont {
+  width: 40%;
   height: 100%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
@@ -323,8 +331,8 @@ select:focus {
   font-weight: bold;
 }
 
-.ts-output-cont {
-  width: 35%;
+.ppg-output-cont {
+  width: 40%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;
