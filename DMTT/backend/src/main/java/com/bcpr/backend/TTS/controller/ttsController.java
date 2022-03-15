@@ -112,7 +112,7 @@ public class ttsController {
 	    response.getOutputStream().close();
 	    
 	    if(kind.equals("input")){ 
-			fsh.deleteFile(file);
+		fsh.deleteFile(file);
 		}
     }
 	
