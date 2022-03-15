@@ -42,7 +42,7 @@
       <br /><br />
 
       <div style="text-align: center; font-weight: bold">
-        <p @click="$router.push('/Storage')">
+        <p>
           [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
         </p>
       </div>
