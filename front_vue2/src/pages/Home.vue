@@ -42,16 +42,14 @@
       <br /><br />
 
       <div style="text-align: center; font-weight: bold">
-        <p>
-          [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
-        </p>
+        <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
       </div>
 
       <br /><br /><br />
     </div>
     <!--bottom-container-end-->
-  </div><!--field-end-->
-
+  </div>
+  <!--field-end-->
 </template>
 
 <script>
