@@ -21,7 +21,7 @@ public interface PapagoMapper {
 	List<Translation> getTranslations();
 
 	
-	@Select("select * from translation where email = #{email}")
+	@Select("select * from translation where email = #{email} order by translation_no desc")
 	List<Translation> getTranslationListByEmail(@Param("email") String email);
 	
 	@Select("select * from translation where email = #{email} and translation_no = #{translation_no}")

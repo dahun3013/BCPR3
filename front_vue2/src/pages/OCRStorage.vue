@@ -2,66 +2,49 @@
   <div class="field">
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
-        <div style="text-align: left">
-          <h2>보관함</h2>
+        <div>
+          <h2>문서변환 보관함</h2>
         </div>
-        <div style="text-align: center">
-          <h2 @click="$router.push('/Home')">PAGO BOOKS</h2>
-        </div>
-        <div @click="loginModal = true" style="text-align: right">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
+        <div class="title-name">
+          <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
-      <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
 
-    <div
-      class="
-        row
-        storage-bottom-container
-        px-5
-        pt-5
-        pb-2
-        row-cols-xl-3
-        justify-content-center
-      "
-      style="clear: both"
-    >
-      <StorageCard
-        :media_no="a.media_no"
-        :email="a.email"
-        :kind="a.kind"
-        :input="a.input"
-        :output="a.output"
-        :trans_date="a.trans_date"
-        v-for="(a, i) in array"
-        :key="i"
-      />
+    <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
+      <SSM :state="1" />
     </div>
     <!--storage-bottom-container-end-->
   </div>
   <!--field_end-->
 
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
+  <div
+    class="
+      row
+      gx-4 gx-lg-5
+      row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3
+      justify-content-center
+    "
+  >
+    <StorageCard
+      :media_no="a.media_no"
+      :email="a.email"
+      :kind="a.kind"
+      :input="a.input"
+      :output="a.output"
+      :trans_date="a.trans_date"
+      v-for="(a, i) in array"
+      :key="i"
+    />
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal"/>
-
 </template>
 
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import Modal from '@/components/Modal.vue'
 import StorageCard from "@/components/StorageCard.vue";
+import SSM from "@/components/StorageSelectMenu.vue";
 
 export default {
   name: "papagoPage",
@@ -69,12 +52,11 @@ export default {
     return {
       image: "",
       array: [],
-      loginModal: false,
     };
   },
   components: {
     StorageCard,
-    Modal,
+    SSM,
   },
   mounted() {
     console.log(this.$store.state.userInfo.email);
@@ -111,17 +93,7 @@ export default {
         });
     }
   },
-  methods: {
-    uploadImg() {
-      console.log("들어왔다");
-      var image = this.$refs["image"].files[0];
-
-      const url = URL.createObjectURL(image);
-      this.image = url;
-      console.log(url);
-      console.log(this.image);
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -139,10 +111,8 @@ textarea {
   font-weight: bold;
 }
 
-.storage-bottom-container {
-  display: flex;
-  background: white;
-  border-radius: 100px 0px 0px 0px;
+::-webkit-scrollbar {
+  display: none;
 }
 
 .storage-ts-container {

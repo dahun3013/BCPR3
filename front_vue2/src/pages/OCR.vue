@@ -5,11 +5,8 @@
         <div>
           <h2>문서변환</h2>
         </div>
-        <div>
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
-        </div>
-        <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
         </div>
       </div>
       <!--profile-logo-end-->
@@ -39,7 +36,7 @@
         </div>
         <!--ts-input-cont-end-->
 
-        <div class="ts-output-cont">
+        <div class="ocr-output-cont">
           <div class="ocr-ts-box">
             <form action="#">
               <output name="result" for="text">
@@ -49,13 +46,23 @@
           </div>
           <div style="display: flex">
             <div class="ocr-ts-lg-ch mt-4">
-              <select name="ts-lg" id="ts-lg">
-                <option value="kr">한국어</option>
+              <select name="ts-lg" id="ts-lg" v-model="from_language">
+                <option value="ko">한국어</option>
                 <option value="en">영어</option>
-                <option value="jp">일본어</option>
-                <option value="cn">중국어</option>
-                <option value="gm">독일어</option>
-                <option value="sp">스페인어</option>
+                <option value="ja">일본어</option>
+                <option value="zh-CN">중국어</option>
+                <option value="de">독일어</option>
+                <option value="es">스페인어</option>
+              </select>
+            </div>
+            <div class="ocr-ts-lg-ch mt-4">
+              <select name="ts-lg" id="ts-lg" v-model="to_language">
+                <option value="ko">한국어</option>
+                <option value="en">영어</option>
+                <option value="ja">일본어</option>
+                <option value="zh-CN">중국어</option>
+                <option value="de">독일어</option>
+                <option value="es">스페인어</option>
               </select>
             </div>
             <button @click="translation" class="ocr-trans-btn mt-4">
@@ -63,7 +70,9 @@
             </button>
           </div>
           <div v-show="isLogin">
-            <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
+            <div class="ppg-save-btn mt-4">
+              <button @click="upload">저장하기</button>
+            </div>
           </div>
         </div>
         <!--ts-output-cont-end-->
@@ -84,23 +93,10 @@
     <!--ocr-bottom-container-end-->
   </div>
   <!--field_end-->
-
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
-import Modal from "@/components/Modal.vue";
 import axios from "axios";
 
 export default {
@@ -110,18 +106,28 @@ export default {
       googleAuth: null,
       image: "",
       text: "",
-      loginModal: false,
+      from_language: "ko",
+      to_language: "en",
     };
   },
-  components: {
-    Modal,
-  },
+  components: {},
 
   methods: {
     async upload() {
+      if (this.image == null || this.image === "") {
+        alert("데이터를 입력해주세요.");
+        return;
+      }
       let form = new FormData();
       form.append("email", this.$store.state.userInfo.email);
-      form.append("trans_date", new Date().toISOString());
+      var date = new Date();
+
+      form.append(
+        "trans_date",
+        new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        ).toISOString()
+      );
       form.append("kind", "images");
       form.append("input", this.$refs["image"].files[0]);
       form.append("output", this.text);
@@ -134,23 +140,44 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          alert("저장이 완료되었습니다.");
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
+          alert("잘못된 요청입니다.");
         });
     },
 
     async translation() {
+      console.log(this.to_language);
+      if (this.to_language == this.from_language) {
+        alert("동일한 언어입니다.");
+        return;
+      }
       let form = new FormData();
       form.append("text", this.text);
+      form.append("from_language", this.from_language);
+      form.append("to_language", this.to_language);
       await axios
-        .post("/api/user/papago/json", form, {
+        .post("/api/papago/json", form, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then((res) => {
           console.log(res);
+          if (res.data.includes("errorCode:N2MT06")) {
+            alert("지원하지 않는 번역기입니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:N2MT08")) {
+            alert("번역기 용량이 초과되었습니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:010")) {
+            alert("파파고 사용제한이 초과되었습니다.");
+            return;
+          }
           this.text = res.data;
           console.log(this.text);
         })
@@ -159,8 +186,11 @@ export default {
         });
     },
     async uploadImg() {
-      console.log("들어왔다");
       var image = this.$refs["image"].files[0];
+      if (image == null || image === "") {
+        alert("잘못된 파일 형식입니다.");
+        return;
+      }
       const url = URL.createObjectURL(image);
       this.image = url;
       let form = new FormData();
@@ -182,9 +212,7 @@ export default {
         });
     },
   },
-  mounted() {
-    console.log(this.$store.state.userInfo.email);
-  },
+  mounted() {},
   computed: {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
@@ -203,6 +231,10 @@ body {
 
 textarea {
   resize: none;
+}
+
+.title-name {
+  align-items: center;
 }
 
 .profile-logo > div > h2 {
@@ -228,6 +260,14 @@ textarea {
   color: white;
 }
 
+.ocr-output-cont {
+  width: 40%;
+  margin: 1rem;
+  padding: 2rem 3rem 2rem 3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 25px;
+}
+
 .ocr-ts-lg-ch {
   margin-right: 1rem;
   text-align: left;
@@ -249,7 +289,7 @@ select:focus {
 }
 
 .ocr-ts-input-cont {
-  width: 35%;
+  width: 40%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;

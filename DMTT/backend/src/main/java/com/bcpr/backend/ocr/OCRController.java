@@ -53,11 +53,11 @@ public class OCRController {
 		@RequestParam(value="file", required=false) MultipartFile file,
 		HttpServletRequest request) throws IOException{
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
-		String url = fsh.tempSave(file);
+		String url = fsh.saveTemp(file);
 		System.out.println(url);
 		OCRHelper oh = new OCRHelper();
 		String out = oh.forFile(url);
-		fsh.delete(url);
+		fsh.deleteTemp(url);
 		
 	    return out;
 	}
@@ -73,7 +73,7 @@ public class OCRController {
 			HttpServletRequest request)throws IOException {
 
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
-		String url = fsh.media_transSave(email, kind, trans_date, input);
+		String url = fsh.makeMultiFile("media_trans",email, kind, trans_date, input);
 		return mapper.insertMedia_TransContent(email,trans_date,kind,url,output);
 	}
 	
@@ -94,30 +94,14 @@ public class OCRController {
 			HttpServletResponse response) throws Exception {
 		Media_Trans mt = mapper.getMedia_Trans(email, media_no);
 		
-		String path = "";
-		path = request.getServletContext().getRealPath("resources")
-				+"\\media_trans\\"
-				+ mt.getEmail()
-				+ "\\";
-		
-		if(kind.equals("input")) {
-			path += mt.getInput(); // 경로에 접근할 때 역슬래시('\') 사용
-			
-		}else {
-	        path += mt.getTrans_date()+"-output.txt";
-	        try{ 
-	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
-	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
-	            // 파일안에 문자열 쓰기
-	            fw.write(mt.getOutput());
-	            fw.flush();
-	            // 객체 닫기
-	            fw.close();        
-	        }catch(Exception e){
-	            e.printStackTrace();
-	        }
-		}
+		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), kind);
+
 		File file = new File(path);
+		if(!kind.equals("input")) {
+	        fsh.saveFile(path, file, mt.getOutput());
+		}
+		
 		byte[] fileByte = FileUtils.readFileToByteArray(file);
 		
 		response.setContentType("application/octet-stream");
@@ -128,9 +112,8 @@ public class OCRController {
 	    response.getOutputStream().flush();
 	    response.getOutputStream().close();
 	    
-	    if(kind.equals("output") && file.exists() ){ 
-			if(file.delete()){ 
-			}
+	    if(kind.equals("output")){ 
+			fsh.deleteFile(file);
 		}
     }
 	

@@ -1,7 +1,11 @@
 package com.bcpr.backend.utill;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,36 +29,54 @@ public class FileSaveHelper {
 	
 	//media_trans 상대 경로 설정
 	//ex) ..\DMTT\backend\src\main\webapp\resources\media_trans\이메일\타입-날짜-파일명
-	public String media_transSave(String email, String kind, LocalDateTime date, MultipartFile file) throws IOException {
-		String basePath = File.separator+"media_trans";
+	public String makeMultiFile(String parent, String email, String kind, LocalDateTime date, MultipartFile file) throws IOException {
+		String basePath = File.separator+parent;
 		String destPath = File.separator+email+File.separator+kind+"-"+formatDate(date)+"-"+file.getOriginalFilename();
 		result = kind+"-"+formatDate(date)+"-"+file.getOriginalFilename();
-		save(saveDir+basePath+destPath,file);
+		saveMultiFile(saveDir+basePath+destPath,file);
 		return result;
 	}
 	
-	public String media_transDownload(Media_Trans mt, String kind) throws IOException {
-		String basePath = File.separator+"media_trans";
-		String destPath = "";
-		if(kind.equals("input")) {
-			destPath = File.separator+mt.getEmail()+File.separator+mt.getInput();
+	public String copyFile(String parent, String email, String kind, LocalDateTime date, File file) throws IOException {
+		String basePath = File.separator+parent;
+		String destPath = File.separator+email+File.separator+kind+"-"+formatDate(date)+"-"+file.getName();
+		result = kind+"-"+formatDate(date)+"-"+file.getName();
+		File newFile = new File(saveDir+basePath+destPath);
+		copyFile(file,newFile);
+		return result;
+	}
+	
+	public String makePath(String parent, String email, String fileName, LocalDateTime date, String kind) throws IOException {
+		String basePath = File.separator+parent;
+		String destPath = File.separator+email+File.separator;
+		
+		if(parent.equals("voice_trans")) {
+			if(kind.equals("output")&&fileName != null) {
+				destPath += fileName;
+			}else {
+				destPath += formatDate(date)+"-input.txt";
+			}
 		}else {
-			destPath += mt.getTrans_date()+"-output.txt";
+			if(kind.equals("input")&&fileName != null) {
+				destPath += fileName;
+			}else {
+				destPath += formatDate(date)+"-output.txt";
+			}
 		}
 		result = saveDir+basePath+destPath;
 		return result;
 	}
 	
 	//ocr api를 위한 임시파일 생성
-	public String tempSave(MultipartFile file) throws IOException{
+	public String saveTemp(MultipartFile file) throws IOException{
 		String basePath = File.separator+"temp";
 		String destPath = File.separator+file.getOriginalFilename();
-		save(saveDir+basePath+destPath,file);
+		saveMultiFile(saveDir+basePath+destPath,file);
 		return saveDir+basePath+destPath;
 	}
 	
 	//ocr api를 위한 임시파일 삭제
-	public void delete(String path) {
+	public void deleteTemp(String path) {
 		File file = new File(path); 
 		if( file.exists() ){ 
 			if(file.delete()){ 
@@ -66,14 +88,48 @@ public class FileSaveHelper {
 			log.info("임시파일이 존재하지 않습니다."); 
 		}
 	}
+	public void copyFile(File file, File newFile) throws IOException {
+		if(!newFile.exists()) {
+			if(newFile.getParentFile().mkdirs()) {
+			}
+			Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			newFile.createNewFile();
+		}
+	}
+	public void saveFile(String path, File file, String str) throws IOException {
+		if(!file.exists()) {
+			if(file.getParentFile().mkdirs()) {
+			}
+			file.createNewFile();
+		}
+		if(str!=null && str.equals("")) {
+			try{ 
+	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
+	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
+	            // 파일안에 문자열 쓰기
+	            fw.write(str);
+	            fw.flush();
+	            // 객체 닫기
+	            fw.close();        
+	        }catch(Exception e){
+	            e.printStackTrace();
+	        }
+		}
+	}
+	public void deleteFile(File file) throws IOException{
+		if(file.exists()) {
+			if(file.delete()){ 
+			}
+		}
+	}
 	
 	//경로를 받아서 파일생성
-	private void save(String path,MultipartFile file) throws IOException {
+	public void saveMultiFile(String path,MultipartFile file) throws IOException {
 		File newFileName = new File(path);
 		if(!newFileName.exists()) {
 			if(newFileName.getParentFile().mkdirs()) {
-				newFileName.createNewFile();
 			}
+			newFileName.createNewFile();
 		}
 		
 		try {

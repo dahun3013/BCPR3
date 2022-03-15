@@ -1,15 +1,6 @@
 <template>
   <div class="field">
     <div class="top-container px-5 py-5">
-      <div class="profile-logo">
-        <div>
-          <h5></h5>
-        </div>
-        <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
-        </div>
-      </div>
-
       <div class="top-banner my-5">
         <h1 class="display-1" style="font-weight: bold">PAGO BOOKS</h1>
         <h5 class="mt-3">
@@ -20,56 +11,55 @@
     <!--top-container-end-->
 
     <div class="bottom-container px-5 pt-5">
-      <div class="main-btn">
-        <img src="@/assets/1.png" alt="문서변환" @click="$router.push('/ocr')">
-        <img src="@/assets/2.png" alt="음성변환" @click="$router.push('/tts')">
-        <img src="@/assets/3.png" alt="매체번역" @click="$router.push('/mtt')">
-        <img src="@/assets/4.png" alt="간단번역" @click="$router.push('/papago')">
+      <div class="main-btn my-5">
+        <img
+          src="@/assets/1.png"
+          alt="문서변환"
+          @click="$router.push('/ocr')"
+        />
+        <img
+          src="@/assets/2.png"
+          alt="음성변환"
+          @click="$router.push('/tts')"
+        />
+        <img
+          src="@/assets/3.png"
+          alt="매체번역"
+          @click="$router.push('/stt')"
+        />
+        <img
+          src="@/assets/4.png"
+          alt="간단번역"
+          @click="$router.push('/papago')"
+        />
+        <img
+          src="@/assets/5.png"
+          alt="보관함"
+          @click="$router.push('/Storage')"
+        />
       </div>
 
-      <br /><br /><br /><br />
+      <br /><br />
 
       <div style="text-align: center; font-weight: bold">
-        <p @click="$router.push('/PapagoStorage')">
+        <p @click="$router.push('/Storage')">
           [ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]
         </p>
       </div>
 
       <br /><br /><br />
-
-      <hr />
-
-      <div class="footer container">
-        <p class="mx-3">파고북스 이용약관</p>
-        <p class="mx-3">의견제안</p>
-        <p class="mx-3">개인정보처리방침</p>
-        <p class="mx-3">책임의 한계와 법적고지</p>
-        <p class="mx-3">준수사항</p>
-      </div>
     </div>
     <!--bottom-container-end-->
-    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
-  </div>
-  <!--field-end-->
+  </div><!--field-end-->
 
 </template>
 
 <script>
-import Modal from "@/components/Modal.vue";
-
 export default {
   name: "HomePage",
   data() {
-    return {
-      loginModal: false,
-    };
+    return {};
   },
-
-  components: {
-    Modal,
-  },
-
-  mounted() {},
 };
 </script>
 
@@ -89,17 +79,11 @@ body {
 
 .profile-logo {
   display: flex;
-  justify-content: space-between;
   cursor: pointer;
 }
 
-.profile-logo > div {
-  text-align: center;
-  vertical-align: middle;
-}
-
-.profile-logo > div > img {
-  width: 65%;
+.title-name {
+  justify-content: center;
 }
 
 .top-banner > h5 {
@@ -112,8 +96,11 @@ body {
   text-align: center;
 }
 
-.main-btn{
+.main-btn {
   text-align: center;
+}
+
+.main-btn > img {
   cursor: pointer;
 }
 

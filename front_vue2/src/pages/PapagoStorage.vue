@@ -3,75 +3,65 @@
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
         <div style="text-align: left">
-          <h2>보관함</h2>
+          <h2>간단번역 보관함</h2>
         </div>
-        <div style="text-align: center">
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
-        </div>
-        <div @click="loginModal = true" style="text-align: right">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
         </div>
       </div>
       <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
 
-    <div
-      class="
-        row
-        storage-bottom-container
-        px-5
-        pt-5
-        pb-2
-        row-cols-xl-3
-        justify-content-center
-      "
-      style="clear: both"
-    >
-      <PapagoStorageCard
-        :translation_no="a.translation_no"
-        :email="a.email"
-        :kind="a.kind"
-        :input="a.input"
-        :output="a.output"
-        :trans_date="a.trans_date"
-        v-for="(a, i) in array"
-        :key="i"
-      />
+    <div class="storage-bottom-container px-5 pt-5 pb-2 justify-content-center">
+      <SSM :state="4" />
     </div>
+
     <!--storage-bottom-container-end-->
   </div>
   <!--field_end-->
 
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
+  <div
+    class="
+      row
+      storage-bottom-container
+      px-5
+      pt-5
+      pb-2
+      row-cols-xl-3
+      justify-content-center
+    "
+    style="clear: both"
+  >
+    <PapagoStorageCard
+      :translation_no="a.translation_no"
+      :email="a.email"
+      :kind="a.kind"
+      :input="a.input"
+      :output="a.output"
+      :trans_date="a.trans_date"
+      v-for="(a, i) in array"
+      :key="i"
+    />
   </div>
-
-  <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
 </template>
 
 <script>
 // import $ from 'jquery'
 import axios from "axios";
-import Modal from "@/components/Modal.vue";
 import PapagoStorageCard from "@/components/PapagoStorageCard.vue";
+import SSM from "@/components/StorageSelectMenu.vue";
+
 export default {
   name: "papagoPage",
   data() {
     return {
       array: [],
-      loginModal: false,
     };
   },
   components: {
     PapagoStorageCard,
-    Modal,
+    SSM,
   },
   mounted() {
     console.log(this.$store.state.userInfo.email);
@@ -109,12 +99,6 @@ textarea {
 .profile-logo > div > h2 {
   color: white;
   font-weight: bold;
-}
-
-.storage-bottom-container {
-  display: flex;
-  background: white;
-  border-radius: 100px 0px 0px 0px;
 }
 
 .storage-ts-container {

@@ -2,23 +2,19 @@
   <div class="field">
     <div class="top-container px-5 py-5">
       <div class="profile-logo">
-        <div>
+        <div style="text-align: left">
           <h2>간단번역</h2>
         </div>
-        <div>
+        <div class="title-name">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
-        </div>
-        <div @click="loginModal = true">
-          <img src="@/assets/weblogin1.png" alt="profile-logo" />
         </div>
       </div>
       <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
-
     <div class="papago-bottom-container px-5 pt-5 pb-2">
-      <div class="ts-container">
-        <div class="ts-input-cont">
+      <div class="ppg-container">
+        <div class="ppg-input-cont">
           <div class="ts-lg-ch">
             <select
               v-model="from_language"
@@ -47,7 +43,7 @@
         </div>
         <!--ts-input-cont-end-->
 
-        <div class="ts-output-cont">
+        <div class="ppg-output-cont">
           <div class="ts-lg-ch">
             <select v-model="to_language" name="ts-lg" id="ts-lg2">
               <option value="ko">한국어</option>
@@ -65,14 +61,17 @@
               </output>
             </form>
           </div>
-           
-          <div class="ppg-save-btn mt-4" v-show="isLogin">
-           <button @click="upload" class="ocr-trans-btn mt-4">저장하기</button>
+          <div class="ppg-save-btn mt-4">
+            <div v-show="isLogin">
+              <div class="ppg-save-btn mt-4">
+                <button @click="upload">저장하기</button>
+              </div>
+            </div>
           </div>
         </div>
         <!--ts-output-cont-end-->
       </div>
-      <!--ts-container-end-->
+      <!--ppg-container-end-->
 
       <br />
 
@@ -90,19 +89,6 @@
     <!--papago-bottom-container-end-->
   </div>
   <!--field_end-->
-
-  <div class="px-5"><hr /></div>
-
-  <div class="footer container">
-    <p class="mx-3">파고북스 이용약관</p>
-    <p class="mx-3">의견제안</p>
-    <p class="mx-3">개인정보처리방침</p>
-    <p class="mx-3">책임의 한계와 법적고지</p>
-    <p class="mx-3">준수사항</p>
-  </div>
-<Modal @closeModal="loginModal = false" :loginModal="loginModal" />
- 
-  <!--login-modal-end-->
 </template>
 
 <script>
@@ -112,7 +98,6 @@ export default {
   name: "papagoPage",
   data() {
     return {
-      loginModal: false,
       input: "",
       output: "",
       from_language: "ko",
@@ -120,6 +105,42 @@ export default {
     };
   },
   methods: {
+    async upload() {
+      console.log(this.output);
+      if (
+        this.input != null &&
+        this.output != null &&
+        this.input !== "" &&
+        this.outpu !== ""
+      ) {
+        let form = new FormData();
+        form.append("email", this.$store.state.userInfo.email);
+        var date = new Date();
+
+        form.append(
+          "trans_date",
+          new Date(
+            date.getTime() - date.getTimezoneOffset() * 60000
+          ).toISOString()
+        );
+        form.append("input", this.input);
+        form.append("output", this.output);
+
+        await axios
+          .post("/api/papago/upload", form, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            alert("저장이 완료되었습니다.");
+          })
+          .catch((err) => {
+            console.log("refreshToken error : ", err.config);
+          });
+      }
+    },
     async translation() {
       let form = new FormData();
       form.append("text", this.input);
@@ -191,42 +212,17 @@ export default {
           console.log("refreshToken error : ", err.config);
         });
     },
-    async upload(){
-      if(this.input !=null && this.output != ""){
-      let form = new FormData();
-      form.append("email", this.$store.state.userInfo.email);
-      form.append("trans_date", new Date().toISOString());
-      form.append("input", this.input);
-      form.append("output", this.output);
-    
-      await axios
-      .post("/api/papago/upload", form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("refreshToken error : ", err.config);
-      });
-    }
-        }
-  },
-
-  mounted() {
-    console.log(this.$store.state.userInfo.email);
   },
   components: {},
   computed: {
-     isLogin() {
-      return this.$store.state.isLogin;
-    },
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
-    }
+    },
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
   },
+  mounted() {},
 };
 </script>
 
@@ -254,7 +250,7 @@ textarea {
   border-radius: 100px 0px 0px 0px;
 }
 
-.ts-container {
+.ppg-container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -265,6 +261,14 @@ textarea {
   justify-content: space-between;
   padding: 2rem 4rem 2rem 4rem;
   color: white;
+}
+
+.ppg-output-cont {
+  width: 40%;
+  margin: 1rem;
+  padding: 2rem 3rem 2rem 3rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 25px;
 }
 
 .ts-lg-ch {
@@ -287,8 +291,8 @@ select:focus {
   outline: none;
 }
 
-.ts-input-cont {
-  width: 35%;
+.ppg-input-cont {
+  width: 40%;
   height: 100%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
@@ -328,8 +332,8 @@ select:focus {
   font-weight: bold;
 }
 
-.ts-output-cont {
-  width: 35%;
+.ppg-output-cont {
+  width: 40%;
   margin: 1rem;
   padding: 2rem 3rem 2rem 3rem;
   border: 1px solid #dbdbdb;
