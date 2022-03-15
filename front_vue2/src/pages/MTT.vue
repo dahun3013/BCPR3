@@ -27,18 +27,7 @@
               <video class="player2" controls ref="player2">
                 <source src="" ref="source" />
               </video>
-              <div class="ocr-ts-lg-ch mt-4">
-                <select name="ts-lg" id="ts-lg" v-model="lang">
-                  <option value="Kor" selected>한국어</option>
-                  <option value="Eng">영어</option>
-                  <option value="Jpn">일본어</option>
-                  <option value="Chn">중국어</option>
-                </select>
-              </div>
-              <!-- <button type="button" @click="sendData()">전송</button> -->
-            </form>
-          </div>
-          <div class="mtt-cf-btn mt-4">
+              <div class="mtt-cf-btn mt-4">
             <label for="chooseFile">파일 가져오기</label>
             <form method="post" enctype="multipart/form-data">
               <input
@@ -52,6 +41,18 @@
               />
             </form>
           </div>
+              <div class="ocr-ts-lg-ch mt-4">
+                <select name="ts-lg" id="ts-lg" v-model="lang">
+                  <option value="Kor" selected>한국어</option>
+                  <option value="Eng">영어</option>
+                  <option value="Jpn">일본어</option>
+                  <option value="Chn">중국어</option>
+                </select>
+              </div>
+              <!-- <button type="button" @click="sendData()">전송</button> -->
+            </form>
+          </div>
+          
         </div>
         <!--ts-input-cont-end-->
 
@@ -177,6 +178,14 @@ export default {
       if (this.lang == "Chn") {
         this.lang = "zh-CN";
       }
+      if (this.to_language == this.lang) {
+        alert("동일한 언어입니다.");
+        return;
+      }
+      if(this.text==""){
+        alert("공란입니다")
+        return;
+      }
       form.append("text", this.text);
       form.append("from_language", this.lang);
       form.append("to_language", this.papagolang);
@@ -188,28 +197,39 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          if (res.data.includes("errorCode:N2MT06")) {
+            alert("지원하지 않는 번역기입니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:N2MT08")) {
+            alert("번역기 용량이 초과되었습니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:010")) {
+            alert("파파고 사용제한이 초과되었습니다.");
+            return;
+          }
           this.text = res.data;
-          console.log(this.text);
           this.lang = "Eng";
-          console.log(this.lang);
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
     },
     async uploadImg() {
-      console.log("들어왔다");
-      this.showInput = true;
       this.$refs.source.src = "";
       var image = this.$refs["image"].files[0];
+      if (image == null || image === "") {
+        alert("잘못된 파일 형식입니다.");
+        return;
+      }
       const url = URL.createObjectURL(image);
-      console.log(`image : ` + image);
+      
       this.$refs.source.src = url;
       this.$refs.player.load();
       this.$refs.player2.load();
       //this.image = url;
       let form = new FormData();
-      console.log(`url :` + url);
       form.append("file", image);
       form.append("lang", this.lang);
       await axios
