@@ -8,7 +8,10 @@
       <!--이거 빼고 수정가능-->
       <div class="logoutBtn" @click="logout" v-show="isLogin">로그아웃</div>
       <div class="logoutBtnEmpty" v-show="!isLogin">로그아웃</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> e121bf5081206efdb8f1a837c2d055646c898759
     </div>
     <router-view></router-view>
   </div>
@@ -94,5 +97,8 @@ export default {
   cursor: pointer;
   padding: 10px 20px 10px 20px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e121bf5081206efdb8f1a837c2d055646c898759
 </style>
