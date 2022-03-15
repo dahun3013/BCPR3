@@ -133,7 +133,7 @@ export default {
           date.getTime() - date.getTimezoneOffset() * 60000
         ).toISOString()
       );
-      form.append("kind", "images");
+      form.append("kind", "media");
       form.append("input", this.$refs["image"].files[0]);
       form.append("output", this.text);
 
