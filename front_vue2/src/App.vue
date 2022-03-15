@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="profileBox mx-5 mt-5">
-      <div @click="loginModal = true"><!--이거 빼고 수정가능-->
-        <ProfileItem :profile="getProfile" :email="getEmail"/>
-      </div><!--이거 빼고 수정가능-->
-      <div class="logoutBtn">
-        로그아웃
+      <div @click="loginModal = true">
+        <!--이거 빼고 수정가능-->
+        <ProfileItem :profile="getProfile" :email="getEmail" />
       </div>
+      <!--이거 빼고 수정가능-->
+      <div class="logoutBtn" @click="logout" v-show="isLogin">로그아웃</div>
     </div>
     <router-view></router-view>
   </div>
@@ -23,39 +23,45 @@
 </template>
 
 <script>
-
-import ProfileItem from '@/components/ProfileItem.vue'
-import Modal from "@/components/Modal.vue"
+import ProfileItem from "@/components/ProfileItem.vue";
+import Modal from "@/components/Modal.vue";
 
 export default {
-  
-  name: 'App',
+  name: "App",
   data() {
     return {
-      loginModal : false,
-    }
+      loginModal: false,
+    };
   },
   components: {
     ProfileItem,
     Modal,
   },
-  computed:{
-    getProfile(){
-      if(this.$store.state.userInfo == null)
-        return null;
+  computed: {
+    getProfile() {
+      if (this.$store.state.userInfo == null)
+        return require("@/assets/weblogin1.png");
       return this.$store.state.userInfo.profile;
     },
-    getEmail(){
-      if(this.$store.state.userInfo == null)
-        return null;
+    getEmail() {
+      if (this.$store.state.userInfo == null) return null;
       return this.$store.state.userInfo.email;
-    }
+    },
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
   },
-}
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.loginModal = false;
+    },
+  },
+};
 </script>
 
 <style>
-.profileBox{
+.profileBox {
   float: right;
 }
 
