@@ -177,6 +177,9 @@ export default {
       if (this.lang == "Chn") {
         this.lang = "zh-CN";
       }
+      if(this.text==""){
+        alert("텍스트가 비어있습니다");
+      }
       form.append("text", this.text);
       form.append("from_language", this.lang);
       form.append("to_language", this.papagolang);
