@@ -5,7 +5,7 @@
         <div style="text-align: left">
           <h2>간단번역</h2>
         </div>
-        <div style="margin-left: 41%;">
+        <div style="margin-left: 41%">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
@@ -42,7 +42,9 @@
           </div>
         </div>
         <!--ts-input-cont-end-->
-
+        <div class="ppg-refresh">
+          <img src="../assets/papagoRefresh.png" @click="change" />
+        </div>
         <div class="ppg-output-cont">
           <div class="ts-lg-ch">
             <select v-model="to_language" name="ts-lg" id="ts-lg2">
@@ -105,6 +107,14 @@ export default {
     };
   },
   methods: {
+    change() {
+      let temp = this.input;
+      this.input = this.output;
+      this.output = temp;
+      temp = this.from_language;
+      this.from_language = this.to_language;
+      this.to_language = temp;
+    },
     async upload() {
       console.log(this.output);
       if (
@@ -350,5 +360,16 @@ select:focus {
   padding: 1.25rem;
   background: #0d66ff;
   border-radius: 50px 0px 0px 0px;
+}
+
+.ppg-refresh {
+  line-height: 550px;
+}
+
+.ppg-refresh > img {
+  width: 100px;
+  height: 100px;
+  vertical-align: middle;
+  cursor: pointer;
 }
 </style>
