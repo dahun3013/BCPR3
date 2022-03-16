@@ -102,7 +102,7 @@ public class FileSaveHelper {
 			}
 			file.createNewFile();
 		}
-		if(str!=null && str.equals("")) {
+		if(str!=null && !str.equals("")) {
 			try{ 
 	            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
 	            BufferedWriter fw = new BufferedWriter(new FileWriter(path, true));
