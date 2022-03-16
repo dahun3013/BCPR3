@@ -2,8 +2,10 @@ package com.bcpr.backend.TTS.controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -94,6 +96,23 @@ public class ttsController {
 			@PathVariable("email") String email){
 		//log.info("test : {}",test.get(0));
 		return mapper.getVoice_TransListByEmail(email);
+	}
+	
+	@GetMapping("/tts/download")
+	public void download(HttpServletResponse response,HttpServletRequest request) throws Exception {
+
+    	String path =request.getServletContext().getRealPath("resources")+File.separator+"tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
+    	
+    	File file = new File(path);
+    	byte[] fileByte = FileUtils.readFileToByteArray(file);
+		
+		response.setContentType("application/octet-stream");
+	    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(file.getName(), "UTF-8")+"\"");
+	    response.setHeader("Content-Transfer-Encoding", "binary");
+
+	    response.getOutputStream().write(fileByte);
+	    response.getOutputStream().flush();
+	    response.getOutputStream().close();
 	}
 	
 	@GetMapping("/tts/download/{email}/{voice_no}/{kind}")

@@ -50,16 +50,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 
 
-        http.authorizeRequests().antMatchers("/api/papago/**").permitAll();
 
+        http.authorizeRequests().antMatchers("/api/ocr").permitAll();
         http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/ocr/download/**").hasAnyAuthority("ROLE_USER");
+        
+        //By.지원
+        http.authorizeRequests().antMatchers("/api/tts").permitAll();
+        http.authorizeRequests().antMatchers("/api/tts/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/tts/server").permitAll();
+        http.authorizeRequests().antMatchers("/api/tts/download/**").hasAnyAuthority("ROLE_USER");
+        
         http.authorizeRequests().antMatchers("/api/Stt").permitAll();
         http.authorizeRequests().antMatchers("/api/Stt/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/tts/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/Stt/download/**").hasAnyAuthority("ROLE_USER");
+        
+        
+        http.authorizeRequests().antMatchers("/api/papago").permitAll();
+        http.authorizeRequests().antMatchers("/api/papago/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
-        //By.지원
-        http.authorizeRequests().antMatchers("/api/tts/server").permitAll();
-        http.authorizeRequests().antMatchers("/download").permitAll();
         
         http.authorizeRequests().antMatchers("/api/login").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();

@@ -304,11 +304,30 @@ export default {
     //         });
     //     }
     // },
-    restart() {
-      location.href = "http://localhost:8081/tts";
-    },
     download() {
-      location.href = "http://localhost:8200/download";
+      let str = "/api/tts/download";
+      axios
+        .get(str, {
+          responseType: "blob",
+        })
+        .then((res) => {
+          const name = res.headers["content-disposition"]
+            .split("fileName=")[1]
+            .replace(/"/g, "");
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", name); //or any other extension document.body.appendChild(link); link.click();
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          console.log(res);
+          console.log("다운로드 성공");
+        })
+        .catch((err) => {
+          err;
+          console.log("다운로드 실패");
+        });
     },
     play(sound) {
       if (sound) {
@@ -426,10 +445,6 @@ audio::-webkit-media-controls-panel {
 audio::-webkit-media-controls-play-button {
   background-color: white;
   border-radius: 50%;
-}
-
-.restart {
-  margin-left: 20px;
 }
 
 .tts-change-btn > button {
