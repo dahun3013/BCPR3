@@ -23,7 +23,7 @@
   <div v-show="!isLogin">
     <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
   </div>
-  <div class="layerPopup" v-show="this.$store.state.isLoading">
+  <div class="layerPopup" v-show="isLoading">
     <div class="spinner"></div>
   </div>
 </template>
@@ -58,6 +58,10 @@ export default {
     },
     isLogin() {
       return this.$store.state.isLogin;
+    },
+    isLoading() {
+      console.log("loading " + this.$store.state.isLoad);
+      return this.$store.state.isLoad;
     },
   },
   methods: {

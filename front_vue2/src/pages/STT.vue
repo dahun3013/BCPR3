@@ -156,6 +156,7 @@ export default {
 
     async translation() {
       let form = new FormData();
+      const temp = this.lang;
       if (this.lang == "Kor") {
         this.lang = "ko";
       }
@@ -179,7 +180,7 @@ export default {
       form.append("text", this.text);
       form.append("from_language", this.lang);
       form.append("to_language", this.papagolang);
-
+      this.lang = temp;
       this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/papago/json", form, {
@@ -242,7 +243,7 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
-      this.$store.dispatch("setLoading", true);
+      this.$store.dispatch("setLoading", false);
     },
   },
   mounted() {},

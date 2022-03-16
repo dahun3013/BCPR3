@@ -7,7 +7,7 @@ import createPersistedState from 'vuex-persistedstate';
 export const store = new Vuex.Store({
     plugins: [
         createPersistedState({
-            paths: ['userInfo', 'access_token', 'refresh_token', 'isLogin', 'isLoginError', 'isLoading']
+            paths: ['userInfo', 'access_token', 'refresh_token', 'isLogin', 'isLoginError']
         })
     ],
     // counter라는 state 속성을 추가
@@ -18,14 +18,14 @@ export const store = new Vuex.Store({
         userInfo: null,
         isLogin: false,
         isLoginError: false,
-        isLoading: false,
+        isLoad: false,
     },
     mutations: {
         onLoad(state) {
-            state.isLoading = true;
+            state.isLoad = true;
         },
         offLoad(state) {
-            state.isLoading = false;
+            state.isLoad = false;
         },
         setToken(state, payload) {
             localStorage.setItem("access_token", payload.data.access_token);
