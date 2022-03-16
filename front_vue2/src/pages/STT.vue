@@ -251,6 +251,9 @@ export default {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
     },
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
   },
 };
 </script>
