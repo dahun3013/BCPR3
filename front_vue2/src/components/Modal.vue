@@ -167,7 +167,6 @@ export default {
   border-radius: 25px;
   background-color: white;
 
-  color: black;
   z-index: 8;
   box-shadow: 2px 2px 10px lightgrey;
 }
@@ -195,9 +194,10 @@ export default {
 
 .closeBtn > button {
   width: 30%;
-  background: black;
+  background: #0d66ff;
+  color: white;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
-  padding: 1%;
+  padding: 3%;
 }
 </style>

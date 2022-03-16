@@ -1,16 +1,19 @@
 <template>
   <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
-      <div style="float: left; width: 20%">
-        <h2>매체변환</h2>
-      </div>
-      <div style="float: left; width: 75%">
-        <h3>{{ trans_date }}</h3>
-      </div>
-      <div style="float: right; width: 5%">
-        <button @click="remove()">삭제</button>
-      </div>
-      <div class="storage-img-box">
+      <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex;">
+          <div style="margin-right: 1rem;">
+            <h4>매체번역</h4>
+          </div>
+          <div>
+            <h4>{{ trans_date }}</h4>
+          </div>
+        </div>
+        <div class="remove-btn">
+          <button @click="remove()">삭제</button>
+        </div>
+      </div><!--여기까지 복사해서 붙여넣기-->
         <video class="img-fit" controls ref="player" v-show="showInput">
           <source :src="input" />
         </video>
@@ -23,10 +26,10 @@
         <output name="result" v-show="showOutput">
           <div v-html="content"></div>
         </output>
-      </div>
+      
       <div style="display: flex">
         <button @click="changeShow()" class="storage-ff1-btn mt-4">
-          {{ text }}
+          텍스트 보기
         </button>
         <button @click="download()" class="storage-ff2-btn mt-4">
           다운로드
@@ -54,26 +57,14 @@ export default {
     return {
       showInput: true,
       showOutput: false,
-      btnText: "텍스트 보기",
     };
   },
   methods: {
-    changeText(check) {
-      if (check) this.btnText = "텍스트 보기";
-      else this.btnText = "미디어 보기";
-    },
     changeShow() {
-      if (this.showInput) {
-        this.showInput = false;
-      } else {
-        this.showInput = true;
-      }
-      if (this.showOutput) {
-        this.showOutput = false;
-      } else {
-        this.showOutput = true;
-      }
-      this.changeText(this.showInput);
+      if (this.showInput) this.showInput = false;
+      else this.showInput = true;
+      if (this.showOutput) this.showOutput = false;
+      else this.showOutput = true;
     },
     async remove() {
       let str = "/api/Stt/remove";
@@ -124,9 +115,6 @@ export default {
   computed: {
     content() {
       return this.output.replace(/(?:\r\n|\r|\n)/g, "<br />");
-    },
-    text() {
-      return this.btnText;
     },
   },
 };

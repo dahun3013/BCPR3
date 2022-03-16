@@ -5,7 +5,7 @@
         <div>
           <h2>문서변환 보관함</h2>
         </div>
-        <div class="title-name">
+        <div style="margin-left: 34.5%;">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
@@ -163,28 +163,6 @@ select:focus {
   width: 100%;
   border-radius: 10px;
   object-fit: contain;
-}
-
-.storage-ff1-btn {
-  width: 100%;
-  margin-right: 1rem;
-  padding: 0.5rem;
-  color: white;
-  background: #0d66ff;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.storage-ff2-btn {
-  width: 100%;
-  margin-left: 1rem;
-  padding: 0.5rem;
-  color: white;
-  background: #0d66ff;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  font-size: 1rem;
 }
 
 .storage-ts-output-cont {

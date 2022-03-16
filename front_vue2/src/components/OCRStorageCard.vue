@@ -1,15 +1,19 @@
 <template>
   <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
-      <div style="float: left; width: 20%">
-        <h2>문서변환</h2>
-      </div>
-      <div style="float: left; width: 75%">
-        <h3>{{ trans_date }}</h3>
-      </div>
-      <div style="float: right; width: 5%">
-        <button @click="remove()">삭제</button>
-      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex;">
+          <div style="margin-right: 1rem;">
+            <h4>문서변환</h4>
+          </div>
+          <div>
+            <h4>{{ trans_date }}</h4>
+          </div>
+        </div>
+        <div class="remove-btn">
+          <button @click="remove()">삭제</button>
+        </div>
+      </div><!--여기까지 복사해서 붙여넣기-->
       <div class="storage-img-box">
         <img :src="input" alt="" class="img-fit" v-show="showInput" />
         <output name="result" v-show="showOutput">
