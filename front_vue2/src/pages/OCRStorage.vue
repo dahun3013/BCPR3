@@ -57,13 +57,13 @@ export default {
     OCRStorageCard,
     SSM,
   },
-  mounted() {
+  async mounted() {
     if (
       this.$store.state.userInfo.email != null ||
       this.$store.state.userInfo.email != ""
     ) {
       this.$store.dispatch("setLoading", true);
-      axios
+      await axios
         .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
           console.log(res.data);
