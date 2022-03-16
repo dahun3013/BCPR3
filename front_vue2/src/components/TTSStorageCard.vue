@@ -1,9 +1,9 @@
 <template>
   <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
-      <div style="display: flex; justify-content: space-between;">
-        <div style="display: flex;">
-          <div style="margin-right: 1rem;">
+      <div style="display: flex; justify-content: space-between">
+        <div style="display: flex">
+          <div style="margin-right: 1rem">
             <h4>음성변환</h4>
           </div>
           <div>
@@ -13,7 +13,8 @@
         <div class="remove-btn">
           <button @click="remove()">삭제</button>
         </div>
-      </div><!--여기까지 복사해서 붙여넣기-->
+      </div>
+      <!--여기까지 복사해서 붙여넣기-->
       <div class="storage-img-box">
         <audio class="img-fit" controls ref="player" v-show="showOutput">
           <source :src="output" />
@@ -79,7 +80,7 @@ export default {
       let form = new FormData();
       form.append("email", this.email);
       form.append("voice_no", this.voice_no);
-
+      this.$store.dispatch("setLoading", true);
       await axios
         .post(str, form)
         .then((res) => {
@@ -88,6 +89,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      this.$store.dispatch("setLoading", false);
       this.$router.go("/storage");
     },
     download() {

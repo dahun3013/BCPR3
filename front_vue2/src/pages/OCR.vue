@@ -5,7 +5,7 @@
         <div>
           <h2>문서변환</h2>
         </div>
-        <div style="margin-left: 41%;">
+        <div style="margin-left: 41%">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
@@ -131,7 +131,7 @@ export default {
       form.append("kind", "images");
       form.append("input", this.$refs["image"].files[0]);
       form.append("output", this.text);
-
+      this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/ocr/upload", form, {
           headers: {
@@ -146,6 +146,7 @@ export default {
           console.log("refreshToken error : ", err.config);
           alert("잘못된 요청입니다.");
         });
+      this.$store.dispatch("setLoading", false);
     },
 
     async translation() {
@@ -158,6 +159,7 @@ export default {
       form.append("text", this.text);
       form.append("from_language", this.from_language);
       form.append("to_language", this.to_language);
+      this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/papago/json", form, {
           headers: {
@@ -184,6 +186,7 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", false);
     },
     async uploadImg() {
       var image = this.$refs["image"].files[0];
@@ -195,7 +198,7 @@ export default {
       this.image = url;
       let form = new FormData();
       form.append("file", image);
-
+      this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/ocr", form, {
           headers: {
@@ -210,6 +213,7 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", false);
     },
   },
   mounted() {},

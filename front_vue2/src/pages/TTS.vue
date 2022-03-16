@@ -5,7 +5,7 @@
         <div>
           <h2>음성변환</h2>
         </div>
-        <div style="margin-left: 41%;">
+        <div style="margin-left: 41%">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
         <!-- <div @click="loginModal = true">
@@ -20,19 +20,23 @@
       <div class="tts-ts-container">
         <div class="tts-output-cont">
           <div>
-            <textarea class="tts-ts-box" v-model="text" placeholder="
+            <textarea
+              class="tts-ts-box"
+              v-model="text"
+              placeholder="
                         
                         여기에 만들고 싶은 음성의 내용을 작성하세요.
       
                         ■ 유용한 Tip~
                         ① 마침표, 쉼표, 띄어쓰기를 꼭 사용하세요. 쉼표를 적절히 자주 붙이면 내용이 명확해집니다.
                         ② 마침표를 제외한 특수문자는 사용하지 마세요. 몇가지 음성에서만 물음표 사용이 가능합니다.
-                        ③ 1000자 내외로 입력해주세요.">
-                        </textarea>
+                        ③ 1000자 내외로 입력해주세요."
+            >
+            </textarea>
           </div>
-          <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between">
             <!--By.지원_보이스선택-->
-            <div style="display: flex;">
+            <div style="display: flex">
               <div class="voice">음성 종류</div>
               <select name="voice" v-model="voice" class="voiceSelect">
                 <option value="">--음성을 선택해주세요--</option>
@@ -103,7 +107,7 @@
                 <option value="nes_c_kihyo">기효 한국어 남성</option>
               </select>
               <!--By.지원_속도조절-->
-              <div class="speed ">속도</div>
+              <div class="speed">속도</div>
               <select name="voiceSpeed" v-model="speed" class="speedSelect">
                 <option value="-5">-5</option>
                 <option value="-4">-4</option>
@@ -133,16 +137,16 @@
                 <option value="5">5</option>
               </select>
             </div>
-              <!--By.지원_전송버튼-->
-              <div class="tts-change-btn">
-                <button type="button" @click="sendData() + div_show()">
-                  음성 변환하기
-                </button>
-              </div>
+            <!--By.지원_전송버튼-->
+            <div class="tts-change-btn">
+              <button type="button" @click="sendData() + div_show()">
+                음성 변환하기
+              </button>
+            </div>
           </div>
           <hr id="line" />
           <!--결과-->
-          <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between">
             <!--By.지원_저장하기버튼-->
             <div v-show="isLogin">
               <div class="tts-save-btn mt-3" id="save">
@@ -151,36 +155,37 @@
             </div>
             <div class="tts-output-box mt-3">
               <!--By.지원_플레이어-->
-                <audio
-                  controls=""
-                  controlsList="nodownload"
-                  id="audio"
-                  ref="player"
-                >
-                  <source src="" type="audio/mpeg" ref="source" />
-                </audio>
+              <audio
+                controls=""
+                controlsList="nodownload"
+                id="audio"
+                ref="player"
+              >
+                <source src="" type="audio/mpeg" ref="source" />
+              </audio>
               <!--By.지원_MP3다운로드-->
               <div class="download" id="dlButton">
                 <button type="button" value="page move" @click="download()">
                   MP3 다운로드
                 </button>
               </div>
-            </div><!--tts-output-box-end-->
+            </div>
+            <!--tts-output-box-end-->
           </div>
         </div>
         <br />
       </div>
       <!--tts-bottom-container-end-->
       <div
-          style="
-            text-align: center;
-            font-weight: bold;
-            margin-top: 22px;
-            margin-bottom: 22px;
-          "
-        >
-          <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
-        </div>
+        style="
+          text-align: center;
+          font-weight: bold;
+          margin-top: 22px;
+          margin-bottom: 22px;
+        "
+      >
+        <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
+      </div>
     </div>
     <!--field_end-->
   </div>
@@ -217,7 +222,7 @@ export default {
       );
       form.append("kind", "voice");
       form.append("input", this.text);
-
+      this.$store.dispatch("setLoading", true);
       await axios
 
         .post("/api/tts/upload", form, {
@@ -232,6 +237,7 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", false);
     },
 
     //보이기
@@ -256,6 +262,7 @@ export default {
         this.$route.go("/tts");
       } else {
         let str = "/api/tts";
+        this.$store.dispatch("setLoading", true);
         await axios
           .post(
             str,
@@ -274,6 +281,7 @@ export default {
             this.$refs.source.src = url;
             this.$refs.player.load();
           });
+        this.$store.dispatch("setLoading", false);
       }
     },
 
@@ -424,7 +432,7 @@ audio::-webkit-media-controls-play-button {
   margin-left: 20px;
 }
 
-.tts-change-btn > button{
+.tts-change-btn > button {
   width: 100%;
   height: 60%;
   margin-top: 1rem;
@@ -434,7 +442,7 @@ audio::-webkit-media-controls-play-button {
   color: white;
 }
 
-.tts-save-btn > button{
+.tts-save-btn > button {
   width: 200px;
   height: 54px;
   border: 1px solid #0d66ff;

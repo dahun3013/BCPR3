@@ -1,9 +1,9 @@
 <template>
   <div class="storage-ts-container mb-5">
     <div class="storage-ts-output-cont">
-      <div style="display: flex; justify-content: space-between;">
-        <div style="display: flex;">
-          <div style="margin-right: 1rem;">
+      <div style="display: flex; justify-content: space-between">
+        <div style="display: flex">
+          <div style="margin-right: 1rem">
             <h4>매체번역</h4>
           </div>
           <div>
@@ -13,20 +13,21 @@
         <div class="remove-btn">
           <button @click="remove()">삭제</button>
         </div>
-      </div><!--여기까지 복사해서 붙여넣기-->
-        <video class="img-fit" controls ref="player" v-show="showInput">
+      </div>
+      <!--여기까지 복사해서 붙여넣기-->
+      <video class="img-fit" controls ref="player" v-show="showInput">
+        <source :src="input" />
+      </video>
+      <div style="display: none">
+        <audio class="img-fit" controls ref="player">
           <source :src="input" />
-        </video>
-        <div style="display: none">
-          <audio class="img-fit" controls ref="player">
-            <source :src="input" />
-          </audio>
-        </div>
+        </audio>
+      </div>
 
-        <output name="result" v-show="showOutput">
-          <div v-html="content"></div>
-        </output>
-      
+      <output name="result" v-show="showOutput">
+        <div v-html="content"></div>
+      </output>
+
       <div style="display: flex">
         <button @click="changeShow()" class="storage-ff1-btn mt-4">
           텍스트 보기
@@ -72,6 +73,7 @@ export default {
       form.append("email", this.email);
       form.append("document_no", this.document_no);
 
+      this.$store.dispatch("setLoading", true);
       await axios
         .post(str, form)
         .then((res) => {
@@ -80,6 +82,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      this.$store.dispatch("setLoading", false);
       this.$router.go("/storage");
     },
     download() {

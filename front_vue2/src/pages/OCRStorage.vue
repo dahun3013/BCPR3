@@ -5,7 +5,7 @@
         <div>
           <h2>문서변환 보관함</h2>
         </div>
-        <div style="margin-left: 34.5%;">
+        <div style="margin-left: 34.5%">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
@@ -58,12 +58,11 @@ export default {
     SSM,
   },
   mounted() {
-    console.log(this.$store.state.userInfo.email);
-    console.log(this.$store.state.userInfo.profile);
     if (
       this.$store.state.userInfo.email != null ||
       this.$store.state.userInfo.email != ""
     ) {
+      this.$store.dispatch("setLoading", true);
       axios
         .get("/api/ocr/list" + "/" + this.$store.state.userInfo.email)
         .then((res) => {
@@ -90,6 +89,7 @@ export default {
           console.log(err);
           console.log("다운로드 실패");
         });
+      this.$store.dispatch("setLoading", false);
     }
   },
   methods: {},

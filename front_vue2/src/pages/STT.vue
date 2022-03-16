@@ -5,14 +5,13 @@
         <div>
           <h2>매체번역</h2>
         </div>
-        <div style="margin-left: 41%;">
+        <div style="margin-left: 41%">
           <h2 @click="$router.push('/')">PAGO BOOKS</h2>
         </div>
       </div>
       <!--profile-logo-end-->
     </div>
     <!--top-container-end-->
-
     <div class="stt-bottom-container px-5 pt-5 pb-2">
       <div class="stt-ts-container">
         <div class="stt-ts-input-cont">
@@ -137,6 +136,7 @@ export default {
       form.append("input", this.$refs["image"].files[0]);
       form.append("output", this.text);
 
+      this.$store.dispatch("setLoading", true);
       await axios
 
         .post("/api/Stt/upload", form, {
@@ -151,6 +151,7 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", false);
     },
 
     async translation() {
@@ -178,6 +179,8 @@ export default {
       form.append("text", this.text);
       form.append("from_language", this.lang);
       form.append("to_language", this.papagolang);
+
+      this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/papago/json", form, {
           headers: {
@@ -204,6 +207,7 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", false);
     },
     async uploadImg() {
       this.$refs.source.src = "";
@@ -221,6 +225,7 @@ export default {
       let form = new FormData();
       form.append("file", image);
       form.append("lang", this.lang);
+      this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/Stt", form, {
           headers: {
@@ -237,15 +242,13 @@ export default {
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", true);
     },
   },
   mounted() {},
   computed: {
     content() {
       return this.text.replace(/(?:\r\n|\r|\n)/g, "<br />");
-    },
-    isLogin() {
-      return this.$store.state.isLogin;
     },
   },
 };

@@ -136,6 +136,7 @@ export default {
         form.append("input", this.input);
         form.append("output", this.output);
 
+        this.$store.dispatch("setLoading", true);
         await axios
           .post("/api/papago/upload", form, {
             headers: {
@@ -149,6 +150,7 @@ export default {
           .catch((err) => {
             console.log("refreshToken error : ", err.config);
           });
+        this.$store.dispatch("setLoading", false);
       }
     },
     async translation() {
@@ -208,6 +210,7 @@ export default {
         return;
       }
 
+      this.$store.dispatch("setLoading", true);
       await axios
         .post("/api/papago/json", form, {
           headers: {
@@ -216,11 +219,24 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          if (res.data.includes("errorCode:N2MT06")) {
+            alert("지원하지 않는 번역기입니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:N2MT08")) {
+            alert("번역기 용량이 초과되었습니다.");
+            return;
+          }
+          if (res.data.includes("errorCode:010")) {
+            alert("파파고 사용제한이 초과되었습니다.");
+            return;
+          }
           this.output = res.data;
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
         });
+      this.$store.dispatch("setLoading", false);
     },
   },
   components: {},
@@ -318,10 +334,10 @@ select:focus {
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
-  overflow:auto;
+  overflow: auto;
 }
-.ppg-ts-box::-webkit-scrollbar{
-  display:none;
+.ppg-ts-box::-webkit-scrollbar {
+  display: none;
 }
 .ppg-trans-btn > button {
   width: 100%;
