@@ -26,7 +26,7 @@
               <div class="stt-input-btn">
                 <div class="stt-ts-lg-ch mt-4">
                   <select name="ts-lg" id="ts-lg" v-model="lang">
-                    <option value="Kor" selected>한국어</option>
+                    <option value="Kor">한국어</option>
                     <option value="Eng">영어</option>
                     <option value="Jpn">일본어</option>
                     <option value="Chn">중국어</option>
@@ -203,7 +203,6 @@ export default {
             return;
           }
           this.text = res.data;
-          this.lang = "Eng";
         })
         .catch((err) => {
           console.log("refreshToken error : ", err.config);
