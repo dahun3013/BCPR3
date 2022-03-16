@@ -128,7 +128,6 @@ public class OCRController {
 		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), "input");
 		File file = new File(path);
 		fsh.deleteFile(file);
-		System.out.println("test: "+media_no);
 		return mapper.deleteMedia_TransContent(email,media_no);
 	}
 }
