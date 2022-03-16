@@ -121,7 +121,13 @@ public class OCRController {
 	@PostMapping("/ocr/remove")
 	public int remove(
 			@RequestParam("email") String email,
-			@RequestParam("media_no") int media_no) {
+			@RequestParam("media_no") int media_no,
+			HttpServletRequest request) throws IOException {
+		Media_Trans mt = mapper.getMedia_Trans(email, media_no);
+		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), "input");
+		File file = new File(path);
+		fsh.deleteFile(file);
 		System.out.println("test: "+media_no);
 		return mapper.deleteMedia_TransContent(email,media_no);
 	}

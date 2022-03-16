@@ -99,9 +99,14 @@ public class Sttapicontroller {
     }
     @PostMapping("/Stt/remove")
     public int remove(
-            @RequestParam("email") String email,
-            @RequestParam("document_no") int document_no) {
-        System.out.println("test: "+document_no);
+    		@RequestParam("email") String email,
+            @RequestParam("document_no") int document_no,
+        	HttpServletRequest request) throws IOException {
+		Document_Trans dt = mapper.getDocument_Trans(email, document_no);
+		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		String path = fsh.makePath("document_trans", email, dt.getInput(), dt.getTrans_date(), "input");
+		File file = new File(path);
+		fsh.deleteFile(file);
         return mapper.deleteMedia_TransContent(email,document_no);
     }
 }

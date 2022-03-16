@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bcpr.backend.STT.domain.Document_Trans;
 import com.bcpr.backend.TTS.domain.Voice_Trans;
 import com.bcpr.backend.TTS.helper.ttsHelper;
 import com.bcpr.backend.TTS.mapper.ttsMapper;
@@ -130,8 +131,13 @@ public class ttsController {
 	@PostMapping("/tts/remove")
 	public int remove(
 			@RequestParam("email") String email,
-			@RequestParam("voice_no") int voice_no) {
-		System.out.println("test: "+voice_no);
+			@RequestParam("voice_no") int voice_no,
+			HttpServletRequest request) throws IOException {
+		Voice_Trans mt = mapper.getVoice_Trans(email, voice_no);
+		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		String path = fsh.makePath("voice_trans", email, mt.getOutput(), mt.getTrans_date(), "output");
+		File file = new File(path);
+		fsh.deleteFile(file);
 		return mapper.deleteVoice_TransContent(email,voice_no);
 	}
 }
