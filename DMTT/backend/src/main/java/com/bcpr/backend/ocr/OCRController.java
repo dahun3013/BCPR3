@@ -96,7 +96,7 @@ public class OCRController {
 		
 		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), kind);
-		System.out.println(mt.getOutput());
+		
 		File file = new File(path);
 		if(!kind.equals("input")) {
 	        fsh.saveFile(path, file, mt.getOutput());
@@ -113,7 +113,7 @@ public class OCRController {
 	    response.getOutputStream().close();
 	    
 	    if(kind.equals("output")){ 
-			//fsh.deleteFile(file);
+			fsh.deleteFile(file);
 		}
     }
 	
