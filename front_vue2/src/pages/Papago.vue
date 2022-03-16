@@ -318,8 +318,11 @@ select:focus {
   border-radius: 10px;
   padding: 1rem;
   text-align: left;
+  overflow:auto;
 }
-
+.ppg-ts-box::-webkit-scrollbar{
+  display:none;
+}
 .ppg-trans-btn > button {
   width: 100%;
   padding: 0.5rem;
