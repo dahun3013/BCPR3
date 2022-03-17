@@ -180,8 +180,7 @@
         style="
           text-align: center;
           font-weight: bold;
-          margin-top: 22px;
-          margin-bottom: 22px;
+          margin: 3.85rem 0rem 3.85rem 0rem;
         "
       >
         <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>

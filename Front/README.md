@@ -1,4 +1,4 @@
-# front_vue2
+# PAGOBOOKS
 
 ## Project setup
 ```
