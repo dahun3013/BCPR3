@@ -49,8 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/").permitAll();
 
 
-
-
         http.authorizeRequests().antMatchers("/api/ocr").permitAll();
         http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
         http.authorizeRequests().antMatchers("/api/ocr/download/**").hasAnyAuthority("ROLE_USER");
