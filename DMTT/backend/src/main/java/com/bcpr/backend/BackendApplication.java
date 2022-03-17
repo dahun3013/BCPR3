@@ -1,19 +1,24 @@
 package com.bcpr.backend;
 
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bcpr.backend.security.domain.Role;
-import com.bcpr.backend.security.domain.User;
+import com.bcpr.backend.security.repo.RoleRepo;
+import com.bcpr.backend.security.repo.UserRepo;
 import com.bcpr.backend.security.service.UserService;
 
-@SpringBootApplication
-public class BackendApplication {
+import lombok.RequiredArgsConstructor;
 
+@SpringBootApplication
+@RequiredArgsConstructor
+public class BackendApplication {
+	private final RoleRepo roleRepo;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -25,7 +30,8 @@ public class BackendApplication {
     CommandLineRunner run(UserService userService){
         return args -> {
         	// 권한생성
-//            userService.saveRole(new Role(null,"ROLE_USER"));
+        	if(roleRepo.findByName("ROLE_USER")==null);
+            	userService.saveRole(new Role(null,"ROLE_USER"));
             // 유저생성
 //            userService.saveUser(new User(null,"dahun3013@gmail.com","DMTT","",new ArrayList<>()));
             // 권한부여

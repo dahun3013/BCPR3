@@ -1,6 +1,6 @@
 "use strict";
 import axios from "axios";
-import store from './store.js'
+import { store } from './store.js'
 
 //axios.defaults.baseURL = 'http://localhost:8200/';
 // Full config:  https://github.com/axios/axios#request-config

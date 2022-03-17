@@ -65,6 +65,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Role getRole(String name) {
+        log.info("Fetching role {}",name);
+        return roleRepo.findByName(name);
+    }
+    
+    @Override
     public User getUser(String email) {
         log.info("Fetching user {}",email);
         return userRepo.findByEmail(email);
