@@ -33,6 +33,11 @@ export const store = new Vuex.Store({
             state.access_token = payload.data.access_token
             state.refresh_token = payload.data.refresh_token
         },
+        setAccessToken(state, payload) {
+            localStorage.setItem("access_token", payload.data.access_token);
+            state.access_token = payload.data.access_token
+        }
+        ,
         loginSuccess(state, payload) {
             state.isLogin = true
             state.isLoginError = false
@@ -81,6 +86,8 @@ export const store = new Vuex.Store({
             console.log("getRefreshToken call");
             if (!Object.prototype.hasOwnProperty.call(localStorage, "access_token"))
                 return;
+            localStorage.setItem('access_token', "");
+
             let config = {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('refresh_token')
@@ -90,7 +97,7 @@ export const store = new Vuex.Store({
                 .post("/api/token/refresh", config)
                 .then((res) => {
                     console.log(res);
-                    commit('setToken', res)
+                    commit('setAccessToken', res)
                 }).catch((err) => {
                     console.log('refreshToken error : ', err.config);
                     commit('logout')
