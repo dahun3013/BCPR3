@@ -88,7 +88,7 @@ public class Sttapicontroller {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(file.getName(), "UTF-8")+"\"");
         response.setHeader("Content-Transfer-Encoding", "binary");
-
+        System.out.println(response.getHeader("Content-Disposition"));
         response.getOutputStream().write(fileByte);
         response.getOutputStream().flush();
         response.getOutputStream().close();

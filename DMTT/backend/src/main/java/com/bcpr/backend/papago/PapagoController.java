@@ -80,24 +80,7 @@ public class PapagoController {
 	    return papagorepo.getText();
 
 	}
-	/*
-	@PostMapping("/user/papago")
-	 public String papa(	
-			 @RequestParam(value="text") String text,
-				HttpServletRequest request) throws IOException{
-			
-			PapagoRepo papagorepo = new PapagoRepo();
-			//String t = papagorepo.translation(text);
-			//papagorepo.setText(t);
-			log.info("testing!!!");
-			log.info("test : {}",text);
-			//log.info("test : {}",papagorepo);
-			
-		   
-		    return "test";
-	
-	}
-	*/
+
 	//TRANSLATION 보관함에 저장
 		@PostMapping("/papago/upload")
 		public int upload(
@@ -127,10 +110,8 @@ public class PapagoController {
 				HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			Translation t = mapper.getTranslation(email, translation_no);
-			
 			FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 			String path = fsh.makePath("translation", email, null, t.getTrans_date(), kind);
-
 			File file = new File(path);
 			String text = "";
             text = t.getOutput();

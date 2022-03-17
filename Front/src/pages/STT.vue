@@ -91,8 +91,8 @@
         style="
           text-align: center;
           font-weight: bold;
-          margin-top: 21px;
-          margin-bottom: 21px;
+          margin-top: 20px;
+          margin-bottom: 20px;
         "
       >
         <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>

@@ -81,8 +81,8 @@
         style="
           text-align: center;
           font-weight: bold;
-          margin-top: 7px;
-          margin-bottom: 7px;
+          margin-top: 11px;
+          margin-bottom: 11px;
         "
       >
         <p>[ Tip : 로그인을 하시면 자료를 보관하고 내려받을 수 있습니다 ]</p>
@@ -386,8 +386,9 @@ select:focus {
 }
 
 .ppg-refresh > img {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
+  margin: 0rem 1rem 0rem 1rem;
   vertical-align: middle;
   cursor: pointer;
 }

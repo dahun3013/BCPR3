@@ -56,6 +56,9 @@ public class FileSaveHelper {
 			}else {
 				destPath += formatDate(date)+"-input.txt";
 			}
+		}
+		else if(parent.equals("translation")) {
+			destPath += formatDate(date)+"-"+kind+".txt";
 		}else {
 			if(kind.equals("input")&&fileName != null) {
 				destPath += fileName;
