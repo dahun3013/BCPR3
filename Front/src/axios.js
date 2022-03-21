@@ -18,7 +18,7 @@ let config = {
 axios.interceptors.request.use(
     function (config) {
         //Do something before request is sent
-        if (Object.prototype.hasOwnProperty.call(localStorage, "access_token")) {
+        if (store.state.isLogin && Object.prototype.hasOwnProperty.call(localStorage, "access_token")) {
             config.headers.Authorization = 'Bearer ' + localStorage.getItem("access_token");
             if (localStorage.getItem("access_token") === "") {
                 config.headers.Authorization = 'Bearer ' + localStorage.getItem("refresh_token")
