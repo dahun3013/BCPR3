@@ -111,7 +111,7 @@ export default {
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  margin: -30px 0 0 -30px;
+  margin: 0 0 0 0;
 }
 .spinner {
   position: absolute;
