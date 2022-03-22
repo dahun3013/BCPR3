@@ -57,11 +57,12 @@ public class ttsController {
 		String voice = (String) rtnMap.get("voice");
 		String speed = (String) rtnMap.get("speed");
 		String volume = (String) rtnMap.get("volume");
-		String path = request.getServletContext().getRealPath("resources");
+		FileSaveHelper fsh = new FileSaveHelper();
+		String path = fsh.getSaveDir();
 		System.out.println(rtnMap);
 		ttsHelper TH = new ttsHelper();
 		String out = (String) TH.getTTShelper(tts,voice,speed,volume,path);
-		out = path+"\\tts.mp3";
+		out = path+File.separator+"tts.mp3";
 		System.out.println("out : " + out );
 		File file = new File(out);
 		byte[] fileByte = FileUtils.readFileToByteArray(file);
@@ -83,9 +84,10 @@ public class ttsController {
 			@RequestParam("kind") String kind,
 			@RequestParam("input") String input,
 			HttpServletRequest request)throws IOException {
-
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
-		File file = new File(request.getServletContext().getRealPath("resources")+"\\tts.mp3");
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		//File file = new File(request.getServletContext().getRealPath("resources")+File.separator+"tts.mp3");
+		File file = new File(fsh.getSaveDir()+File.separator+"tts.mp3");
 		String url = fsh.copyFile("voice_trans",email, kind, trans_date, file);
 		return mapper.insertVoice_TransContent(email,trans_date,kind,input,url);
 	}
@@ -100,13 +102,14 @@ public class ttsController {
 	
 	@GetMapping("/tts/download")
 	public void download(HttpServletResponse response,HttpServletRequest request) throws Exception {
-
-    	String path =request.getServletContext().getRealPath("resources")+File.separator+"tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
-    	
+		FileSaveHelper fsh = new FileSaveHelper();
+		String path = fsh.getSaveDir()+File.separator+"tts.mp3";
+    	//String path =request.getServletContext().getRealPath("resources")+File.separator+"tts.mp3"; // 경로에 접근할 때 역슬래시('\') 사용
+    	System.out.println("download : "+path);
     	File file = new File(path);
     	byte[] fileByte = FileUtils.readFileToByteArray(file);
 		
-		response.setContentType("application/octet-stream");
+    	response.setContentType("application/octet-stream");
 	    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(file.getName(), "UTF-8")+"\"");
 	    response.setHeader("Content-Transfer-Encoding", "binary");
 
@@ -123,7 +126,8 @@ public class ttsController {
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Voice_Trans mt = mapper.getVoice_Trans(email, voice_no);
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("voice_trans", email, mt.getOutput(), mt.getTrans_date(), kind);
 
 		File file = new File(path);
@@ -153,7 +157,8 @@ public class ttsController {
 			@RequestParam("voice_no") int voice_no,
 			HttpServletRequest request) throws IOException {
 		Voice_Trans mt = mapper.getVoice_Trans(email, voice_no);
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("voice_trans", email, mt.getOutput(), mt.getTrans_date(), "output");
 		File file = new File(path);
 		fsh.deleteFile(file);

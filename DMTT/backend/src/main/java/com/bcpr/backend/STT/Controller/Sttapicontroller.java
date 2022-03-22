@@ -35,7 +35,8 @@ public class Sttapicontroller {
     public String getKorStt(@RequestParam(value="file", required=false) MultipartFile file,
                             @RequestParam(value="lang") String lang,
                             HttpServletRequest request) throws IOException{
-        FileSaveHelper fsh=new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+    	FileSaveHelper fsh = new FileSaveHelper();
+        //FileSaveHelper fsh=new FileSaveHelper(request.getServletContext().getRealPath("resources"));
         System.out.println("lang"+ lang);
         String url= fsh.saveTemp(file);
         SttHelper SH=new SttHelper();
@@ -54,8 +55,8 @@ public class Sttapicontroller {
             @RequestParam(value="input", required=false) MultipartFile input,
             @RequestParam("output") String output,
             HttpServletRequest request)throws IOException {
-
-        FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+    	FileSaveHelper fsh = new FileSaveHelper();
+        //FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
         String url = fsh.makeMultiFile("document_trans",email, kind, trans_date, input);
         return mapper.insertDocument_TransContent(email,trans_date,kind,url,output);
     }
@@ -74,8 +75,8 @@ public class Sttapicontroller {
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         Document_Trans dt = mapper.getDocument_Trans(email, document_no);
-
-        FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+        FileSaveHelper fsh = new FileSaveHelper();
+        //FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("document_trans", email, dt.getInput(), dt.getTrans_date(), kind);
 
 		File file = new File(path);
@@ -103,7 +104,8 @@ public class Sttapicontroller {
             @RequestParam("document_no") int document_no,
         	HttpServletRequest request) throws IOException {
 		Document_Trans dt = mapper.getDocument_Trans(email, document_no);
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("document_trans", email, dt.getInput(), dt.getTrans_date(), "input");
 		File file = new File(path);
 		fsh.deleteFile(file);

@@ -304,9 +304,9 @@ export default {
     //         });
     //     }
     // },
-    download() {
+    async download() {
       let str = "/api/tts/download";
-      axios
+      await axios
         .get(str, {
           responseType: "blob",
         })
@@ -315,13 +315,13 @@ export default {
             .split("fileName=")[1]
             .replace(/"/g, "");
           const url = window.URL.createObjectURL(new Blob([res.data]));
+
           const link = document.createElement("a");
           link.href = url;
-          link.setAttribute("download", name); //or any other extension document.body.appendChild(link); link.click();
+          link.setAttribute("download", name);
           document.body.appendChild(link);
           link.click();
           link.remove();
-          console.log(res);
           console.log("다운로드 성공");
         })
         .catch((err) => {

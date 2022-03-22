@@ -48,7 +48,7 @@ public class ttsHelper {
              byte[] bytes = new byte[1024];
              // 랜덤한 이름으로 mp3 파일 생성
              String tempname = Long.valueOf(new Date().getTime()).toString();
-             File f = new File(path+"\\"+"tts" + ".mp3");
+             File f = new File(path+File.separator+"tts"+".mp3");
              f.createNewFile();
              OutputStream outputStream = new FileOutputStream(f);
              while ((read =is.read(bytes)) != -1) {

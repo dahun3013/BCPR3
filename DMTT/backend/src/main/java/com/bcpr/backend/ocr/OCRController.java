@@ -52,7 +52,8 @@ public class OCRController {
 	 public String getOCR(	
 		@RequestParam(value="file", required=false) MultipartFile file,
 		HttpServletRequest request) throws IOException{
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String url = fsh.saveTemp(file);
 		System.out.println(url);
 		OCRHelper oh = new OCRHelper();
@@ -71,8 +72,8 @@ public class OCRController {
 			@RequestParam(value="input", required=false) MultipartFile input,
 			@RequestParam("output") String output,
 			HttpServletRequest request)throws IOException {
-
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String url = fsh.makeMultiFile("media_trans",email, kind, trans_date, input);
 		return mapper.insertMedia_TransContent(email,trans_date,kind,url,output);
 	}
@@ -93,8 +94,8 @@ public class OCRController {
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Media_Trans mt = mapper.getMedia_Trans(email, media_no);
-		
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), kind);
 		
 		File file = new File(path);
@@ -124,7 +125,8 @@ public class OCRController {
 			@RequestParam("media_no") int media_no,
 			HttpServletRequest request) throws IOException {
 		Media_Trans mt = mapper.getMedia_Trans(email, media_no);
-		FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		FileSaveHelper fsh = new FileSaveHelper();
+		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), "input");
 		File file = new File(path);
 		fsh.deleteFile(file);

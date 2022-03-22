@@ -110,7 +110,8 @@ public class PapagoController {
 				HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			Translation t = mapper.getTranslation(email, translation_no);
-			FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+			FileSaveHelper fsh = new FileSaveHelper();
+			//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 			String path = fsh.makePath("translation", email, null, t.getTrans_date(), kind);
 			File file = new File(path);
 			String text = "";

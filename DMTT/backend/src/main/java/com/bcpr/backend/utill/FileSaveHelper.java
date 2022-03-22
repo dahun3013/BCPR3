@@ -17,14 +17,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FileSaveHelper {
-	String saveDir = "";
+	///home/BCPR3/BackEnd/DMTT/backend/src/main/webapp/resources
+	String saveDir = File.separator+"home"+File.separator+"BCPR3"+File.separator+"BackEnd"+File.separator+"DMTT"+File.separator
+	+"backend"+File.separator+"src"+File.separator+"main"+File.separator+"webapp"+File.separator+"resources";
 	String result = "";
+	
+	public FileSaveHelper() {
+	}
 	
 	//resources 상대경로 설정
 	//HttpServletRequest request 매개변수 필요
 	//ex) new FileSaveHelper(request.getServletContext().getRealPath("resources"));
 	public FileSaveHelper(String saveDir) {
 		this.saveDir = saveDir;
+	}
+	
+	public String getSaveDir() {
+		return saveDir;
 	}
 	
 	//media_trans 상대 경로 설정
