@@ -2,7 +2,7 @@
 import axios from "axios";
 import { store } from './store.js'
 
-//axios.defaults.baseURL = 'http://localhost:8200/';
+axios.defaults.baseURL = 'http://49.50.165.152:8200';
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
