@@ -77,7 +77,7 @@ export default {
 
           for (var i = 0; i < this.array.length; i++) {
             this.array[i].output =
-              "http://localhost:8200/resources/voice_trans/" +
+              "http://www.pagobooks.shop/resources/voice_trans/" +
               this.$store.state.userInfo.email +
               "/" +
               this.array[i].output;

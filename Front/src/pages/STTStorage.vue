@@ -77,7 +77,7 @@ export default {
 
           for (var i = 0; i < this.array.length; i++) {
             this.array[i].input =
-              "http://localhost:8200/resources/document_trans/" +
+              "http://www.pagobooks.shop/resources/document_trans/" +
               this.$store.state.userInfo.email +
               "/" +
               this.array[i].input;

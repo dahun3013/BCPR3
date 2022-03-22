@@ -28,7 +28,7 @@ public interface SttMapper{
             @Param("document_no") int document_no);
 
 
-    @Insert("insert into document_Trans(email,trans_date,kind,input,output) "
+    @Insert("insert into document_trans(email,trans_date,kind,input,output) "
             +"values(#{email},#{trans_date},#{kind},#{input,jdbcType=VARCHAR},#{output})")
     int insertDocument_TransContent(
             @Param("email") String email,

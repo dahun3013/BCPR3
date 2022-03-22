@@ -73,7 +73,7 @@ export default {
           for (var i = 0; i < this.array.length; i++) {
             //console.log("파일명 : " + this.array[i].input);
             this.array[i].input =
-              "http://localhost:8200/resources/media_trans/" +
+              "http://www.pagobooks.shop/resources/media_trans/" +
               this.$store.state.userInfo.email +
               "/" +
               this.array[i].input;
