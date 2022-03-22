@@ -1,4 +1,25 @@
 # BCPR3 3차 프로젝트   
+03/22 배포완료
+http://www.pagobooks.shop/
+
+Open API 사용 가능 일자
+~ 03/28
+도메인 사용 가능 일자
+~ 2023/03/22
+
+호스팅 서버 환경
+Naver Cloud Micro
+CentOS 7.8
+MySQL 8.0 community-server
+Node.js 16.14.2 LTS
+Java 11.0.14.1
+
+Vue.js 웹서버
+Nginx 1.20.2 사용
+
+Spring 서버
+spring-boot-starter-tomcat 스프링 내장 톰캣 서버 사용
+
 
 원격 레파지토리 Fork 사용법   
 <https://deepinsight.tistory.com/167>
