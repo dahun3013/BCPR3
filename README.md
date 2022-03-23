@@ -7,6 +7,9 @@ http://www.pagobooks.shop/ <br><br>
 Open API 사용 가능 일자 ~ 03/28 <br>
 도메인 사용 가능 일자 ~ 2023/03/22 <br><br>
 
+## 시연 영상
+https://youtu.be/ccRG8pZ7ZCU <br><br>
+
 ## 호스팅 서버 환경
 Naver Cloud Micro <br>
 CentOS 7.8 <br>
