@@ -20,13 +20,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class OCRHelper {
-	public final String apiURL = "https://dakj3dl6zh.apigw.ntruss.com/custom/v1/14192/76e38e6cfacf0c4bdc5f9ca5d9b1b36d09f196b345d859b568020c6729d2c972/general";
-	public final String secretKey = "TklYTGpycXh2d2lXVGRFR2JQZ1ppcURXdFhDeHNiYkc=";
+	public final String apiURL = "???";
+	public final String secretKey = "???";
 	
 	public String forFile(String path) {
 		//List<String result = new ArrayList<>();
 		String result = "";
 		try {
+			//RestAPI request 초기화
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setUseCaches(false);
@@ -37,7 +38,8 @@ public class OCRHelper {
 			String boundary = "----" + UUID.randomUUID().toString().replaceAll("-", "");
 			con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
 			con.setRequestProperty("X-OCR-SECRET", secretKey);
-
+			
+			//정의서에 맞게 Body 작성
 			JSONObject json = new JSONObject();
 			json.put("version", "V2");
 			json.put("requestId", UUID.randomUUID().toString());
@@ -53,13 +55,16 @@ public class OCRHelper {
 			json.put("images", images);
 			String postParams = json.toString();
 
+			//URL 연결
 			con.connect();
+			
+			//파일 설정 및 RestAPI 호출
 			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			long start = System.currentTimeMillis();
 			File file = new File(path);
 			writeMultiPart(wr, postParams, file, boundary);
 			wr.close();
 
+			//RestAPI response 받기
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
 			if (responseCode == 200) {
@@ -74,7 +79,8 @@ public class OCRHelper {
 				response.append(inputLine);
 			}
 			br.close();
-				
+			
+			//response.data 텍스트만 추출
 			JSONParser jsonParser= new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
 			JSONArray imageInfoArray = (JSONArray) jsonObject.get("images");
@@ -104,6 +110,7 @@ public class OCRHelper {
 		}
 	}
 
+	//파일 및 파일 정보 설정
 	private void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary) throws
 		IOException {
 		StringBuilder sb = new StringBuilder();

@@ -35,17 +35,4 @@ public class User {
     
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
-    
-    public User(String email, String password, MultipartFile profile) throws IOException{
-    	this.email = email;
-    	this.password = password;
-    	this.profile = null;
-    }
-    
-    public void setProfile(String profile) throws IOException {
-    	this.profile = null;
-    	if((profile!=null && !profile.equals(""))) {
-			this.profile  = profile;
-		}
-    }
 }

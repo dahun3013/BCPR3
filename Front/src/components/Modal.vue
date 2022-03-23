@@ -68,7 +68,6 @@ export default {
           }
         },
         fail: (error) => {
-          this.$router.push("/errorPage");
           console.log(error);
         },
       });

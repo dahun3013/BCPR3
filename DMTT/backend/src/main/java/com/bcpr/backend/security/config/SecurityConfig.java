@@ -48,26 +48,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/").permitAll();
 
-
+        //OCR
         http.authorizeRequests().antMatchers("/api/ocr").permitAll();
         http.authorizeRequests().antMatchers("/api/ocr/**").permitAll();
         http.authorizeRequests().antMatchers("/api/ocr/download/**").hasAnyAuthority("ROLE_USER");
         
-        //By.지원
+        //TTS
         http.authorizeRequests().antMatchers("/api/tts").permitAll();
         http.authorizeRequests().antMatchers("/api/tts/**").permitAll();
         http.authorizeRequests().antMatchers("/api/tts/server").permitAll();
         http.authorizeRequests().antMatchers("/api/tts/download/**").hasAnyAuthority("ROLE_USER");
         
+        //STT
         http.authorizeRequests().antMatchers("/api/Stt").permitAll();
         http.authorizeRequests().antMatchers("/api/Stt/**").permitAll();
         http.authorizeRequests().antMatchers("/api/Stt/download/**").hasAnyAuthority("ROLE_USER");
         
-        
+        //PAPAGO
         http.authorizeRequests().antMatchers("/api/papago").permitAll();
         http.authorizeRequests().antMatchers("/api/papago/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
         
+        //USER
         http.authorizeRequests().antMatchers("/api/login").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET,"/api/users").hasAnyAuthority("ROLE_USER");
@@ -80,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 	}
 	
-	 	// CORS 허용 적용
+	 // CORS 허용 적용
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

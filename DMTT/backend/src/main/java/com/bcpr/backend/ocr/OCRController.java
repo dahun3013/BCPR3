@@ -93,9 +93,18 @@ public class OCRController {
 			@PathVariable("kind") String kind,
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		
 		Media_Trans mt = mapper.getMedia_Trans(email, media_no);
-		FileSaveHelper fsh = new FileSaveHelper();
-		//FileSaveHelper fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		
+		String osName = System.getProperty("os.name").toLowerCase();
+		
+		FileSaveHelper fsh;
+		if(osName.contains("win")) {
+			fsh = new FileSaveHelper(request.getServletContext().getRealPath("resources"));
+		}else {
+			fsh = new FileSaveHelper();
+		}
+		
 		String path = fsh.makePath("media_trans", email, mt.getInput(), mt.getTrans_date(), kind);
 		
 		File file = new File(path);
