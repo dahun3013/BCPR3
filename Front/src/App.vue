@@ -36,11 +36,16 @@ export default {
   name: "App",
   data() {
     return {
+      testdata: '<!doctype html><html lang="en"></html>',
       loginModal: false,
     };
   },
   mounted() {
     console.log(this.isLogin);
+    if (this.testdata.includes("html")) {
+      console.log("포함");
+    }
+    console.log(this.testdata);
   },
   components: {
     ProfileItem,
