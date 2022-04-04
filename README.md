@@ -19,7 +19,7 @@ Java 11.0.14.1 <br><br>
 ### Vue.js 웹서버 <br>
 Nginx 1.20.2 사용 <br><br>
 ### Spring 서버 <br>
-spring-boot-starter-tomcat 스프링 내장 톰캣 서버 사용 <br><br>
+spring-boot-starter-tomcat 스프링 내장 톰캣 서버 사용 <br><br><br>
 
 ## 개발 코드 깃 형상 관리 가이드
 원격 레파지토리 Fork 사용법 <br>
