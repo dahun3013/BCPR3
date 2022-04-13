@@ -7,7 +7,7 @@ git checkout main
 git merge develop   
 git push origin main   
 
-택 1
+택 1 <br>
 1.github GUI PR 사용 또는 <br>
 2.git push upstream main <br>
 
